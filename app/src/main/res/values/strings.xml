@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">TravelTrace</string>
+
+    <string name="string_loading">加载中…</string>
+
 </resources>
