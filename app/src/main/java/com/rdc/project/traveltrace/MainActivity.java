@@ -1,13 +1,31 @@
 package com.rdc.project.traveltrace;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import com.rdc.project.traveltrace.base.BaseSwipeBackActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseSwipeBackActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int getLayoutResID() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected boolean isEnableSwipeBack() {
+        return false;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
     }
 }

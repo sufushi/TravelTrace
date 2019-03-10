@@ -13,11 +13,21 @@ public abstract class BaseSwipeBackActivity extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResID());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        SwipeBackLayout swipeBackLayout = getSwipeBackLayout();
-        swipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+        setSwipeBackConfig();
         initData();
         initView();
         initListener();
+    }
+
+    private void setSwipeBackConfig() {
+        boolean enableSwipeBack = isEnableSwipeBack();
+        if (enableSwipeBack) {
+            setSwipeBackEnable(true);
+            SwipeBackLayout swipeBackLayout = getSwipeBackLayout();
+            swipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+        } else {
+            setSwipeBackEnable(false);
+        }
     }
 
     @Override
@@ -26,6 +36,8 @@ public abstract class BaseSwipeBackActivity extends SwipeBackActivity {
     }
 
     protected abstract int getLayoutResID();
+
+    protected abstract boolean isEnableSwipeBack();
 
     protected abstract void initData();
 
