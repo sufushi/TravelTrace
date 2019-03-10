@@ -2,15 +2,13 @@ package com.rdc.project.traveltrace;
 
 import android.os.AsyncTask;
 
-import com.rdc.project.traveltrace.base.BaseSwipeBackActivity;
+import com.rdc.project.traveltrace.base.BaseRTRActivity;
+import com.rdc.project.traveltrace.base.OnRefreshListener;
 
-import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
+import cn.bingoogolapple.refreshlayout.BGAStickinessRefreshViewHolder;
 
-public class MainActivity extends BaseSwipeBackActivity implements BGARefreshLayout.BGARefreshLayoutDelegate {
-
-    private BGARefreshLayout mRefreshLayout;
+public class MainActivity extends BaseRTRActivity implements OnRefreshListener {
 
     @Override
     protected int getLayoutResID() {
@@ -29,15 +27,7 @@ public class MainActivity extends BaseSwipeBackActivity implements BGARefreshLay
 
     @Override
     protected void initView() {
-        mRefreshLayout = (BGARefreshLayout) findViewById(R.id.refresh_layout);
-        mRefreshLayout.setDelegate(this);
-        BGARefreshViewHolder viewHolder = new BGANormalRefreshViewHolder(this, true);
-        viewHolder.setLoadingMoreText("加载更多...");
-        viewHolder.setLoadMoreBackgroundColorRes(R.color.colorPrimary);
-        viewHolder.setLoadMoreBackgroundDrawableRes(R.mipmap.ic_launcher_round);
-        viewHolder.setRefreshViewBackgroundColorRes(R.color.colorAccent);
-        viewHolder.setRefreshViewBackgroundDrawableRes(R.mipmap.ic_launcher);
-        mRefreshLayout.setRefreshViewHolder(viewHolder);
+
     }
 
     @Override
@@ -46,13 +36,31 @@ public class MainActivity extends BaseSwipeBackActivity implements BGARefreshLay
     }
 
     @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout bgaRefreshLayout) {
+    protected BGARefreshViewHolder createRefreshViewHolder() {
+        BGAStickinessRefreshViewHolder viewHolder = new BGAStickinessRefreshViewHolder(this, true);
+        viewHolder.setRotateImage(R.mipmap.ic_launcher_round);
+        viewHolder.setStickinessColor(R.color.colorPrimary);
+        viewHolder.setLoadingMoreText("加载更多...");
+        viewHolder.setLoadMoreBackgroundColorRes(R.color.colorPrimary);
+        viewHolder.setRefreshViewBackgroundDrawableRes(R.mipmap.ic_launcher);
+        viewHolder.setLoadMoreBackgroundDrawableRes(R.mipmap.ic_launcher_round);
+        viewHolder.setRefreshViewBackgroundColorRes(R.color.colorAccent);
+        return viewHolder;
+    }
+
+    @Override
+    protected OnRefreshListener createRefreshListener() {
+        return this;
+    }
+
+    @Override
+    public void onRefreshing() {
         RefreshTask task = new RefreshTask();
         task.execute();
     }
 
     @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout bgaRefreshLayout) {
+    public boolean onLoadMore() {
         LoadMoreTask task = new LoadMoreTask();
         task.execute();
         return true;

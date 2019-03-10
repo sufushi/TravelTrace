@@ -11,12 +11,26 @@ public abstract class BaseSwipeBackActivity extends SwipeBackActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        createContentView();
+        setConfiguration();
+        init();
+    }
+
+    protected void createContentView() {
         setContentView(getLayoutResID());
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setSwipeBackConfig();
+    }
+
+    protected void init() {
         initData();
         initView();
         initListener();
+    }
+
+    protected void setConfiguration() {
+        if (requestPortrait()) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+        setSwipeBackConfig();
     }
 
     private void setSwipeBackConfig() {
@@ -44,4 +58,8 @@ public abstract class BaseSwipeBackActivity extends SwipeBackActivity {
     protected abstract void initView();
 
     protected abstract void initListener();
+
+    protected boolean requestPortrait() {
+        return true;
+    }
 }
