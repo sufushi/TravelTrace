@@ -4,13 +4,25 @@ import android.os.AsyncTask;
 
 import com.rdc.project.traveltrace.base.BaseRTRActivity;
 import com.rdc.project.traveltrace.base.OnRefreshListener;
+import com.rdc.project.traveltrace.fragment.InfoFragment;
 import com.scwang.smartrefresh.header.DeliveryHeader;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.shizhefei.view.multitype.ItemBinderFactory;
+import com.shizhefei.view.multitype.MultiTypeAdapter;
+import com.shizhefei.view.multitype.MultiTypeView;
+import com.shizhefei.view.multitype.provider.FragmentData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends BaseRTRActivity implements OnRefreshListener {
+
+    private MultiTypeAdapter<Object> mMultiTypeAdapter;
+    private MultiTypeView mMultiTypeView;
+    private List<Object> mList;
 
     @Override
     protected int getLayoutResID() {
@@ -24,12 +36,18 @@ public class MainActivity extends BaseRTRActivity implements OnRefreshListener {
 
     @Override
     protected void initData() {
-
+        mList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            mList.add(new FragmentData(InfoFragment.class, "InfoFragment" + i));
+        }
+        ItemBinderFactory itemBinderFactory = new ItemBinderFactory(getSupportFragmentManager());
+        mMultiTypeAdapter = new MultiTypeAdapter<>(mList, itemBinderFactory);
     }
 
     @Override
     protected void initView() {
-
+        mMultiTypeView = (MultiTypeView) findViewById(R.id.recycler_view_main);
+        mMultiTypeView.setAdapter(mMultiTypeAdapter);
     }
 
     @Override

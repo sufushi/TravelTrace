@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <com.shizhefei.view.multitype.MultiTypeView
+        android:id="@+id/recycler_view_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello World!"
-        android:layout_gravity="center"
-        android:gravity="center"/>
+        android:overScrollMode="never">
+
+    </com.shizhefei.view.multitype.MultiTypeView>
 
 </LinearLayout>
