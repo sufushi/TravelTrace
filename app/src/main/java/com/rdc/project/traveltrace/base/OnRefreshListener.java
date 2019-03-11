@@ -2,8 +2,8 @@ package com.rdc.project.traveltrace.base;
 
 public interface OnRefreshListener {
 
-    void onRefreshing();
+    void onRefresh();
 
-    boolean onLoadMore();
+    void onLoadMore();
 
 }

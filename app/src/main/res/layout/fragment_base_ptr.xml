@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cn.bingoogolapple.refreshlayout.BGARefreshLayout
+<com.scwang.smartrefresh.layout.SmartRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragment_layout_refresh"
     android:layout_width="match_parent"
@@ -13,4 +13,4 @@
 
     </FrameLayout>
 
-</cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

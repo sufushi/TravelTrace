@@ -4,9 +4,11 @@ import android.os.AsyncTask;
 
 import com.rdc.project.traveltrace.base.BaseRTRActivity;
 import com.rdc.project.traveltrace.base.OnRefreshListener;
-
-import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
-import cn.bingoogolapple.refreshlayout.BGAStickinessRefreshViewHolder;
+import com.scwang.smartrefresh.header.DeliveryHeader;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 
 public class MainActivity extends BaseRTRActivity implements OnRefreshListener {
 
@@ -36,16 +38,19 @@ public class MainActivity extends BaseRTRActivity implements OnRefreshListener {
     }
 
     @Override
-    protected BGARefreshViewHolder createRefreshViewHolder() {
-        BGAStickinessRefreshViewHolder viewHolder = new BGAStickinessRefreshViewHolder(this, true);
-        viewHolder.setRotateImage(R.mipmap.ic_launcher_round);
-        viewHolder.setStickinessColor(R.color.colorPrimary);
-        viewHolder.setLoadingMoreText("加载更多...");
-        viewHolder.setLoadMoreBackgroundColorRes(R.color.colorPrimary);
-        viewHolder.setRefreshViewBackgroundDrawableRes(R.mipmap.ic_launcher);
-        viewHolder.setLoadMoreBackgroundDrawableRes(R.mipmap.ic_launcher_round);
-        viewHolder.setRefreshViewBackgroundColorRes(R.color.colorAccent);
-        return viewHolder;
+    protected RefreshHeader createRefreshHeader() {
+        return new DeliveryHeader(this);
+    }
+
+    @Override
+    protected RefreshFooter createRefreshFooter() {
+        return new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Translate);
+    }
+
+    @Override
+    protected void configRefreshLayout() {
+        mRefreshLayout.autoLoadMore();
+        mRefreshLayout.setDragRate(0.8f);
     }
 
     @Override
@@ -54,16 +59,15 @@ public class MainActivity extends BaseRTRActivity implements OnRefreshListener {
     }
 
     @Override
-    public void onRefreshing() {
+    public void onRefresh() {
         RefreshTask task = new RefreshTask();
         task.execute();
     }
 
     @Override
-    public boolean onLoadMore() {
+    public void onLoadMore() {
         LoadMoreTask task = new LoadMoreTask();
         task.execute();
-        return true;
     }
 
     private class RefreshTask extends AsyncTask<Void, Void, Void> {
@@ -81,7 +85,7 @@ public class MainActivity extends BaseRTRActivity implements OnRefreshListener {
         @Override
         protected void onPostExecute(Void aVoid) {
             if (mRefreshLayout != null) {
-                mRefreshLayout.endRefreshing();
+                mRefreshLayout.finishRefresh();
             }
         }
 
@@ -102,7 +106,7 @@ public class MainActivity extends BaseRTRActivity implements OnRefreshListener {
         @Override
         protected void onPostExecute(Void aVoid) {
             if (mRefreshLayout != null) {
-                mRefreshLayout.endLoadingMore();
+                mRefreshLayout.finishLoadMore();
             }
         }
     }
