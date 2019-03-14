@@ -144,4 +144,8 @@
     <color name="navy">#000080</color><!--海军色 -->
     <color name="transparent">#00000000</color>
     <color name="black">#000000</color><!--黑色 -->
+
+    <color name="gradient1">#5d8df7</color>
+    <color name="gradient2">#5EB9F8</color>
+    <color name="gradient3">#5CC2F8</color>
 </resources>

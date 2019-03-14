@@ -1,26 +1,16 @@
 package com.rdc.project.traveltrace.base;
 
-import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.content.res.Configuration;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.rdc.project.traveltrace.R;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
-public abstract class BaseRTRActivity extends BaseSwipeBackActivity implements com.scwang.smartrefresh.layout.listener.OnRefreshListener, OnLoadMoreListener {
+public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
 
-    protected SmartRefreshLayout mRefreshLayout;
-    protected RefreshHeader mRefreshHeader;
-    protected RefreshFooter mRefreshFooter;
-    protected FrameLayout mContainerLayout;
-
-    protected OnRefreshListener mOnRefreshListener;
+    protected Toolbar mToolbar;
 
     @Override
     protected void createContentView() {
@@ -29,47 +19,62 @@ public abstract class BaseRTRActivity extends BaseSwipeBackActivity implements c
 
     private void initContentView() {
         setContentView(R.layout.activity_base_ptr);
-        initRefreshLayout();
+        if (isImmersionBarEnabled()) {
+            initImmersionBar();
+        }
+        initToolBar();
         initContainerLayout();
     }
 
-    private void initRefreshLayout() {
-        mRefreshLayout = (SmartRefreshLayout) findViewById(R.id.activity_layout_refresh);
-        mRefreshHeader = createRefreshHeader();
-        mRefreshFooter = createRefreshFooter();
-        mRefreshLayout.setRefreshHeader(mRefreshHeader);
-        mRefreshLayout.setRefreshFooter(mRefreshFooter);
-        mRefreshLayout.setOnRefreshListener(this);
-        mRefreshLayout.setOnLoadMoreListener(this);
-        configRefreshLayout();
-        mOnRefreshListener = createRefreshListener();
+    protected void initImmersionBar() {
+        ImmersionBar.with(this).navigationBarColor(R.color.colorPrimary).init();
+    }
+
+    protected boolean isImmersionBarEnabled() {
+        return true;
+    }
+
+    private void initToolBar() {
+        mToolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(mToolbar);
+        mToolbar.setTitle(getToolBarTitle());
     }
 
     private void initContainerLayout() {
-        mContainerLayout = (FrameLayout) findViewById(R.id.activity_layout_container);
-        View contentView = LayoutInflater.from(this).inflate(getLayoutResID(), mContainerLayout, false);
-        mContainerLayout.addView(contentView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        BasePTRFragment fragment = createPTRFragment();
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.activity_layout_container, fragment);
+            fragmentTransaction.commit();
+        }
     }
 
-    protected abstract RefreshHeader createRefreshHeader();
+    protected abstract String getToolBarTitle();
 
-    protected abstract RefreshFooter createRefreshFooter();
-
-    protected abstract void configRefreshLayout();
-
-    protected abstract OnRefreshListener createRefreshListener();
+    protected abstract BasePTRFragment createPTRFragment();
 
     @Override
-    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        if (mOnRefreshListener != null) {
-            mOnRefreshListener.onRefresh();
+    protected void onResume() {
+        super.onResume();
+        if (isImmersionBarEnabled()) {
+            ImmersionBar.with(this).init();
         }
     }
 
     @Override
-    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        if (mOnRefreshListener != null) {
-            mOnRefreshListener.onLoadMore();
+    protected void onDestroy() {
+        super.onDestroy();
+        if (isImmersionBarEnabled()) {
+            ImmersionBar.with(this).destroy();
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (isImmersionBarEnabled()) {
+            ImmersionBar.with(this).init();
         }
     }
 }

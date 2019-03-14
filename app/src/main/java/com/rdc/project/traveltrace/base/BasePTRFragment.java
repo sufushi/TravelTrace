@@ -31,7 +31,7 @@ public abstract class BasePTRFragment extends BaseFragment implements com.scwang
     }
 
     private void initContainerLayout() {
-        mContainerLayout = mRootView.findViewById(R.id.activity_layout_container);
+        mContainerLayout = mRootView.findViewById(R.id.fragment_layout_container);
         View contentView = LayoutInflater.from(getContext()).inflate(getLayoutResourceId(), mContainerLayout, false);
         mContainerLayout.addView(contentView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }

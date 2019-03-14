@@ -5,12 +5,5 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.shizhefei.view.multitype.MultiTypeView
-        android:id="@+id/recycler_view_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never">
-
-    </com.shizhefei.view.multitype.MultiTypeView>
 
 </LinearLayout>

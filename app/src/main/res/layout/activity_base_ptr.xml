@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smartrefresh.layout.SmartRefreshLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_layout_refresh"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/bg_gradient_tool_bar"
+        app:titleTextColor="@color/white">
+
+    </android.support.v7.widget.Toolbar>
 
     <FrameLayout
         android:id="@+id/activity_layout_container"
@@ -12,4 +22,5 @@
 
     </FrameLayout>
 
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>
+
