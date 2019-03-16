@@ -28,13 +28,16 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
 
     @Override
     protected RefreshHeader createRefreshHeader() {
-        return new DeliveryHeader(getActivity());
+        DeliveryHeader header = new DeliveryHeader(getActivity());
+        header.setBackgroundResource(R.drawable.bg_gradient_tool_bar);
+        return header;
     }
 
     @Override
     protected RefreshFooter createRefreshFooter() {
         return new BallPulseFooter(Objects.requireNonNull(getActivity()))
                 .setSpinnerStyle(SpinnerStyle.Translate)
+                .setAnimatingColor(getResources().getColor(R.color.colorPrimary))
                 .setNormalColor(getResources().getColor(R.color.colorPrimary));
     }
 

@@ -52,7 +52,7 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
 
     @Override
     protected String getToolBarTitle() {
-        return "home";
+        return getResources().getString(R.string.string_moments);
     }
 
     @Override
@@ -70,13 +70,19 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
 
     @Override
     protected void onCreateViewStub(View view) {
-        BottomNavigationBar bottomNavigationBar = view.findViewById(R.id.bottom_navigation_bar);
+        final BottomNavigationBar bottomNavigationBar = view.findViewById(R.id.bottom_navigation_bar);
         bottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_nav_moments, getString(R.string.string_moments)))
                 .addItem(new BottomNavigationItem(R.drawable.ic_nav_timeline, getString(R.string.string_timeline)))
                 .addItem(new BottomNavigationItem(R.drawable.ic_nav_person_center, getString(R.string.string_person_center)))
                 .setFirstSelectedPosition(0)
                 .initialise();
         bottomNavigationBar.setTabSelectedListener(this);
+        bottomNavigationBar.post(new Runnable() {
+            @Override
+            public void run() {
+                mContainer.setPadding(0, 0, 0, bottomNavigationBar.getHeight());
+            }
+        });
     }
 
     @Override
@@ -90,31 +96,33 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
     public void onTabSelected(int position) {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         hideFragments(fragmentTransaction);
+        int titleRes = R.string.app_name;
         switch (position) {
             case NAV_TAB_MOMENTS:
                 if (mMomentsFragment == null) {
                     mMomentsFragment = new MomentsFragment();
                 }
-                fragmentTransaction.show(mMomentsFragment);
                 mCurrentFragment = mMomentsFragment;
+                titleRes = R.string.string_moments;
                 break;
             case NAV_TAB_TIMELINE:
                 if (mTimelineFragment == null) {
                     mTimelineFragment = new TimelineFragment();
                 }
-                fragmentTransaction.show(mTimelineFragment);
                 mCurrentFragment = mTimelineFragment;
+                titleRes = R.string.string_timeline;
                 break;
             case NAV_TAB_PERSON_CENTER:
                 if (mPersonCenterFragment == null) {
                     mPersonCenterFragment = new PersonCenterFragment();
                 }
-                fragmentTransaction.show(mPersonCenterFragment);
                 mCurrentFragment = mPersonCenterFragment;
+                titleRes = R.string.string_person_center;
                 break;
             default:
                 break;
         }
+        mToolbar.setTitle(titleRes);
         updateContainerLayout();
     }
 
@@ -125,12 +133,6 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
 
     @Override
     public void onTabReselected(int position) {
-
-    }
-
-    @Override
-    protected void updateContainerLayout() {
-        super.updateContainerLayout();
 
     }
 

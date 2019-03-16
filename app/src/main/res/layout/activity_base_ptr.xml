@@ -12,6 +12,7 @@
         android:layout_height="?actionBarSize"
         android:background="@drawable/bg_gradient_tool_bar"
         app:titleTextColor="@color/white"
+        app:title="@string/app_name"
         android:layout_alignParentTop="true">
 
     </android.support.v7.widget.Toolbar>

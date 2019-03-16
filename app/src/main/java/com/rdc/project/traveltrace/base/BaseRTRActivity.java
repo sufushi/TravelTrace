@@ -14,6 +14,7 @@ import com.rdc.project.traveltrace.R;
 public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
 
     protected Toolbar mToolbar;
+    protected ViewGroup mContainer;
     protected ViewStub mViewStub;
     protected ViewGroup mRoot;
 
@@ -25,14 +26,14 @@ public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
     private void initContentView() {
         setContentView(R.layout.activity_base_ptr);
         initRoot();
+        initContainerLayout();
+        initToolBar();
         if (isImmersionBarEnabled()) {
             initImmersionBar();
         }
         if (isNeedCreateViewStub()) {
             initViewStub();
         }
-        initToolBar();
-        initContainerLayout();
     }
 
     private void initRoot() {
@@ -54,11 +55,16 @@ public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
     }
 
     private void initContainerLayout() {
+        mContainer = (ViewGroup) findViewById(R.id.activity_layout_container);
         BasePTRFragment fragment = createPTRFragment();
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.activity_layout_container, fragment);
+            if (fragment.isAdded() && fragment.isHidden()) {
+                fragmentTransaction.show(fragment);
+            } else {
+                fragmentTransaction.replace(R.id.activity_layout_container, fragment);
+            }
             fragmentTransaction.commit();
         }
     }

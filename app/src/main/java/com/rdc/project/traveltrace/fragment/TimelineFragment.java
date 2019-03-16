@@ -1,8 +1,6 @@
 package com.rdc.project.traveltrace.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BasePTRFragment;
@@ -17,8 +15,6 @@ import java.util.Objects;
 
 public class TimelineFragment extends BasePTRFragment implements OnRefreshListener {
 
-    private Handler mHandler = new Handler(Looper.getMainLooper());
-
     @Override
     protected RefreshHeader createRefreshHeader() {
         return new DropBoxHeader(Objects.requireNonNull(getActivity()));
@@ -28,6 +24,7 @@ public class TimelineFragment extends BasePTRFragment implements OnRefreshListen
     protected RefreshFooter createRefreshFooter() {
         return new BallPulseFooter(Objects.requireNonNull(getActivity()))
                 .setSpinnerStyle(SpinnerStyle.Translate)
+                .setAnimatingColor(getResources().getColor(R.color.colorPrimary))
                 .setNormalColor(getResources().getColor(R.color.colorPrimary));
     }
 
@@ -63,21 +60,11 @@ public class TimelineFragment extends BasePTRFragment implements OnRefreshListen
 
     @Override
     public void onRefresh() {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                mRefreshLayout.finishRefresh();
-            }
-        });
+        mRefreshLayout.finishRefresh(2000);
     }
 
     @Override
     public void onLoadMore() {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                mRefreshLayout.finishLoadMore();
-            }
-        });
+        mRefreshLayout.finishLoadMore(2000);
     }
 }
