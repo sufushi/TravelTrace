@@ -38,5 +38,6 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-21'
     compile 'com.shizhefei:MultiTypeView:1.0.1'
     compile 'com.gyf.immersionbar:immersionbar:2.3.3'
+    compile 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
     testCompile 'junit:junit:4.12'
 }

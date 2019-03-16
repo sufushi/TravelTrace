@@ -2,5 +2,8 @@
     <string name="app_name">TravelTrace</string>
 
     <string name="string_loading">加载中…</string>
+    <string name="string_moments">时刻</string>
+    <string name="string_timeline">行程</string>
+    <string name="string_person_center">我的</string>
 
 </resources>

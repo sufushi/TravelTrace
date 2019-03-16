@@ -4,6 +4,9 @@ import android.content.res.Configuration;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewStub;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.rdc.project.traveltrace.R;
@@ -11,6 +14,8 @@ import com.rdc.project.traveltrace.R;
 public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
 
     protected Toolbar mToolbar;
+    protected ViewStub mViewStub;
+    protected ViewGroup mRoot;
 
     @Override
     protected void createContentView() {
@@ -19,11 +24,19 @@ public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
 
     private void initContentView() {
         setContentView(R.layout.activity_base_ptr);
+        initRoot();
         if (isImmersionBarEnabled()) {
             initImmersionBar();
         }
+        if (isNeedCreateViewStub()) {
+            initViewStub();
+        }
         initToolBar();
         initContainerLayout();
+    }
+
+    private void initRoot() {
+        mRoot = (ViewGroup) findViewById(R.id.activity_root);
     }
 
     protected void initImmersionBar() {
@@ -50,9 +63,25 @@ public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
         }
     }
 
+    private void initViewStub() {
+        mViewStub = (ViewStub) findViewById(R.id.activity_view_stub);
+        mViewStub.setLayoutResource(getLayoutResID());
+        View view = mViewStub.inflate();
+        mViewStub.setVisibility(View.VISIBLE);
+        onCreateViewStub(view);
+    }
+
     protected abstract String getToolBarTitle();
 
     protected abstract BasePTRFragment createPTRFragment();
+
+    protected abstract boolean isNeedCreateViewStub();
+
+    protected abstract void onCreateViewStub(View view);
+
+    protected void updateContainerLayout() {
+        initContainerLayout();
+    }
 
     @Override
     protected void onResume() {

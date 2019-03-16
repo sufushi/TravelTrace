@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class HomeFragment extends BasePTRFragment implements OnRefreshListener {
+public class MomentsFragment extends BasePTRFragment implements OnRefreshListener {
 
     private MultiTypeAdapter<Object> mMultiTypeAdapter;
     private MultiTypeView mMultiTypeView;
@@ -33,7 +33,9 @@ public class HomeFragment extends BasePTRFragment implements OnRefreshListener {
 
     @Override
     protected RefreshFooter createRefreshFooter() {
-        return new BallPulseFooter(Objects.requireNonNull(getActivity())).setSpinnerStyle(SpinnerStyle.Translate);
+        return new BallPulseFooter(Objects.requireNonNull(getActivity()))
+                .setSpinnerStyle(SpinnerStyle.Translate)
+                .setNormalColor(getResources().getColor(R.color.colorPrimary));
     }
 
     @Override
@@ -49,7 +51,7 @@ public class HomeFragment extends BasePTRFragment implements OnRefreshListener {
 
     @Override
     protected int getLayoutResourceId() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_moments;
     }
 
     @Override
