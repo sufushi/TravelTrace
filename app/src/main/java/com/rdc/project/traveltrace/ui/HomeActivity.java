@@ -1,5 +1,6 @@
 package com.rdc.project.traveltrace.ui;
 
+import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -16,6 +17,11 @@ import com.rdc.project.traveltrace.fragment.TimelineFragment;
 import com.rdc.project.traveltrace.view.pop_menu.PopMenu;
 import com.rdc.project.traveltrace.view.pop_menu.PopMenuItem;
 import com.rdc.project.traveltrace.view.pop_menu.PopMenuItemClickListener;
+import com.yw.game.floatmenu.FloatItem;
+import com.yw.game.floatmenu.FloatLogoMenu;
+import com.yw.game.floatmenu.FloatMenuView;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar.OnTabSelectedListener {
 
@@ -30,6 +36,7 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
     private FragmentManager mFragmentManager;
 
     private PopMenu mPopMenu;
+    private FloatLogoMenu mFloatLogoMenu;
 
     @Override
     protected int getLayoutResID() {
@@ -48,6 +55,11 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
 
     @Override
     protected void initView() {
+        initPopMenu();
+        initFloatMenu();
+    }
+
+    private void initPopMenu() {
         mPopMenu = new PopMenu.Builder().attachToActivity(this)
                 .addMenuItem(new PopMenuItem("说说", getResources().getDrawable(R.drawable.ic_action_article)))
                 .addMenuItem(new PopMenuItem("相册", getResources().getDrawable(R.drawable.ic_action_picture)))
@@ -65,6 +77,32 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
 
             }
         });
+    }
+
+    private void initFloatMenu() {
+        ArrayList<FloatItem> itemList = new ArrayList<>();
+        itemList.add(new FloatItem("发表", getResources().getColor(R.color.white), getResources().getColor(R.color.transparent), BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_publish)));
+        itemList.add(new FloatItem("记录", getResources().getColor(R.color.white), getResources().getColor(R.color.transparent), BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_record)));
+        mFloatLogoMenu = new FloatLogoMenu.Builder()
+                .withActivity(this)
+                .logo(BitmapFactory.decodeResource(getResources(), R.drawable.ic_sun))
+                .drawCicleMenuBg(true)
+                .backMenuColor(0xbbf5f28f)
+                .setBgDrawable(this.getResources().getDrawable(R.drawable.bg_float_menu))
+                .defaultLocation(FloatLogoMenu.RIGHT)
+                .drawRedPointNum(false)
+                .setFloatItems(itemList)
+                .showWithListener(new FloatMenuView.OnMenuClickListener() {
+                    @Override
+                    public void onItemClick(int i, String s) {
+
+                    }
+
+                    @Override
+                    public void dismiss() {
+
+                    }
+                });
     }
 
     @Override

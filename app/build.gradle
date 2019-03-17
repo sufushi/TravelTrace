@@ -41,5 +41,6 @@ dependencies {
     compile 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
     compile 'com.mostafagazar:customshapeimageview:1.0.4'
     compile 'com.facebook.rebound:rebound:0.3.8'
+    compile 'com.yw.game.floatmenu:FloatMenu:2.0.1'
     testCompile 'junit:junit:4.12'
 }

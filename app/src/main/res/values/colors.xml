@@ -148,4 +148,6 @@
     <color name="gradient1">#5d8df7</color>
     <color name="gradient2">#5EB9F8</color>
     <color name="gradient3">#5CC2F8</color>
+
+    <color name="cb1">#F6A50C</color>
 </resources>
