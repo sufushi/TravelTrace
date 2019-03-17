@@ -9,11 +9,13 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.gyf.barlibrary.ImmersionBar;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BaseFragment;
-import com.rdc.project.traveltrace.base.BasePTRFragment;
 import com.rdc.project.traveltrace.base.BaseRTRActivity;
 import com.rdc.project.traveltrace.fragment.MomentsFragment;
 import com.rdc.project.traveltrace.fragment.PersonCenterFragment;
 import com.rdc.project.traveltrace.fragment.TimelineFragment;
+import com.rdc.project.traveltrace.view.pop_menu.PopMenu;
+import com.rdc.project.traveltrace.view.pop_menu.PopMenuItem;
+import com.rdc.project.traveltrace.view.pop_menu.PopMenuItemClickListener;
 
 public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar.OnTabSelectedListener {
 
@@ -26,6 +28,8 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
     private PersonCenterFragment mPersonCenterFragment;
     private BaseFragment mCurrentFragment = null;
     private FragmentManager mFragmentManager;
+
+    private PopMenu mPopMenu;
 
     @Override
     protected int getLayoutResID() {
@@ -44,7 +48,23 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
 
     @Override
     protected void initView() {
+        mPopMenu = new PopMenu.Builder().attachToActivity(this)
+                .addMenuItem(new PopMenuItem("说说", getResources().getDrawable(R.drawable.ic_action_article)))
+                .addMenuItem(new PopMenuItem("相册", getResources().getDrawable(R.drawable.ic_action_picture)))
+                .addMenuItem(new PopMenuItem("拍摄", getResources().getDrawable(R.drawable.ic_action_video)))
+                .setOnItemClickListener(new PopMenuItemClickListener() {
+                    @Override
+                    public void onItemClick(PopMenu popMenu, int position) {
 
+                    }
+                })
+                .build();
+        mPopMenu.setOnMenuCloseListener(new PopMenu.OnMenuCloseListener() {
+            @Override
+            public void onClose(View v) {
+
+            }
+        });
     }
 
     @Override
