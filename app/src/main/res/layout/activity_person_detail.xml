@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.rdc.project.traveltrace.view.oblique_view.ObliqueView
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        app:ending_slant_angle="0"
+        app:starting_slant_angle="12"
+        app:type="image"
+        android:src="@drawable/test"/>
+
+</LinearLayout>

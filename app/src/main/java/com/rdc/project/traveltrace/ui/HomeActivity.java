@@ -1,4 +1,4 @@
-package com.rdc.project.traveltrace;
+package com.rdc.project.traveltrace.ui;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -7,6 +7,8 @@ import android.view.View;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.gyf.barlibrary.ImmersionBar;
+import com.rdc.project.traveltrace.R;
+import com.rdc.project.traveltrace.base.BaseFragment;
 import com.rdc.project.traveltrace.base.BasePTRFragment;
 import com.rdc.project.traveltrace.base.BaseRTRActivity;
 import com.rdc.project.traveltrace.fragment.MomentsFragment;
@@ -22,7 +24,7 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
     private MomentsFragment mMomentsFragment;
     private TimelineFragment mTimelineFragment;
     private PersonCenterFragment mPersonCenterFragment;
-    private BasePTRFragment mCurrentFragment = null;
+    private BaseFragment mCurrentFragment = null;
     private FragmentManager mFragmentManager;
 
     @Override
@@ -56,7 +58,7 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
     }
 
     @Override
-    protected BasePTRFragment createPTRFragment() {
+    protected BaseFragment createPTRFragment() {
         if (mCurrentFragment == null) {
             mCurrentFragment = new MomentsFragment();
         }

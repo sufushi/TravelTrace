@@ -56,7 +56,7 @@ public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
 
     private void initContainerLayout() {
         mContainer = (ViewGroup) findViewById(R.id.activity_layout_container);
-        BasePTRFragment fragment = createPTRFragment();
+        BaseFragment fragment = createPTRFragment();
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -79,7 +79,7 @@ public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
 
     protected abstract String getToolBarTitle();
 
-    protected abstract BasePTRFragment createPTRFragment();
+    protected abstract BaseFragment createPTRFragment();
 
     protected abstract boolean isNeedCreateViewStub();
 

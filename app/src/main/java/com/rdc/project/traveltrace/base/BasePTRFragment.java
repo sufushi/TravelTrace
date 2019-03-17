@@ -40,8 +40,12 @@ public abstract class BasePTRFragment extends BaseFragment implements com.scwang
         mRefreshLayout = mRootView.findViewById(R.id.fragment_layout_refresh);
         mRefreshHeader = createRefreshHeader();
         mRefreshFooter = createRefreshFooter();
-        mRefreshLayout.setRefreshHeader(mRefreshHeader);
-        mRefreshLayout.setRefreshFooter(mRefreshFooter);
+        if (mRefreshHeader != null) {
+            mRefreshLayout.setRefreshHeader(mRefreshHeader);
+        }
+        if (mRefreshFooter != null) {
+            mRefreshLayout.setRefreshFooter(mRefreshFooter);
+        }
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
         configRefreshLayout();

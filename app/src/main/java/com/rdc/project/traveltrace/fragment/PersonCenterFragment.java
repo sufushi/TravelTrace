@@ -1,51 +1,17 @@
 package com.rdc.project.traveltrace.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+import android.view.View;
 
+import com.meg7.widget.CircleImageView;
 import com.rdc.project.traveltrace.R;
-import com.rdc.project.traveltrace.base.BasePTRFragment;
-import com.rdc.project.traveltrace.base.OnRefreshListener;
-import com.scwang.smartrefresh.header.DropBoxHeader;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
-import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.rdc.project.traveltrace.base.BaseFragment;
+import com.rdc.project.traveltrace.ui.PersonDetailActivity;
 
-import java.util.Objects;
+public class PersonCenterFragment extends BaseFragment implements View.OnClickListener {
 
-public class PersonCenterFragment extends BasePTRFragment implements OnRefreshListener {
-
-    private Handler mHandler = new Handler(Looper.getMainLooper());
-
-    @Override
-    protected RefreshHeader createRefreshHeader() {
-
-        return new ClassicsHeader(Objects.requireNonNull(getActivity()))
-                .setAccentColor(getResources().getColor(R.color.white))
-                .setEnableLastTime(false)
-                .setLastUpdateText("")
-                .setProgressResource(0)
-                .setArrowResource(0);
-    }
-
-    @Override
-    protected RefreshFooter createRefreshFooter() {
-        return new ClassicsFooter(Objects.requireNonNull(getActivity()));
-    }
-
-    @Override
-    protected void configRefreshLayout() {
-        mRefreshLayout.setDragRate(0.8f);
-    }
-
-    @Override
-    protected OnRefreshListener createRefreshListener() {
-        return this;
-    }
+    private CircleImageView mUserIcon;
 
     @Override
     protected int getLayoutResourceId() {
@@ -59,7 +25,8 @@ public class PersonCenterFragment extends BasePTRFragment implements OnRefreshLi
 
     @Override
     protected void initView() {
-
+        mUserIcon = mRootView.findViewById(R.id.user_icon);
+        mUserIcon.setOnClickListener(this);
     }
 
     @Override
@@ -68,12 +35,18 @@ public class PersonCenterFragment extends BasePTRFragment implements OnRefreshLi
     }
 
     @Override
-    public void onRefresh() {
-        mRefreshLayout.finishRefresh(0);
-    }
-
-    @Override
-    public void onLoadMore() {
-        mRefreshLayout.finishLoadMore(0);
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.user_icon:
+                if (getActivity() == null) {
+                    return;
+                }
+                Intent intent = new Intent(getActivity(), PersonDetailActivity.class);
+//                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), mUserIcon, "share_img");
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -10,7 +10,7 @@
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@drawable/bg_gradient_tool_bar"
+        android:background="@drawable/bg_liner_gradient"
         app:titleTextColor="@color/white"
         app:title="@string/app_name"
         android:layout_alignParentTop="true">
