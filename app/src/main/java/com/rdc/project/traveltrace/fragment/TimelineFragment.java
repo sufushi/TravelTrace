@@ -1,10 +1,12 @@
 package com.rdc.project.traveltrace.fragment;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BasePTRFragment;
 import com.rdc.project.traveltrace.base.OnRefreshListener;
+import com.rdc.project.traveltrace.view.folding_cell.FoldingCell;
 import com.scwang.smartrefresh.header.DropBoxHeader;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
@@ -50,7 +52,13 @@ public class TimelineFragment extends BasePTRFragment implements OnRefreshListen
 
     @Override
     protected void initView() {
-
+        final FoldingCell foldingCell = mRootView.findViewById(R.id.folding_cell);
+        foldingCell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                foldingCell.toggle(false);
+            }
+        });
     }
 
     @Override

@@ -27,4 +27,11 @@
         <attr name="gradient" format="boolean" />
         <attr name="src" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="FoldingCell">
+        <attr name="backSideColor" format="color" />
+        <attr name="animationDuration" format="integer" />
+        <attr name="additionalFlipsCount" format="integer" />
+        <attr name="cameraHeight" format="integer" />
+    </declare-styleable>
 </resources>

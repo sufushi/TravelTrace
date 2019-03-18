@@ -5,13 +5,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <com.rdc.project.traveltrace.view.folding_cell.FoldingCell
+        android:id="@+id/folding_cell"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/string_timeline"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp"/>
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/cell_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/app_name"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/cell_title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@android:color/holo_blue_dark"/>
+        </FrameLayout>
+
+    </com.rdc.project.traveltrace.view.folding_cell.FoldingCell>
 
 </LinearLayout>
