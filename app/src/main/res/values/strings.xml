@@ -6,4 +6,9 @@
     <string name="string_timeline">行程</string>
     <string name="string_person_center">我的</string>
 
+    <string name="bye_burger_float_behavior">com.rdc.project.traveltrace.behavior.ByeBurgerFloatButtonBehavior</string>
+
+    <string name="bye_burger_bottom_behavior">com.rdc.project.traveltrace.behavior.ByeBurgerBottomBehavior</string>
+    <string name="bye_burger_title_behavior">com.rdc.project.traveltrace.behavior.ByeBurgerTitleBehavior</string>
+
 </resources>

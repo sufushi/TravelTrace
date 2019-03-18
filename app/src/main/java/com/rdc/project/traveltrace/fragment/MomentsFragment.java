@@ -43,7 +43,7 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
 
     @Override
     protected void configRefreshLayout() {
-        mRefreshLayout.autoLoadMore();
+//        mRefreshLayout.autoLoadMore();
         mRefreshLayout.setDragRate(0.8f);
     }
 

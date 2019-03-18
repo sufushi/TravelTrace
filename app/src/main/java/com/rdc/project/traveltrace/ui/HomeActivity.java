@@ -57,6 +57,13 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
     protected void initView() {
         initPopMenu();
         initFloatMenu();
+        mToolbar.post(new Runnable() {
+            @Override
+            public void run() {
+                mContainer.offsetTopAndBottom(2 * mToolbar.getBottom());
+//                mContainer.setPadding(0, mToolbar.getHeight(), 0, 0);
+            }
+        });
     }
 
     private void initPopMenu() {
@@ -137,12 +144,11 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
                 .setFirstSelectedPosition(0)
                 .initialise();
         bottomNavigationBar.setTabSelectedListener(this);
-        bottomNavigationBar.post(new Runnable() {
-            @Override
-            public void run() {
-                mContainer.setPadding(0, 0, 0, bottomNavigationBar.getHeight());
-            }
-        });
+//        bottomNavigationBar.post(new Runnable() {
+//            @Override
+//            public void run() {
+//            }
+//        });
     }
 
     @Override
