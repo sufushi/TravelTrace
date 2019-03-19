@@ -42,5 +42,6 @@ dependencies {
     compile 'com.mostafagazar:customshapeimageview:1.0.4'
     compile 'com.facebook.rebound:rebound:0.3.8'
     compile 'com.yw.game.floatmenu:FloatMenu:2.0.1'
+    compile 'com.andrognito.patternlockview:patternlockview:1.0.0'
     testCompile 'junit:junit:4.12'
 }

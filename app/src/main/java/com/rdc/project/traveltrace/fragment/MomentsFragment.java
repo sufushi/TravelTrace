@@ -29,7 +29,7 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
     @Override
     protected RefreshHeader createRefreshHeader() {
         DeliveryHeader header = new DeliveryHeader(getActivity());
-        header.setBackgroundResource(R.drawable.bg_liner_gradient);
+        header.setBackgroundResource(R.drawable.bg_liner_horizontal_gradient);
         return header;
     }
 

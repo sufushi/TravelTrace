@@ -20,7 +20,7 @@
             <com.rdc.project.traveltrace.view.oblique_view.ObliqueView
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
-                android:src="@drawable/bg_liner_gradient"
+                android:src="@drawable/bg_liner_horizontal_gradient"
                 app:angle="LEFT_TO_RIGHT"
                 app:basecolor="@color/gradient3"
                 app:endcolor="@color/gradient2"

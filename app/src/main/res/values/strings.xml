@@ -12,4 +12,5 @@
     <string name="bye_burger_title_behavior">com.rdc.project.traveltrace.behavior.ByeBurgerTitleBehavior</string>
 
     <string name="container_behavior">com.rdc.project.traveltrace.behavior.ContainerBehavior</string>
+    <string name="string_welcome">Welcome</string>
 </resources>

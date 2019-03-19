@@ -19,7 +19,7 @@
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@drawable/bg_liner_gradient"
+        android:background="@drawable/bg_liner_horizontal_gradient"
         app:titleTextColor="@color/white"
         app:title="@string/app_name"
         android:layout_alignParentTop="true"
