@@ -60,8 +60,7 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
         mToolbar.post(new Runnable() {
             @Override
             public void run() {
-                mContainer.offsetTopAndBottom(2 * mToolbar.getBottom());
-//                mContainer.setPadding(0, mToolbar.getHeight(), 0, 0);
+                mContainer.setPadding(0, mToolbar.getHeight(), 0, 0);
             }
         });
     }
