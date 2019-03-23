@@ -1,14 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:padding="10dp">
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.rdc.project.traveltrace.view.custom_view.NoteUserView
+        android:id="@+id/note_user_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.rdc.project.traveltrace.view.custom_view.NoteUserView>
+
+    <!--<com.rdc.project.traveltrace.view.expandable_text_view.ExpandableTextView-->
+        <!--android:id="@+id/expandable_text_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="6dp"-->
+        <!--app:animDuration="400"-->
+        <!--app:maxCollapsedLines="4"-->
+        <!--android:visibility="gone">-->
+
+        <!--<TextView-->
+            <!--android:id="@id/expandable_text"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="2dp"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="14sp"/>-->
+
+        <!--<ImageButton-->
+            <!--android:id="@id/expand_collapse_toggle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="end|bottom"-->
+            <!--android:background="@color/transparent"-->
+            <!--android:contentDescription="@null"-->
+            <!--android:padding="4dp"/>-->
+
+    <!--</com.rdc.project.traveltrace.view.expandable_text_view.ExpandableTextView>-->
 
     <TextView
-        android:id="@+id/tv_text"
+        android:id="@+id/note_user_text_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:lineSpacingExtra="1.2dp"
+        android:layout_marginBottom="4dp"
+        android:background="?attr/selectableItemBackground"/>
 
     <com.lzy.ninegrid.NineGridView
         android:id="@+id/nine_grid_view"
@@ -17,4 +54,11 @@
 
     </com.lzy.ninegrid.NineGridView>
 
-</LinearLayout>
+    <com.rdc.project.traveltrace.view.custom_view.NoteOperatorView
+        android:id="@+id/note_operator_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.rdc.project.traveltrace.view.custom_view.NoteOperatorView>
+
+</merge>

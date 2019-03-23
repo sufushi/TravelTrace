@@ -4,19 +4,22 @@ import java.util.List;
 
 public class Note {
 
+    private User mUser;
     private String mText;
     private List<String> mImgUrls;
     private int mCommentCount;
     private int mLikeCount;
+    private boolean mIsLike;
 
     public Note() {
     }
 
-    public Note(String text, List<String> imgUrls, int commentCount, int likeCount) {
-        mText = text;
-        mImgUrls = imgUrls;
-        mCommentCount = commentCount;
-        mLikeCount = likeCount;
+    public User getUser() {
+        return mUser;
+    }
+
+    public void setUser(User user) {
+        mUser = user;
     }
 
     public String getText() {
@@ -51,13 +54,23 @@ public class Note {
         mLikeCount = likeCount;
     }
 
+    public boolean isLike() {
+        return mIsLike;
+    }
+
+    public void setLike(boolean like) {
+        mIsLike = like;
+    }
+
     @Override
     public String toString() {
         return "Note{" +
-                "mText='" + mText + '\'' +
+                "mUser=" + mUser +
+                ", mText='" + mText + '\'' +
                 ", mImgUrls=" + mImgUrls +
                 ", mCommentCount=" + mCommentCount +
                 ", mLikeCount=" + mLikeCount +
+                ", mIsLike=" + mIsLike +
                 '}';
     }
 }
