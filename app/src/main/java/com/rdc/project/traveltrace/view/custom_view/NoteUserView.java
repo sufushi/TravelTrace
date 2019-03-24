@@ -20,6 +20,7 @@ public class NoteUserView extends LinearLayout implements IView {
     private CircleImageView mNoteUserIcon;
     private TextView mNoteUserName;
     private TextView mNoteUserExtraMsg;
+    protected TextView mUserFollowBtn;
 
     public NoteUserView(Context context) {
         this(context, null);
@@ -41,6 +42,7 @@ public class NoteUserView extends LinearLayout implements IView {
         mNoteUserIcon = findViewById(R.id.note_user_icon);
         mNoteUserName = findViewById(R.id.note_user_name);
         mNoteUserExtraMsg = findViewById(R.id.note_user_extra_message);
+        mUserFollowBtn = findViewById(R.id.btn_follow_user);
     }
 
     @Override

@@ -14,4 +14,5 @@
     <string name="container_behavior">com.rdc.project.traveltrace.behavior.ContainerBehavior</string>
     <string name="string_welcome">Welcome</string>
     <string name="string_follow_user">+ 关注</string>
+    <string name="string_total_comment">全部评论</string>
 </resources>

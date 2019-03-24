@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.ScrollView;
 
-import com.rdc.project.traveltrace.R;
-
 public class BounceScrollView extends ScrollView {
 
     private View mView;

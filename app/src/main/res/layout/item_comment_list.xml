@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.rdc.project.traveltrace.view.custom_view.CommentUserView
+        android:id="@+id/comment_user_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.rdc.project.traveltrace.view.custom_view.CommentUserView>
+
+    <TextView
+        android:id="@+id/comment_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/gray"
+        android:textSize="13sp"/>
+
+</merge>
