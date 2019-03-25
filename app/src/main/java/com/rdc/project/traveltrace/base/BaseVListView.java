@@ -54,6 +54,7 @@ public abstract class BaseVListView extends SmartRefreshLayout {
                 .setSpinnerStyle(SpinnerStyle.Translate)
                 .setAnimatingColor(getResources().getColor(R.color.colorPrimary))
                 .setNormalColor(getResources().getColor(R.color.colorPrimary)));
+//        this.setRefreshFooter(new EmptyViewFooter(this, context));
         this.setDragRate(0.8f);
         this.setBackgroundColor(context.getResources().getColor(R.color.white));
     }
