@@ -47,12 +47,19 @@
         android:layout_marginBottom="4dp"
         android:background="?attr/selectableItemBackground"/>
 
-    <com.lzy.ninegrid.NineGridView
-        android:id="@+id/nine_grid_view"
+    <FrameLayout
+        android:id="@+id/note_extend_view_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </com.lzy.ninegrid.NineGridView>
+    </FrameLayout>
+
+    <!--<com.lzy.ninegrid.NineGridView-->
+        <!--android:id="@+id/nine_grid_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+    <!--</com.lzy.ninegrid.NineGridView>-->
 
     <com.rdc.project.traveltrace.view.custom_view.NoteOperatorView
         android:id="@+id/note_operator_view"

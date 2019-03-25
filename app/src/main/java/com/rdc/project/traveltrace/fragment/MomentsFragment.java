@@ -4,12 +4,14 @@ import android.os.Bundle;
 
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.adapter.FollowListViewProvider;
-import com.rdc.project.traveltrace.adapter.NoteViewProvider;
+import com.rdc.project.traveltrace.adapter.PictureNoteViewProvider;
+import com.rdc.project.traveltrace.adapter.VideoNoteViewProvider;
 import com.rdc.project.traveltrace.base.BasePTRFragment;
 import com.rdc.project.traveltrace.base.OnRefreshListener;
 import com.rdc.project.traveltrace.entity.FollowList;
-import com.rdc.project.traveltrace.entity.Note;
+import com.rdc.project.traveltrace.entity.PictureNote;
 import com.rdc.project.traveltrace.entity.User;
+import com.rdc.project.traveltrace.entity.VideoNote;
 import com.scwang.smartrefresh.header.DeliveryHeader;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
@@ -88,8 +90,9 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
         }
         list.add(new FollowList(userList));
         for (int i = 0; i < 3; i++) {
-            Note note = new Note();
-            note.setText("三亚市位于海南岛最南端，是中国最南部的滨海旅游城市。因三亚河（古名临川水）由三亚东" +
+            VideoNote videoNote = new VideoNote();
+            PictureNote pictureNote = new PictureNote();
+            pictureNote.setText("三亚市位于海南岛最南端，是中国最南部的滨海旅游城市。因三亚河（古名临川水）由三亚东" +
                     "西河至此会合，成“丫”字形，故取名“三亚”。同时它也是是一个黎、苗、回、汉多民族聚居的地区" +
                     "三亚拥有被无数城市嫉妒的清新空气，柔和海滩。在沙滩悠闲散步、沐浴傍晚温和阳光，在海边玩耍，" +
                     "在雨林里面呼吸健康，欣赏自然奇观，一切都是那么令人享受。三亚连续四次成为举办世界小姐总决" +
@@ -98,42 +101,50 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
                     "快节奏生活的人们，纷纷涌入这座海滨小城，从而带来了许多城市管理问题。旅游资源的丰富与旅游" +
                     "服务之间的矛盾，导致各种宰客现象层出不穷，这让不少到过三亚的人为之不满。但是这一切都会慢" +
                     "慢改变，因为没有什么会阻挡三亚成为国际度假圣地的脚步。 三亚门户网站 http://www.sanya.gov.cn/" + i);
+            videoNote.setText(pictureNote.getText());
             User user = new User();
             if (i == 0) {
-                note.setImgUrls(Arrays.asList(array1));
+                pictureNote.setImgUrls(Arrays.asList(array1));
                 user.setUserIcon("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1247179626,1114338020&fm=26&gp=0.jpg");
                 user.setUserName("pappy");
                 user.setUserExtraMsg("3-23");
-                note.setUser(user);
-                note.setLikeCount(16);
-                note.setCommentCount(99);
-                note.setLike(false);
+                pictureNote.setUser(user);
+                pictureNote.setLikeCount(16);
+                pictureNote.setCommentCount(99);
+                pictureNote.setLike(false);
             } else if (i == 1) {
-                note.setImgUrls(Arrays.asList(array2));
+                pictureNote.setImgUrls(Arrays.asList(array2));
                 user.setUserIcon("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=313744057,187509694&fm=26&gp=0.jpg");
                 user.setUserName("tom");
                 user.setUserExtraMsg("3-21");
-                note.setUser(user);
-                note.setLikeCount(9);
-                note.setCommentCount(666);
-                note.setLike(true);
+                pictureNote.setUser(user);
+                pictureNote.setLikeCount(9);
+                pictureNote.setCommentCount(666);
+                pictureNote.setLike(true);
             } else {
-                note.setImgUrls(Arrays.asList(array3));
+                pictureNote.setImgUrls(Arrays.asList(array3));
                 user.setUserIcon("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3065338749,2306246489&fm=26&gp=0.jpg");
                 user.setUserName("熊大");
                 user.setUserExtraMsg("3-20");
-                note.setUser(user);
-                note.setLikeCount(250);
-                note.setCommentCount(18);
-                note.setLike(false);
+                pictureNote.setUser(user);
+                pictureNote.setLikeCount(250);
+                pictureNote.setCommentCount(18);
+                pictureNote.setLike(false);
             }
-            list.add(note);
+            videoNote.setUser(pictureNote.getUser());
+            videoNote.setLikeCount(pictureNote.getLikeCount());
+            videoNote.setCommentCount(pictureNote.getCommentCount());
+            videoNote.setLike(!pictureNote.isLike());
+            videoNote.setVideoUrl("http://www.w3school.com.cn/example/html5/mov_bbb.mp4");
+            list.add(pictureNote);
+            list.add(videoNote);
         }
         for (int i = 0; i < 4; i++) {
             list.add(new FragmentData(InfoFragment.class, "InfoFragment" + i));
         }
         ItemBinderFactory itemBinderFactory = new ItemBinderFactory(getFragmentManager());
-        itemBinderFactory.registerProvider(Note.class, new NoteViewProvider(getActivity()));
+        itemBinderFactory.registerProvider(PictureNote.class, new PictureNoteViewProvider(getActivity()));
+        itemBinderFactory.registerProvider(VideoNote.class, new VideoNoteViewProvider(getActivity()));
         itemBinderFactory.registerProvider(FollowList.class, new FollowListViewProvider(getActivity()));
         mMultiTypeAdapter = new MultiTypeAdapter<>(list, itemBinderFactory);
     }

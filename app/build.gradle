@@ -20,6 +20,7 @@ android {
     lintOptions {
         disable 'GoogleAppIndexingWarning'
     }
+    sourceSets { main { jniLibs.srcDirs = ['src/main/jniLibs'] } }
 }
 
 dependencies {
@@ -47,4 +48,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     compile 'com.lzy.widget:ninegridview:0.2.0'
     testCompile 'junit:junit:4.12'
+    compile files('libs/pldroid-player-2.1.7.jar')
 }

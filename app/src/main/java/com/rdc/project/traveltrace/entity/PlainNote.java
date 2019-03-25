@@ -1,17 +1,15 @@
 package com.rdc.project.traveltrace.entity;
 
-import java.util.List;
+public class PlainNote {
 
-public class Note {
+    protected User mUser;
+    protected String mText;
+    protected int mCommentCount;
+    protected int mLikeCount;
+    protected boolean mIsLike;
 
-    private User mUser;
-    private String mText;
-    private List<String> mImgUrls;
-    private int mCommentCount;
-    private int mLikeCount;
-    private boolean mIsLike;
+    public PlainNote() {
 
-    public Note() {
     }
 
     public User getUser() {
@@ -28,14 +26,6 @@ public class Note {
 
     public void setText(String text) {
         mText = text;
-    }
-
-    public List<String> getImgUrls() {
-        return mImgUrls;
-    }
-
-    public void setImgUrls(List<String> imgUrls) {
-        mImgUrls = imgUrls;
     }
 
     public int getCommentCount() {
@@ -64,10 +54,9 @@ public class Note {
 
     @Override
     public String toString() {
-        return "Note{" +
+        return "PlainNote{" +
                 "mUser=" + mUser +
                 ", mText='" + mText + '\'' +
-                ", mImgUrls=" + mImgUrls +
                 ", mCommentCount=" + mCommentCount +
                 ", mLikeCount=" + mLikeCount +
                 ", mIsLike=" + mIsLike +
