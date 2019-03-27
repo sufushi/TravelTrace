@@ -1,5 +1,6 @@
 package com.rdc.project.traveltrace.ui;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -101,7 +102,8 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
                 .showWithListener(new FloatMenuView.OnMenuClickListener() {
                     @Override
                     public void onItemClick(int i, String s) {
-
+                        Intent intent = new Intent(HomeActivity.this, PublishPictureNoteActivity.class);
+                        startActivity(intent);
                     }
 
                     @Override
@@ -155,6 +157,11 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
         ImmersionBar.with(this).titleBar(R.id.tool_bar)
                 .navigationBarColor(R.color.gradient1)
                 .init();
+    }
+
+    @Override
+    protected boolean needBackIcon() {
+        return false;
     }
 
     @Override

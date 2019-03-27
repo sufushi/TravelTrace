@@ -41,6 +41,7 @@
         </activity>
         <activity android:name=".ui.PersonDetailActivity"/>
         <activity android:name=".ui.GesturePinActivity"/>
+        <activity android:name=".ui.PublishPictureNoteActivity"/>
     </application>
 
 </manifest>
