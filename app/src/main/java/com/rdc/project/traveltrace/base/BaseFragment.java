@@ -50,4 +50,8 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
     }
+
+    public void onBackPressed() {
+
+    }
 }

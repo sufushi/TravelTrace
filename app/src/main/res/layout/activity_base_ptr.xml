@@ -31,6 +31,7 @@
         android:id="@+id/activity_view_stub"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:layout_behavior="@string/bye_burger_bottom_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>

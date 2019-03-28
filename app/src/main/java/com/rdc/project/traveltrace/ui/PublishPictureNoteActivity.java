@@ -10,6 +10,8 @@ import com.rdc.project.traveltrace.fragment.PublishPictureNoteFragment;
 
 public class PublishPictureNoteActivity extends BaseRTRActivity {
 
+    private PublishPictureNoteFragment mPublishPictureNoteFragment;
+
     @Override
     protected String getToolBarTitle() {
         return "发表";
@@ -24,7 +26,8 @@ public class PublishPictureNoteActivity extends BaseRTRActivity {
 
     @Override
     protected BaseFragment createPTRFragment() {
-        return new PublishPictureNoteFragment();
+        mPublishPictureNoteFragment = new PublishPictureNoteFragment();
+        return mPublishPictureNoteFragment;
     }
 
     @Override
@@ -59,6 +62,16 @@ public class PublishPictureNoteActivity extends BaseRTRActivity {
 
     @Override
     protected void initListener() {
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mPublishPictureNoteFragment != null && mPublishPictureNoteFragment.isEditMode()) {
+            mPublishPictureNoteFragment.onBackPressed();
+        } else {
+            super.onBackPressed();
+        }
 
     }
 }

@@ -75,7 +75,7 @@ public class DynamicGridView extends GridView {
     private OnItemClickListener mLocalItemClickListener = new OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (!isEditMode() && isEnabled() && mUserItemClickListener != null) {
+            if (isEnabled() && mUserItemClickListener != null) {
                 mUserItemClickListener.onItemClick(parent, view, position, id);
             }
         }

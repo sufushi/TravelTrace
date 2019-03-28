@@ -2,16 +2,16 @@ package com.rdc.project.traveltrace.entity;
 
 public class Picture {
 
-    private String mImgUrl;
+    private String mImgPath;
 
     public Picture() {
     }
 
-    public String getImgUrl() {
-        return mImgUrl;
+    public String getImgPath() {
+        return mImgPath;
     }
 
-    public void setImgUrl(String imgUrl) {
-        mImgUrl = imgUrl;
+    public void setImgPath(String imgPath) {
+        mImgPath = imgPath;
     }
 }

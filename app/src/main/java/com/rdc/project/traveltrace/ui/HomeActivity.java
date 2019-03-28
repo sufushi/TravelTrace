@@ -33,7 +33,6 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
     private MomentsFragment mMomentsFragment;
     private TimelineFragment mTimelineFragment;
     private PersonCenterFragment mPersonCenterFragment;
-    private BaseFragment mCurrentFragment = null;
     private FragmentManager mFragmentManager;
 
     private PopMenu mPopMenu;
@@ -145,6 +144,7 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
                 .setFirstSelectedPosition(0)
                 .initialise();
         bottomNavigationBar.setTabSelectedListener(this);
+        bottomNavigationBar.setVisibility(View.VISIBLE);
 //        bottomNavigationBar.post(new Runnable() {
 //            @Override
 //            public void run() {

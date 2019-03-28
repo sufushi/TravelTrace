@@ -20,6 +20,8 @@ public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
     protected ViewStub mViewStub;
     protected ViewGroup mRoot;
 
+    protected BaseFragment mCurrentFragment;
+
     @Override
     protected void createContentView() {
         initContentView();
@@ -72,14 +74,14 @@ public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
 
     private void initContainerLayout() {
         mContainer = (ViewGroup) findViewById(R.id.activity_layout_container);
-        BaseFragment fragment = createPTRFragment();
-        if (fragment != null) {
+        mCurrentFragment = createPTRFragment();
+        if (mCurrentFragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            if (fragment.isAdded() && fragment.isHidden()) {
-                fragmentTransaction.show(fragment);
+            if (mCurrentFragment.isAdded() && mCurrentFragment.isHidden()) {
+                fragmentTransaction.show(mCurrentFragment);
             } else {
-                fragmentTransaction.replace(R.id.activity_layout_container, fragment);
+                fragmentTransaction.replace(R.id.activity_layout_container, mCurrentFragment);
             }
             fragmentTransaction.commit();
         }
@@ -126,6 +128,14 @@ public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
         super.onConfigurationChanged(newConfig);
         if (isImmersionBarEnabled()) {
             ImmersionBar.with(this).init();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (mCurrentFragment != null) {
+            mCurrentFragment.onBackPressed();
         }
     }
 }
