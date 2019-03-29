@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.meg7.widget.CircleImageView;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.arch.view.IView;
@@ -51,7 +50,7 @@ public class NoteUserView extends LinearLayout implements IView {
             User user = (User) data;
             Glide.with(getContext())
                     .load(user.getUserIcon())
-                    .apply(new RequestOptions().placeholder(R.drawable.ic_avatar))
+                    .placeholder(R.drawable.ic_avatar)
                     .into(mNoteUserIcon);
             mNoteUserName.setText(user.getUserName());
             mNoteUserExtraMsg.setText(user.getUserExtraMsg());

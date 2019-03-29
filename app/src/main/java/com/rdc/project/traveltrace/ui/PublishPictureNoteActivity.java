@@ -1,5 +1,6 @@
 package com.rdc.project.traveltrace.ui;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -66,12 +67,10 @@ public class PublishPictureNoteActivity extends BaseRTRActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        if (mPublishPictureNoteFragment != null && mPublishPictureNoteFragment.isEditMode()) {
-            mPublishPictureNoteFragment.onBackPressed();
-        } else {
-            super.onBackPressed();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mPublishPictureNoteFragment != null) {
+            mPublishPictureNoteFragment.onActivityResult(requestCode, resultCode, data);
         }
-
     }
 }

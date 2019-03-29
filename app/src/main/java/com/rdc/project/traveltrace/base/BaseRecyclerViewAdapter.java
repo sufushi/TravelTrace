@@ -29,6 +29,10 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter {
         return mDataList.size();
     }
 
+    public List<T> getDataList() {
+        return mDataList;
+    }
+
     /**
      * RecyclerView不提供点击事件，自定义点击事件
      */

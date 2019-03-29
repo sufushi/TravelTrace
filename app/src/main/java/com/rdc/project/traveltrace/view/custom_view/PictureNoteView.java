@@ -2,25 +2,17 @@ package com.rdc.project.traveltrace.view.custom_view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
-import com.rdc.project.traveltrace.R;
-import com.rdc.project.traveltrace.arch.view.IView;
 import com.rdc.project.traveltrace.entity.PictureNote;
-import com.rdc.project.traveltrace.utils.DensityUtil;
-import com.rdc.project.traveltrace.utils.more_text_util.MoreTextUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -79,11 +71,11 @@ public class PictureNoteView extends PLainNoteView {
                 mNineGridView.setSingleImageRatio(radio);
             } else {
                 Glide.with(getContext())
-                        .asBitmap()
                         .load(url)
+                        .asBitmap()
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
-                            public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
+                            public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
                                 int width = bitmap.getWidth();
                                 int height = bitmap.getHeight();
                                 float radio = width * 1.0f / height;
