@@ -30,6 +30,21 @@
         <item name="android:actionBarSize">46dp</item>
     </style>
 
+    <!--自定义Dialog样式-->
+    <style name="DialogStyle" parent="AlertDialog.AppCompat">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <!--顶部弹出Dialog动画-->
+    <style name="TopDialogStyle" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_top_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_top_out</item>
+    </style>
+
     <!--<style name="CustomMatisseTheme" parent="Matisse.Zhihu">-->
         <!--<item name="colorPrimary">@color/colorPrimary</item>-->
         <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->

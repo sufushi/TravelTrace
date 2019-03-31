@@ -15,9 +15,9 @@ import com.rdc.project.traveltrace.base.BaseRTRActivity;
 import com.rdc.project.traveltrace.fragment.MomentsFragment;
 import com.rdc.project.traveltrace.fragment.PersonCenterFragment;
 import com.rdc.project.traveltrace.fragment.TimelineFragment;
+import com.rdc.project.traveltrace.fragment.TopDialogFragment;
 import com.rdc.project.traveltrace.view.pop_menu.PopMenu;
 import com.rdc.project.traveltrace.view.pop_menu.PopMenuItem;
-import com.rdc.project.traveltrace.view.pop_menu.PopMenuItemClickListener;
 import com.yw.game.floatmenu.FloatItem;
 import com.yw.game.floatmenu.FloatLogoMenu;
 import com.yw.game.floatmenu.FloatMenuView;
@@ -57,12 +57,7 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
     protected void initView() {
         initPopMenu();
         initFloatMenu();
-        mToolbar.post(new Runnable() {
-            @Override
-            public void run() {
-                mContainer.setPadding(0, mToolbar.getHeight(), 0, 0);
-            }
-        });
+        mToolbar.post(() -> mContainer.setPadding(0, mToolbar.getHeight(), 0, 0));
     }
 
     private void initPopMenu() {
@@ -70,18 +65,12 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
                 .addMenuItem(new PopMenuItem("说说", getResources().getDrawable(R.drawable.ic_action_article)))
                 .addMenuItem(new PopMenuItem("相册", getResources().getDrawable(R.drawable.ic_action_picture)))
                 .addMenuItem(new PopMenuItem("拍摄", getResources().getDrawable(R.drawable.ic_action_video)))
-                .setOnItemClickListener(new PopMenuItemClickListener() {
-                    @Override
-                    public void onItemClick(PopMenu popMenu, int position) {
+                .setOnItemClickListener((popMenu, position) -> {
 
-                    }
                 })
                 .build();
-        mPopMenu.setOnMenuCloseListener(new PopMenu.OnMenuCloseListener() {
-            @Override
-            public void onClose(View v) {
+        mPopMenu.setOnMenuCloseListener(v -> {
 
-            }
         });
     }
 
@@ -101,8 +90,10 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
                 .showWithListener(new FloatMenuView.OnMenuClickListener() {
                     @Override
                     public void onItemClick(int i, String s) {
-                        Intent intent = new Intent(HomeActivity.this, PublishPictureNoteActivity.class);
-                        startActivity(intent);
+//                        Intent intent = new Intent(HomeActivity.this, PublishPictureNoteActivity.class);
+//                        startActivity(intent);
+                        TopDialogFragment topDialogFragment = new TopDialogFragment();
+                        topDialogFragment.show(getSupportFragmentManager(), TopDialogFragment.class.getSimpleName());
                     }
 
                     @Override
@@ -145,11 +136,6 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
                 .initialise();
         bottomNavigationBar.setTabSelectedListener(this);
         bottomNavigationBar.setVisibility(View.VISIBLE);
-//        bottomNavigationBar.post(new Runnable() {
-//            @Override
-//            public void run() {
-//            }
-//        });
     }
 
     @Override
