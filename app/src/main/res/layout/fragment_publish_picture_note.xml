@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="2dp">
+    android:paddingTop="2dp"
+    android:paddingStart="2dp"
+    android:paddingEnd="2dp">
 
     <EditText
         android:id="@+id/et_publish_text"
@@ -22,7 +24,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/selected_picture_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:overScrollMode="never"
         android:padding="8dp">
 

@@ -49,7 +49,7 @@ public class SelectedPictureGridItemView extends RelativeLayout implements IView
             if (!TextUtils.isEmpty(url)) {
                 Glide.with(getContext()).load(url).into(mPhoto);
             } else {
-                mPhoto.setBackgroundResource(R.drawable.ic_action_add_photo);
+                mPhoto.setImageResource(R.drawable.ic_action_add_photo);
             }
         }
     }

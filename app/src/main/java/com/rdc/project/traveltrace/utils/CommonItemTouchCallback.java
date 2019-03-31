@@ -12,9 +12,14 @@ import java.util.List;
 public class CommonItemTouchCallback extends ItemTouchHelper.Callback {
 
     private BaseRecyclerViewAdapter mAdapter;
+    private OnItemTouchListener mOnItemTouchListener;
 
     public void setAdapter(BaseRecyclerViewAdapter adapter) {
         mAdapter = adapter;
+    }
+
+    public void setOnItemTouchListener(OnItemTouchListener onItemTouchListener) {
+        mOnItemTouchListener = onItemTouchListener;
     }
 
     @Override
@@ -60,6 +65,9 @@ public class CommonItemTouchCallback extends ItemTouchHelper.Callback {
                 }
             }
             mAdapter.notifyItemMoved(fromPosition, targetPosition);
+            if (mOnItemTouchListener != null) {
+                mOnItemTouchListener.onMovePosition(fromPosition, targetPosition);
+            }
         }
         return true;
     }
@@ -75,6 +83,17 @@ public class CommonItemTouchCallback extends ItemTouchHelper.Callback {
             }
             dataList.remove(position);
             mAdapter.notifyItemRemoved(position);
+            if (mOnItemTouchListener != null) {
+                mOnItemTouchListener.onRemovePosition(position);
+            }
         }
+    }
+
+    public interface OnItemTouchListener {
+
+        void onMovePosition(int fromPos, int targetPos);
+
+        void onRemovePosition(int position);
+
     }
 }

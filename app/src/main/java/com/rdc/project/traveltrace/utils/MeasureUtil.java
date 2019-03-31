@@ -28,6 +28,9 @@ public class MeasureUtil {
     }
 
     public static double getStatusHeight(Context context) {
+        if (context == null) {
+            return 0;
+        }
         return Math.ceil(25 * context.getResources().getDisplayMetrics().density);
     }
 }

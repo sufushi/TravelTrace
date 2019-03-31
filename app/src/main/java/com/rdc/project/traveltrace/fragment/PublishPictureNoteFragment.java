@@ -1,14 +1,16 @@
 package com.rdc.project.traveltrace.fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.lzy.ninegrid.ImageInfo;
@@ -19,39 +21,48 @@ import com.rdc.project.traveltrace.base.BaseFragment;
 import com.rdc.project.traveltrace.base.OnClickRecyclerViewListener;
 import com.rdc.project.traveltrace.decorator.SpaceGridItemDecoration;
 import com.rdc.project.traveltrace.entity.Picture;
+import com.rdc.project.traveltrace.utils.CollectionUtil;
 import com.rdc.project.traveltrace.utils.CommonItemTouchHelper;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.utils.CommonItemTouchCallback;
-import com.rdc.project.traveltrace.utils.UriTransformUtil;
-import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
-import com.zhihu.matisse.internal.entity.CaptureStrategy;
+import com.rdc.project.traveltrace.utils.GlideGalleryPickImageLoader;
+import com.rdc.project.traveltrace.utils.MeasureUtil;
+import com.rdc.project.traveltrace.utils.PageSwitchUtil;
+import com.yancy.gallerypick.config.GalleryConfig;
+import com.yancy.gallerypick.config.GalleryPick;
+import com.yancy.gallerypick.inter.IHandlerCallBack;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import me.weyye.hipermission.HiPermission;
 import me.weyye.hipermission.PermissionCallback;
 import me.weyye.hipermission.PermissionItem;
 
-import static android.app.Activity.RESULT_OK;
 import static com.lzy.ninegrid.preview.ImagePreviewActivity.CURRENT_ITEM;
 import static com.lzy.ninegrid.preview.ImagePreviewActivity.IMAGE_INFO;
 
-public class PublishPictureNoteFragment extends BaseFragment implements OnClickRecyclerViewListener {
+public class PublishPictureNoteFragment extends BaseFragment implements OnClickRecyclerViewListener, CommonItemTouchCallback.OnItemTouchListener {
 
-    private static final int REQUEST_CODE_CHOOSE = 0x101;
+    private static final String SAVE_DIR = "/Gallery/Pictures";
+    private static final String CAPTURE_DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + SAVE_DIR;
 
     private RecyclerView mRecyclerView;
     private SelectedPictureGirdAdapter mAdapter;
 
     private List<Picture> mPictureList;
     private List<ImageInfo> mImageInfoList;
+    private List<String> mSelectedList;
+    private Set<String> mCaptureSet;
 
     private List<PermissionItem> mPermissionItems = new ArrayList<>();
+
+    private GalleryConfig mGalleryConfig;
 
     @Override
     protected int getLayoutResourceId() {
@@ -62,17 +73,81 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
     protected void initData(Bundle bundle) {
         mPictureList = new ArrayList<>();
         mImageInfoList = new ArrayList<>();
+        mSelectedList = new ArrayList<>();
+        mCaptureSet = new HashSet<>();
         mPermissionItems.add(new PermissionItem(Manifest.permission.CAMERA, "照相机", R.drawable.permission_ic_camera));
-        mPermissionItems.add(new PermissionItem(Manifest.permission.READ_EXTERNAL_STORAGE, "存储", R.drawable.permission_ic_storage));
+        mPermissionItems.add(new PermissionItem(Manifest.permission.WRITE_EXTERNAL_STORAGE, "存储", R.drawable.permission_ic_storage));
+        initGalleryConfig();
+    }
+
+    private void initGalleryConfig() {
+        mGalleryConfig = new GalleryConfig.Builder()
+                .imageLoader(new GlideGalleryPickImageLoader())
+                .provider("com.rdc.project.traveltrace.fileprovider")
+                .pathList(mSelectedList)
+                .multiSelect(true, 15)
+                .crop(true)
+                .isShowCamera(true)
+                .filePath(SAVE_DIR)
+                .iHandlerCallBack(new IHandlerCallBack() {
+                    @Override
+                    public void onStart() {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<String> list) {
+                        mSelectedList = list;
+                        if (mSelectedList != null) {
+                            mPictureList.clear();
+                            for (int i = 0; i < mSelectedList.size(); i++) {
+                                String path = mSelectedList.get(i);
+                                if (!TextUtils.isEmpty(path)) {
+                                    Picture picture = new Picture();
+                                    picture.setImgPath(path);
+                                    mPictureList.add(picture);
+                                    if (path.contains(CAPTURE_DIR) && !mCaptureSet.contains(path)) {
+                                        Activity activity = getActivity();
+                                        if (activity != null) {
+                                            activity.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(path))));
+                                            mCaptureSet.add(path);
+                                        }
+                                    }
+                                }
+                            }
+                            addTakePhotoHolder();
+                        }
+                        mAdapter.updateData(mPictureList);
+                        mImageInfoList.clear();
+                        for (int i = 0; i < mPictureList.size() - 1; i++) {
+                            Picture picture = mPictureList.get(i);
+                            ImageInfo imageInfo = new ImageInfo();
+                            imageInfo.setBigImageUrl(picture.getImgPath());
+                            imageInfo.setThumbnailUrl(picture.getImgPath());
+                            mImageInfoList.add(imageInfo);
+                        }
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                })
+                .build();
     }
 
     @Override
     protected void initView() {
-//        for (int i = 0; i < 8; i++) {
-//            Picture picture = new Picture();
-//            picture.setImgPath("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3065338749,2306246489&fm=26&gp=0.jpg");
-//            mPictureList.add(picture);
-//        }
         addTakePhotoHolder();
         mRecyclerView = mRootView.findViewById(R.id.selected_picture_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
@@ -83,6 +158,7 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
         mAdapter.updateData(mPictureList);
         CommonItemTouchCallback callback = new CommonItemTouchCallback();
         callback.setAdapter(mAdapter);
+        callback.setOnItemTouchListener(this);
         CommonItemTouchHelper itemTouchHelper = new CommonItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
@@ -107,10 +183,7 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
                 requestPermission();
             }
         } else {
-            Intent intent = new Intent(getActivity(), ImagePreviewActivity.class);
-            intent.putExtra(IMAGE_INFO, (Serializable) mImageInfoList);
-            intent.putExtra(CURRENT_ITEM, position);
-            startActivity(intent);
+            previewPicture(position);
         }
     }
 
@@ -126,8 +199,9 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
         HiPermission.create(getActivity())
                 .title("亲爱的上帝")
                 .permissions(mPermissionItems)
-                .filterColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, getActivity().getTheme()))//图标的颜色
+                .filterColor(ResourcesCompat.getColor(getResources(), R.color.white, getActivity().getTheme()))//图标的颜色
                 .msg("为了保护世界的和平，开启这些权限吧！\n你我一起拯救世界！")
+                .style(R.style.PermissionDefaultBlueStyle)
                 .checkMutiPermission(new PermissionCallback() {
                     @Override
                     public void onClose() {
@@ -152,18 +226,11 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
     }
 
     private void choosePicture() {
-        Matisse.from(getActivity())
-                .choose(MimeType.allOf())
-                .countable(true)
-                .maxSelectable(20)
-                .capture(true)
-                .captureStrategy(new CaptureStrategy(true, "com.thunder.sample.fileprovider"))
-//                                    .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                .thumbnailScale(0.85f)
-                .imageEngine(new GlideEngine())
-                .theme(R.style.CustomMatisseTheme)
-                .forResult(REQUEST_CODE_CHOOSE);
+        GalleryPick.getInstance().setGalleryConfig(mGalleryConfig).open(getActivity());
+    }
+
+    private void previewPicture(int position) {
+        PageSwitchUtil.goPreviewPictureActivity(getActivity(), mRecyclerView, mImageInfoList, position);
     }
 
     @Override
@@ -172,28 +239,18 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
-            List<Uri> selectList = Matisse.obtainResult(data);
-            if (selectList != null) {
-                mPictureList.remove(mPictureList.size() - 1);
-                for (int i = 0; i < selectList.size(); i++) {
-                    Picture picture = new Picture();
-                    picture.setImgPath(UriTransformUtil.getPhotoFilePath(getActivity(), selectList.get(i)));
-                    mPictureList.add(picture);
-                }
-                addTakePhotoHolder();
-            }
-            mAdapter.updateData(mPictureList);
-            mImageInfoList.clear();
-            for (int i = 0; i < mPictureList.size() - 1; i++) {
-                Picture picture = mPictureList.get(i);
-                ImageInfo imageInfo = new ImageInfo();
-                imageInfo.setBigImageUrl(picture.getImgPath());
-                imageInfo.setThumbnailUrl(picture.getImgPath());
-                mImageInfoList.add(imageInfo);
-            }
+    public void onMovePosition(int fromPos, int targetPos) {
+        CollectionUtil.swap(mSelectedList, fromPos, targetPos);
+        CollectionUtil.swap(mImageInfoList, fromPos, targetPos);
+    }
+
+    @Override
+    public void onRemovePosition(int position) {
+        if (CollectionUtil.inRange(mSelectedList, position)) {
+            mSelectedList.remove(position);
+        }
+        if (CollectionUtil.inRange(mImageInfoList, position)) {
+            mImageInfoList.remove(position);
         }
     }
 }
