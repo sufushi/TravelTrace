@@ -1,5 +1,8 @@
 package com.rdc.project.traveltrace.entity;
 
+import android.util.Log;
+import android.view.View;
+
 import java.util.List;
 
 public class PictureNote extends PlainNote {
@@ -16,6 +19,12 @@ public class PictureNote extends PlainNote {
 
     public void setImgUrls(List<String> imgUrls) {
         mImgUrls = imgUrls;
+    }
+
+    @Override
+    public void setActive(View newActiveView, int newActiveViewPosition) {
+        Log.i("PictureNote", "onActive");
+        super.setActive(newActiveView, newActiveViewPosition);
     }
 
     @Override

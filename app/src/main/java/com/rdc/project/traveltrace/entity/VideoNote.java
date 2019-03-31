@@ -1,9 +1,10 @@
 package com.rdc.project.traveltrace.entity;
 
-import android.graphics.Rect;
+import android.util.Log;
 import android.view.View;
 
 import com.rdc.project.traveltrace.arch.view.IView;
+import com.rdc.project.traveltrace.utils.visibility_util.utils.DefaultPercentCalculator;
 
 public class VideoNote extends PlainNote {
 
@@ -11,10 +12,8 @@ public class VideoNote extends PlainNote {
     private String mVideoUrl;
     private long mVideoDuration;
 
-    private final Rect mCurrentViewRect; // 当前视图的方框
-
     public VideoNote() {
-        mCurrentViewRect = new Rect();
+
     }
 
     public String getVideoCoverUrl() {
@@ -43,32 +42,12 @@ public class VideoNote extends PlainNote {
 
     @Override
     public int getVisibilityPercents(View view) {
-        int percents = 100;
-
-        view.getLocalVisibleRect(mCurrentViewRect);
-        int height = view.getHeight();
-
-        if (viewIsPartiallyHiddenTop()) {
-            percents = (height - mCurrentViewRect.top) * 100 / height;
-        } else if (viewIsPartiallyHiddenBottom(height)) {
-            percents = mCurrentViewRect.bottom * 100 / height;
-        }
-
-        return percents;
-    }
-
-    // 顶部出现
-    private boolean viewIsPartiallyHiddenTop() {
-        return mCurrentViewRect.top > 0;
-    }
-
-    // 底部出现
-    private boolean viewIsPartiallyHiddenBottom(int height) {
-        return mCurrentViewRect.bottom > 0 && mCurrentViewRect.bottom < height;
+        return DefaultPercentCalculator.getInstance().getVisibilityPercents(view);
     }
 
     @Override
     public void setActive(View newActiveView, int newActiveViewPosition) {
+        Log.i("VideoNote", "onActive");
         super.setActive(newActiveView, newActiveViewPosition);
         if (newActiveView instanceof IView) {
             ((IView) newActiveView).onActive();

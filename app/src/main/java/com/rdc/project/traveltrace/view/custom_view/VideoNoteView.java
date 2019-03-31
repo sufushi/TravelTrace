@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -62,7 +61,6 @@ public class VideoNoteView extends PLainNoteView {
 
     @Override
     public void onActive() {
-        Log.i("VideoNoteView", "onActive:" + mVideoNote.getLikeCount());
         String url = mVideoNote.getVideoUrl();
         if (!TextUtils.isEmpty(url) && mVideoListViewManager != null) {
             mVideoListViewManager.attach(mVideoView, url);
