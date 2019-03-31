@@ -15,7 +15,7 @@ import com.rdc.project.traveltrace.entity.FragmentDataListItem;
 import com.rdc.project.traveltrace.entity.PictureNote;
 import com.rdc.project.traveltrace.entity.User;
 import com.rdc.project.traveltrace.entity.VideoNote;
-import com.rdc.project.traveltrace.utils.VideoListViewManager;
+import com.rdc.project.traveltrace.utils.player.VideoListViewManager;
 import com.rdc.project.traveltrace.utils.visibility_util.calculator.DefaultSingleItemCalculatorCallback;
 import com.rdc.project.traveltrace.utils.visibility_util.calculator.ListItemsVisibilityCalculator;
 import com.rdc.project.traveltrace.utils.visibility_util.calculator.SingleListViewItemActiveCalculator;

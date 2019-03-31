@@ -6,6 +6,9 @@ import android.content.Context;
 import android.os.Build;
 import android.os.StrictMode;
 
+import com.kk.taurus.playerbase.config.PlayerConfig;
+import com.kk.taurus.playerbase.config.PlayerLibrary;
+import com.kk.taurus.playerbase.record.PlayRecordManager;
 import com.lzy.ninegrid.NineGridView;
 import com.rdc.project.traveltrace.utils.GlideNineGirdImageLoader;
 
@@ -22,6 +25,10 @@ public class App extends Application {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
         }
+        PlayerConfig.setUseDefaultNetworkEventProducer(true);
+        PlayerLibrary.init(this);
+        PlayerConfig.playRecord(true);
+        PlayRecordManager.setRecordConfig(new PlayRecordManager.RecordConfig.Builder().setMaxRecordCount(100).build());
     }
 
     @Override

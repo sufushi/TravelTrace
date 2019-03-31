@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.rdc.project.traveltrace.base.BaseViewHolder;
 import com.rdc.project.traveltrace.entity.VideoNote;
-import com.rdc.project.traveltrace.utils.VideoListViewManager;
+import com.rdc.project.traveltrace.utils.player.VideoListViewManager;
 import com.rdc.project.traveltrace.view.custom_view.VideoNoteView;
 import com.shizhefei.view.multitype.ItemViewProvider;
 

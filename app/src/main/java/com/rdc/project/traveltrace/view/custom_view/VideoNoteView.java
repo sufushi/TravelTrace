@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.entity.VideoNote;
 import com.rdc.project.traveltrace.utils.DensityUtil;
-import com.rdc.project.traveltrace.utils.VideoListViewManager;
+import com.rdc.project.traveltrace.utils.player.VideoListViewManager;
 
 public class VideoNoteView extends PLainNoteView {
 

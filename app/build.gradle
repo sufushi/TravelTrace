@@ -10,11 +10,17 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        jackOptions {
+            enabled true
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        compileOptions{
+            targetCompatibility JavaVersion.VERSION_1_8
         }
     }
     lintOptions {
@@ -49,6 +55,9 @@ dependencies {
     compile 'com.lzy.widget:ninegridview:0.2.0'
     compile 'me.weyye.hipermission:library:1.0.7'
     compile 'com.github.YancyYe:GalleryPick:1.2.1'
-    compile files('libs/pldroid-player-2.1.7.jar')
+    //    compile 'com.kk.taurus.playerbase:playerbase:3.3.5'
+    //    compile 'cn.jiajunhui:exoplayer:335_291_009'
+    //    compile files('libs/pldroid-player-2.1.7.jar')
     testCompile 'junit:junit:4.12'
+    compile project(':playerbase')
 }
