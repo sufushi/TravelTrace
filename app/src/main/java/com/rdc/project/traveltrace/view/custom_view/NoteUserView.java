@@ -57,4 +57,9 @@ public class NoteUserView extends LinearLayout implements IView {
             mNoteUserExtraMsg.setText(user.getUserExtraMsg());
         }
     }
+
+    @Override
+    public void onActive() {
+
+    }
 }

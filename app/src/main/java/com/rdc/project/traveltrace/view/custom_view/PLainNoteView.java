@@ -26,8 +26,6 @@ public class PLainNoteView extends LinearLayout implements IView {
     protected FrameLayout mExtendViewContainer;
     protected NoteOperatorView mNoteOperatorView;
 
-    private static Map<String, Float> sPictureRadioMap = new HashMap<>();
-
     public PLainNoteView(Context context) {
         this(context, null);
     }
@@ -71,6 +69,11 @@ public class PLainNoteView extends LinearLayout implements IView {
             mNoteOperatorView.setCommentCountView(String.valueOf(plainNote.getCommentCount()));
             mNoteOperatorView.setIsLike(plainNote.isLike());
         }
+    }
+
+    @Override
+    public void onActive() {
+
     }
 
 }

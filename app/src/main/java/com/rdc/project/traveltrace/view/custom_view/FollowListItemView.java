@@ -55,4 +55,9 @@ public class FollowListItemView extends LinearLayout implements IView {
             mFollowUserNameView.setText(user.getUserName());
         }
     }
+
+    @Override
+    public void onActive() {
+
+    }
 }

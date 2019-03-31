@@ -1,6 +1,10 @@
 package com.rdc.project.traveltrace.entity;
 
-public class PlainNote {
+import android.view.View;
+
+import com.rdc.project.traveltrace.utils.visibility_util.items.ListItem;
+
+public class PlainNote implements ListItem {
 
     protected User mUser;
     protected String mText;
@@ -61,5 +65,20 @@ public class PlainNote {
                 ", mLikeCount=" + mLikeCount +
                 ", mIsLike=" + mIsLike +
                 '}';
+    }
+
+    @Override
+    public int getVisibilityPercents(View view) {
+        return 0;
+    }
+
+    @Override
+    public void setActive(View newActiveView, int newActiveViewPosition) {
+
+    }
+
+    @Override
+    public void deactivate(View currentView, int position) {
+
     }
 }

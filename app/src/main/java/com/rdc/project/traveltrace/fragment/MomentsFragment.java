@@ -1,6 +1,8 @@
 package com.rdc.project.traveltrace.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.adapter.FollowListViewProvider;
@@ -9,9 +11,16 @@ import com.rdc.project.traveltrace.adapter.VideoNoteViewProvider;
 import com.rdc.project.traveltrace.base.BasePTRFragment;
 import com.rdc.project.traveltrace.base.OnRefreshListener;
 import com.rdc.project.traveltrace.entity.FollowList;
+import com.rdc.project.traveltrace.entity.FragmentDataListItem;
 import com.rdc.project.traveltrace.entity.PictureNote;
 import com.rdc.project.traveltrace.entity.User;
 import com.rdc.project.traveltrace.entity.VideoNote;
+import com.rdc.project.traveltrace.utils.VideoListViewManager;
+import com.rdc.project.traveltrace.utils.visibility_util.calculator.DefaultSingleItemCalculatorCallback;
+import com.rdc.project.traveltrace.utils.visibility_util.calculator.ListItemsVisibilityCalculator;
+import com.rdc.project.traveltrace.utils.visibility_util.calculator.SingleListViewItemActiveCalculator;
+import com.rdc.project.traveltrace.utils.visibility_util.items.ListItem;
+import com.rdc.project.traveltrace.utils.visibility_util.scroll_util.RecyclerViewItemPositionGetter;
 import com.scwang.smartrefresh.header.DeliveryHeader;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
@@ -20,7 +29,6 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.shizhefei.view.multitype.ItemBinderFactory;
 import com.shizhefei.view.multitype.MultiTypeAdapter;
 import com.shizhefei.view.multitype.MultiTypeView;
-import com.shizhefei.view.multitype.provider.FragmentData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,8 +37,16 @@ import java.util.Objects;
 
 public class MomentsFragment extends BasePTRFragment implements OnRefreshListener {
 
-    private MultiTypeAdapter<Object> mMultiTypeAdapter;
+    private MultiTypeAdapter<ListItem> mMultiTypeAdapter;
     private MultiTypeView mMultiTypeView;
+    private List<ListItem> mList = new ArrayList<>();
+
+    private VideoListViewManager mVideoListViewManager;
+
+    private RecyclerViewItemPositionGetter mRecyclerViewItemPositionGetter;
+    private final ListItemsVisibilityCalculator mListItemsVisibilityCalculator = new SingleListViewItemActiveCalculator(new DefaultSingleItemCalculatorCallback(), mList);
+
+    private int mScrollState;
 
     @Override
     protected RefreshHeader createRefreshHeader() {
@@ -65,7 +81,7 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
 
     @Override
     protected void initData(Bundle bundle) {
-        List<Object> list = new ArrayList<>();
+        mVideoListViewManager = new VideoListViewManager(getActivity());
         String[] array1 = new String[]{"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2059324361,2516966890&fm=27&gp=0.jpg",
         "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3782685451,3066622536&fm=27&gp=0.jpg",
         "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2791261768,1320060678&fm=27&gp=0.jpg",
@@ -88,7 +104,7 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
             user.setUserName("熊" + i);
             userList.add(user);
         }
-        list.add(new FollowList(userList));
+        mList.add(new FollowList(userList));
         for (int i = 0; i < 3; i++) {
             VideoNote videoNote = new VideoNote();
             PictureNote pictureNote = new PictureNote();
@@ -136,28 +152,57 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
             videoNote.setCommentCount(pictureNote.getCommentCount());
             videoNote.setLike(!pictureNote.isLike());
             videoNote.setVideoUrl("http://www.w3school.com.cn/example/html5/mov_bbb.mp4");
-            list.add(pictureNote);
-            list.add(videoNote);
+            mList.add(pictureNote);
+            mList.add(videoNote);
         }
         for (int i = 0; i < 4; i++) {
-            list.add(new FragmentData(InfoFragment.class, "InfoFragment" + i));
+            mList.add(new FragmentDataListItem(InfoFragment.class, "InfoFragment" + i));
         }
         ItemBinderFactory itemBinderFactory = new ItemBinderFactory(getFragmentManager());
         itemBinderFactory.registerProvider(PictureNote.class, new PictureNoteViewProvider(getActivity()));
-        itemBinderFactory.registerProvider(VideoNote.class, new VideoNoteViewProvider(getActivity()));
+        itemBinderFactory.registerProvider(VideoNote.class, new VideoNoteViewProvider(getActivity(), mVideoListViewManager));
         itemBinderFactory.registerProvider(FollowList.class, new FollowListViewProvider(getActivity()));
-        mMultiTypeAdapter = new MultiTypeAdapter<>(list, itemBinderFactory);
+        mMultiTypeAdapter = new MultiTypeAdapter<>(mList, itemBinderFactory);
     }
 
     @Override
     protected void initView() {
         mMultiTypeView = mRootView.findViewById(R.id.recycler_view_home);
         mMultiTypeView.setAdapter(mMultiTypeAdapter);
+        mRecyclerViewItemPositionGetter = new RecyclerViewItemPositionGetter((LinearLayoutManager) mMultiTypeView.getLayoutManager(), mMultiTypeView);
     }
 
     @Override
     protected void setListener() {
+        mMultiTypeView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                mScrollState = newState;
+                if(newState == RecyclerView.SCROLL_STATE_IDLE && !mList.isEmpty()){
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) mMultiTypeView.getLayoutManager();
+                    if (layoutManager != null) {
+                        mListItemsVisibilityCalculator.onScrollStateIdle(
+                                mRecyclerViewItemPositionGetter,
+                                layoutManager.findFirstVisibleItemPosition(),
+                                layoutManager.findLastVisibleItemPosition());
+                    }
+                }
+            }
 
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if(!mList.isEmpty()){
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) mMultiTypeView.getLayoutManager();
+                    if (layoutManager != null) {
+                        mListItemsVisibilityCalculator.onScroll(
+                                mRecyclerViewItemPositionGetter,
+                                layoutManager.findFirstVisibleItemPosition(),
+                                layoutManager.findLastVisibleItemPosition() - layoutManager.findFirstVisibleItemPosition() + 1,
+                                mScrollState);
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -170,4 +215,20 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
         mRefreshLayout.finishLoadMore(2000);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(!mList.isEmpty()){
+            mMultiTypeView.post(new Runnable() {
+                @Override
+                public void run() {
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) mMultiTypeView.getLayoutManager();
+                    mListItemsVisibilityCalculator.onScrollStateIdle(
+                            mRecyclerViewItemPositionGetter,
+                            layoutManager.findFirstVisibleItemPosition(),
+                            layoutManager.findLastVisibleItemPosition());
+                }
+            });
+        }
+    }
 }

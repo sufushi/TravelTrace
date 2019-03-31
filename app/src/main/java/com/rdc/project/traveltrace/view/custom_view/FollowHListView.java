@@ -35,4 +35,9 @@ public class FollowHListView extends BaseHListView implements IView {
             setVisibility(GONE);
         }
     }
+
+    @Override
+    public void onActive() {
+
+    }
 }

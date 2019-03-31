@@ -54,4 +54,9 @@ public class SelectedPictureGridItemView extends RelativeLayout implements IView
         }
     }
 
+    @Override
+    public void onActive() {
+
+    }
+
 }

@@ -4,4 +4,5 @@ public interface IView {
 
     void setData(Object data);
 
+    void onActive();
 }

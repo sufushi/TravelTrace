@@ -46,4 +46,9 @@ public class CommentListItemView extends LinearLayout implements IView {
             mCommentMessageView.setText(comment.getMessage());
         }
     }
+
+    @Override
+    public void onActive() {
+
+    }
 }

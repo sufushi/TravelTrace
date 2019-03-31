@@ -1,8 +1,12 @@
 package com.rdc.project.traveltrace.entity;
 
+import android.view.View;
+
+import com.rdc.project.traveltrace.utils.visibility_util.items.ListItem;
+
 import java.util.List;
 
-public class FollowList {
+public class FollowList implements ListItem {
 
     private List<User> mFollowList;
 
@@ -27,5 +31,20 @@ public class FollowList {
         return "FollowList{" +
                 "mFollowList=" + mFollowList +
                 '}';
+    }
+
+    @Override
+    public int getVisibilityPercents(View view) {
+        return 0;
+    }
+
+    @Override
+    public void setActive(View newActiveView, int newActiveViewPosition) {
+
+    }
+
+    @Override
+    public void deactivate(View currentView, int position) {
+
     }
 }

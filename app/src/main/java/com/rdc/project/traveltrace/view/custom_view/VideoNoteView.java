@@ -2,22 +2,34 @@ package com.rdc.project.traveltrace.view.custom_view;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
-import com.pili.pldroid.player.PLOnPreparedListener;
-import com.pili.pldroid.player.widget.PLVideoTextureView;
+import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.entity.VideoNote;
 import com.rdc.project.traveltrace.utils.DensityUtil;
+import com.rdc.project.traveltrace.utils.VideoListViewManager;
 
-public class VideoNoteView extends PLainNoteView implements PLOnPreparedListener {
+public class VideoNoteView extends PLainNoteView {
 
-    private PLVideoTextureView mPLVideoTextureView;
-    private boolean mIsStart = false;
+    private ImageView mVideoCover;
+    private FrameLayout mVideoView;
+
+    private VideoListViewManager mVideoListViewManager;
+    private VideoNote mVideoNote;
 
     public VideoNoteView(Context context) {
         this(context, null);
+    }
+
+    public VideoNoteView(VideoListViewManager manager, Context context) {
+        this(context, null);
+        mVideoListViewManager = manager;
     }
 
     public VideoNoteView(Context context, @Nullable AttributeSet attrs) {
@@ -30,45 +42,42 @@ public class VideoNoteView extends PLainNoteView implements PLOnPreparedListener
 
     @Override
     protected View createNoteExtendView(Context context) {
-        mPLVideoTextureView = new PLVideoTextureView(context);
-        mPLVideoTextureView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dp2px(200, context)));
-        mPLVideoTextureView.setDisplayAspectRatio(PLVideoTextureView.ASPECT_RATIO_PAVED_PARENT);
-        return mPLVideoTextureView;
+        mVideoCover = new ImageView(context);
+        mVideoCover.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mVideoCover.setScaleType(ImageView.ScaleType.FIT_XY);
+        mVideoCover.setImageResource(R.drawable.ic_picture_place_holder);
+        mVideoView = new FrameLayout(context);
+        mVideoView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dp2px(200, context)));
+        mVideoView.addView(mVideoCover);
+        return mVideoView;
     }
 
     @Override
     public void setData(Object data) {
         super.setData(data);
         if (data instanceof VideoNote) {
-            VideoNote videoNote = (VideoNote) data;
-            mPLVideoTextureView.setVideoPath(videoNote.getVideoUrl());
-            mPLVideoTextureView.setOnPreparedListener(this);
-//            mPLVideoTextureView.start();
-//            mIsStart = true;
+            mVideoNote = (VideoNote) data;
+        }
+    }
+
+    @Override
+    public void onActive() {
+        Log.i("VideoNoteView", "onActive:" + mVideoNote.getLikeCount());
+        String url = mVideoNote.getVideoUrl();
+        if (!TextUtils.isEmpty(url) && mVideoListViewManager != null) {
+            mVideoListViewManager.attach(mVideoView, url);
         }
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        if (mPLVideoTextureView != null && !mIsStart) {
-            mPLVideoTextureView.requestLayout();
-            mPLVideoTextureView.start();
-        }
+
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        if (mPLVideoTextureView != null && mIsStart) {
-            mPLVideoTextureView.pause();
-        }
     }
 
-    @Override
-    public void onPrepared(int i) {
-        if (!mIsStart) {
-            mPLVideoTextureView.start();
-        }
-    }
 }
