@@ -4,8 +4,8 @@
     android:id="@+id/float_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_liner_vertical_gradient_v2">
-
+    android:background="@drawable/bg_liner_vertical_gradient_v2"
+    android:visibility="invisible">
 
 
 </com.rdc.project.traveltrace.view.float_background.FloatBackground>
