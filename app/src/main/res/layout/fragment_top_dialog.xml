@@ -7,5 +7,13 @@
     android:background="@drawable/bg_liner_vertical_gradient_v2"
     android:visibility="invisible">
 
+    <com.rdc.project.traveltrace.view.PublishDrawerView
+        android:id="@+id/publish_drawer_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="10dp">
+
+    </com.rdc.project.traveltrace.view.PublishDrawerView>
 
 </com.rdc.project.traveltrace.view.float_background.FloatBackground>

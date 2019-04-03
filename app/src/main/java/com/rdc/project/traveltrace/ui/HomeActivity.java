@@ -1,6 +1,5 @@
 package com.rdc.project.traveltrace.ui;
 
-import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;

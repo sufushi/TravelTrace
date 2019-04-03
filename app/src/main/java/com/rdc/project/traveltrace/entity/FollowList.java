@@ -3,6 +3,7 @@ package com.rdc.project.traveltrace.entity;
 import android.view.View;
 
 import com.rdc.project.traveltrace.utils.visibility_util.items.ListItem;
+import com.rdc.project.traveltrace.utils.visibility_util.utils.DefaultPercentCalculator;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class FollowList implements ListItem {
 
     @Override
     public int getVisibilityPercents(View view) {
-        return 0;
+        return DefaultPercentCalculator.getInstance().getVisibilityPercents(view);
     }
 
     @Override
