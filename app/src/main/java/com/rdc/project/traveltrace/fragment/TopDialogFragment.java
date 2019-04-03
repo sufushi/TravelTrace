@@ -2,6 +2,7 @@ package com.rdc.project.traveltrace.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -15,6 +16,7 @@ import com.rdc.project.traveltrace.view.PublishDrawerItemView.DrawerItemData;
 import com.rdc.project.traveltrace.view.PublishDrawerView;
 import com.rdc.project.traveltrace.view.float_background.FloatBackground;
 import com.rdc.project.traveltrace.view.float_background.FloatViewFactory;
+import com.seu.magiccamera.activity.CameraActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,5 +101,7 @@ public class TopDialogFragment extends BaseDialogFragment implements IActionList
         if (getDialog().isShowing()) {
             getDialog().dismiss();
         }
+        Intent intent = new Intent(getActivity(), CameraActivity.class);
+        startActivity(intent);
     }
 }

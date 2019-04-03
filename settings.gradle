@@ -1,1 +1,1 @@
-include ':app', ':playerbase'
+include ':app', ':playerbase', ':magicfilter', ':magic_camera'

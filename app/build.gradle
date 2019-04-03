@@ -60,4 +60,5 @@ dependencies {
     //    compile files('libs/pldroid-player-2.1.7.jar')
     testCompile 'junit:junit:4.12'
     compile project(':playerbase')
+    compile project(':magic_camera')
 }
