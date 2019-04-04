@@ -59,6 +59,9 @@
         <activity android:name=".ui.PersonDetailActivity"/>
         <activity android:name=".ui.GesturePinActivity"/>
         <activity android:name=".ui.PublishPictureNoteActivity"/>
+        <activity android:name=".ui.SplashActivity">
+
+        </activity>
     </application>
 
 </manifest>

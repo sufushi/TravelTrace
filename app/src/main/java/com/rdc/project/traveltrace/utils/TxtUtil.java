@@ -36,15 +36,16 @@ public class TxtUtil {
     public static String readAssetTxt(Context context, String fileName) {
         try {
             InputStream inputStream = context.getAssets().open(fileName);
-            String code = getCode(inputStream);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, code));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-                sb.append("\n");
-            }
-            return sb.toString();
+//            String code = getCode(inputStream);
+//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, code));
+//            StringBuilder sb = new StringBuilder();
+//            String line;
+//            while ((line = bufferedReader.readLine()) != null) {
+//                sb.append(line);
+//                sb.append("\n");
+//            }
+//            return sb.toString();
+            return getString(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
             return "";
