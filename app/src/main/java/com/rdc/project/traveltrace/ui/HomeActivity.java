@@ -13,6 +13,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BaseFragment;
 import com.rdc.project.traveltrace.base.BaseRTRActivity;
+import com.rdc.project.traveltrace.base.CommonSwipeAwayDialogFragment;
 import com.rdc.project.traveltrace.fragment.MomentsFragment;
 import com.rdc.project.traveltrace.fragment.PersonCenterFragment;
 import com.rdc.project.traveltrace.fragment.TimelineFragment;
@@ -98,11 +99,15 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
                 .setFloatItems(itemList)
                 .showWithListener(new FloatMenuView.OnMenuClickListener() {
                     @Override
-                    public void onItemClick(int i, String s) {
+                    public void onItemClick(int pos, String s) {
 //                        Intent intent = new Intent(HomeActivity.this, PublishPictureNoteActivity.class);
 //                        startActivity(intent);
-                        TopDialogFragment topDialogFragment = new TopDialogFragment();
-                        topDialogFragment.show(getSupportFragmentManager(), TopDialogFragment.class.getSimpleName());
+                        if (pos == 0) {
+                            TopDialogFragment topDialogFragment = new TopDialogFragment();
+                            topDialogFragment.show(getSupportFragmentManager(), TopDialogFragment.class.getSimpleName());
+                        } else {
+                            CommonSwipeAwayDialogFragment.newInstance(CommonSwipeAwayDialogFragment.Type.APPCOMPAT).show(getSupportFragmentManager(), "alert");
+                        }
                     }
 
                     @Override
