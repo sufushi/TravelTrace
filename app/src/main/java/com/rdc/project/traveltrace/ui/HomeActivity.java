@@ -1,8 +1,10 @@
 package com.rdc.project.traveltrace.ui;
 
 import android.graphics.BitmapFactory;
+import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -15,19 +17,24 @@ import com.rdc.project.traveltrace.fragment.MomentsFragment;
 import com.rdc.project.traveltrace.fragment.PersonCenterFragment;
 import com.rdc.project.traveltrace.fragment.TimelineFragment;
 import com.rdc.project.traveltrace.fragment.TopDialogFragment;
+import com.rdc.project.traveltrace.utils.HandlerUtil;
 import com.rdc.project.traveltrace.view.pop_menu.PopMenu;
 import com.rdc.project.traveltrace.view.pop_menu.PopMenuItem;
+import com.rdc.project.traveltrace.view.toast.CommonToast;
 import com.yw.game.floatmenu.FloatItem;
 import com.yw.game.floatmenu.FloatLogoMenu;
 import com.yw.game.floatmenu.FloatMenuView;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar.OnTabSelectedListener {
+public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar.OnTabSelectedListener, HandlerUtil.OnReceiveMessageListener {
 
     private static final int NAV_TAB_MOMENTS = 0;
     private static final int NAV_TAB_TIMELINE = 1;
     private static final int NAV_TAB_PERSON_CENTER = 2;
+
+    private static final int MSG_BACK_CLICK = 0x11;
+    private static final int BACK_EXIT_INTERVAL = 2000;
 
     private MomentsFragment mMomentsFragment;
     private TimelineFragment mTimelineFragment;
@@ -36,6 +43,8 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
 
     private PopMenu mPopMenu;
     private FloatLogoMenu mFloatLogoMenu;
+
+    private static boolean sIsReady = false;
 
     @Override
     protected int getLayoutResID() {
@@ -50,6 +59,7 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
     @Override
     protected void initData() {
         mFragmentManager = getSupportFragmentManager();
+        HandlerUtil.getInstance().register(this);
     }
 
     @Override
@@ -203,5 +213,28 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
         if (mPersonCenterFragment != null) {
             fragmentTransaction.hide(mPersonCenterFragment);
         }
+    }
+
+    @Override
+    public void handlerMessage(Message msg) {
+        if (msg.what == MSG_BACK_CLICK) {
+            sIsReady = false;
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (!sIsReady) {
+                sIsReady = true;
+                CommonToast.info(this, "再按一次退出APP", CommonToast.LENGTH_SHORT).show();
+                HandlerUtil.getInstance().getHandler().sendEmptyMessageDelayed(MSG_BACK_CLICK, BACK_EXIT_INTERVAL);
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

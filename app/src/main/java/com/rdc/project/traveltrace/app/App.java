@@ -11,6 +11,7 @@ import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.record.PlayRecordManager;
 import com.lzy.ninegrid.NineGridView;
 import com.rdc.project.traveltrace.utils.GlideNineGirdImageLoader;
+import com.rdc.project.traveltrace.view.toast.CommonToast;
 
 public class App extends Application {
 
@@ -29,6 +30,11 @@ public class App extends Application {
         PlayerLibrary.init(this);
         PlayerConfig.playRecord(true);
         PlayRecordManager.setRecordConfig(new PlayRecordManager.RecordConfig.Builder().setMaxRecordCount(100).build());
+        CommonToast.Config.getInstance()
+                .tintIcon(true)
+                .setTextSize(12)
+                .allowQueue(true)
+                .apply();
     }
 
     @Override

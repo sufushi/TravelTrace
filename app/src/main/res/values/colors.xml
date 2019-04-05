@@ -155,4 +155,11 @@
 
     <color name="cb1">#F6A50C</color>
     <color name="transparentLightGray">#32D3D3D3</color><!--亮灰色 -->
+
+    <color name="defaultTextColor">#FFFFFF</color>
+    <color name="errorColor">#D50000</color>
+    <color name="infoColor">#3F51B5</color>
+    <color name="successColor">#388E3C</color>
+    <color name="warningColor">#FFA900</color>
+    <color name="normalColor">#353A3E</color>
 </resources>
