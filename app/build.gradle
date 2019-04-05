@@ -55,6 +55,7 @@ dependencies {
     compile 'com.lzy.widget:ninegridview:0.2.0'
     compile 'me.weyye.hipermission:library:1.0.7'
     compile 'com.github.YancyYe:GalleryPick:1.2.1'
+    compile 'com.facebook.shimmer:shimmer:0.1.0'
     //    compile 'com.kk.taurus.playerbase:playerbase:3.3.5'
     //    compile 'cn.jiajunhui:exoplayer:335_291_009'
     //    compile files('libs/pldroid-player-2.1.7.jar')
