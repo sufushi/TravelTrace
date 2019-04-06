@@ -1,4 +1,4 @@
-package com.rdc.project.traveltrace.fragment;
+package com.rdc.project.traveltrace.fragment.home_page;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +15,7 @@ import com.rdc.project.traveltrace.entity.FragmentDataListItem;
 import com.rdc.project.traveltrace.entity.PictureNote;
 import com.rdc.project.traveltrace.entity.User;
 import com.rdc.project.traveltrace.entity.VideoNote;
+import com.rdc.project.traveltrace.fragment.InfoFragment;
 import com.rdc.project.traveltrace.utils.player.VideoListViewManager;
 import com.rdc.project.traveltrace.utils.visibility_util.calculator.DefaultSingleItemCalculatorCallback;
 import com.rdc.project.traveltrace.utils.visibility_util.calculator.ListItemsVisibilityCalculator;

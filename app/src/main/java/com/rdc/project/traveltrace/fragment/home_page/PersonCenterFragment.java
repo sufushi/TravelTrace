@@ -1,4 +1,4 @@
-package com.rdc.project.traveltrace.fragment;
+package com.rdc.project.traveltrace.fragment.home_page;
 
 import android.content.Intent;
 import android.os.Bundle;
