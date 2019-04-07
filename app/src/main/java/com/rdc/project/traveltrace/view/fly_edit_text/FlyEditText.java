@@ -31,19 +31,19 @@ import static android.content.ContentValues.TAG;
 
 public class FlyEditText extends EditText {
 
-    private ViewGroup contentContainer;
-    private int height;
-    private String cacheStr = "";
+    private ViewGroup mContentContainer;
+    private int mHeight;
+    private String mCacheStr = "";
     private static final int ANIMATION_DEFAULT = 0;
     private static final int ANIMATION_DROPOUT = 1;
     private static final int DEFAULT_DURATION = 600;
     private static final float DEFAULT_SCALE = 1.2f;
 
-    private int biuTextColor;
-    private float biuTextStartSize;
-    private float biuTextScale;
-    private int biuDuration;
-    private int biuType;
+    private int mFlyTextColor;
+    private float mFlyTextStartSize;
+    private float mFlyTextScale;
+    private int mFlyDuration;
+    private int mFlyType;
 
     public FlyEditText(Context context) {
         super(context);
@@ -52,51 +52,54 @@ public class FlyEditText extends EditText {
     public FlyEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
-        setlistener();
+        setListener();
     }
 
     public FlyEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
+        setListener();
     }
 
     private void init(Context context, AttributeSet attrs) {
-        if (isInEditMode())
+        if (isInEditMode()) {
             return;
+        }
 
         if (null == attrs) {
             throw new IllegalArgumentException("Attributes should be provided to this view,");
         }
         final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.FlyEditText);
-        biuTextColor = typedArray.getColor(R.styleable.FlyEditText_fly_text_color, getResources().getColor(R.color.white));
-        biuTextStartSize = typedArray.getDimension(R.styleable.FlyEditText_fly_text_start_size, getResources().getDimension(R.dimen.dimen_text_size_middle));
-        biuTextScale = typedArray.getFloat(R.styleable.FlyEditText_fly_text_scale, DEFAULT_SCALE);
-        biuDuration = typedArray.getInt(R.styleable.FlyEditText_fly_duration, DEFAULT_DURATION);
-        biuType = typedArray.getInt(R.styleable.FlyEditText_fly_type, 0);
+        mFlyTextColor = typedArray.getColor(R.styleable.FlyEditText_fly_text_color, getResources().getColor(R.color.white));
+        mFlyTextStartSize = typedArray.getDimension(R.styleable.FlyEditText_fly_text_start_size, getResources().getDimension(R.dimen.dimen_text_size_middle));
+        mFlyTextScale = typedArray.getFloat(R.styleable.FlyEditText_fly_text_scale, DEFAULT_SCALE);
+        mFlyDuration = typedArray.getInt(R.styleable.FlyEditText_fly_duration, DEFAULT_DURATION);
+        mFlyType = typedArray.getInt(R.styleable.FlyEditText_fly_type, 0);
         typedArray.recycle();
 
-        contentContainer = ((Activity) getContext()).findViewById(android.R.id.content);
+        mContentContainer = ((Activity) getContext()).findViewById(android.R.id.content);
         WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        height = windowManager.getDefaultDisplay().getHeight();
+        mHeight = windowManager.getDefaultDisplay().getHeight();
     }
 
-    private void setlistener() {
+    private void setListener() {
         addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if (cacheStr.length() < s.length()) {
+                if (mCacheStr.length() < s.length()) {
                     char last = s.charAt(s.length() - 1);
                     update(last, false);
-                } else if (cacheStr.length() >= 1) {
-                    char last = cacheStr.charAt(cacheStr.length() - 1);
+                } else if (mCacheStr.length() >= 1) {
+                    char last = mCacheStr.charAt(mCacheStr.length() - 1);
                     update(last, true);
                 }
-                cacheStr = s.toString();
+                mCacheStr = s.toString();
             }
 
             @Override
@@ -108,29 +111,30 @@ public class FlyEditText extends EditText {
 
     private void update(char last, boolean isOpposite) {
         final TextView textView = new TextView(getContext());
-        textView.setTextColor(biuTextColor);
-        textView.setTextSize(biuTextStartSize);
+        textView.setTextColor(mFlyTextColor);
+        textView.setTextSize(mFlyTextStartSize);
         textView.setText(String.valueOf(last));
         textView.setGravity(Gravity.CENTER);
-        contentContainer.addView(textView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        mContentContainer.addView(textView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         textView.measure(0, 0);
-        playAnaimator(textView, isOpposite, new AnimatorListenerAdapter() {
+        playAnimator(textView, isOpposite, new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
+
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                contentContainer.removeView(textView);
+                mContentContainer.removeView(textView);
             }
         });
 
 
     }
 
-    private void playAnaimator(TextView textView, boolean isOpposite, AnimatorListenerAdapter listenerAdapter) {
+    private void playAnimator(TextView textView, boolean isOpposite, AnimatorListenerAdapter listenerAdapter) {
 
-        switch (biuType) {
+        switch (mFlyType) {
             case ANIMATION_DEFAULT:
                 playFlyUp(textView, isOpposite, listenerAdapter);
                 break;
@@ -144,14 +148,13 @@ public class FlyEditText extends EditText {
     }
 
     private void playFlyDown(TextView textView, boolean isOpposite, AnimatorListenerAdapter listenerAdapter) {
-        float startX = 0;
-        float startY = 0;
-        float endX = 0;
-        float endY = 0;
+        float startX;
+        float startY;
+        float endX;
+        float endY;
         float[] coordinate = getCursorCoordinate();
-        Log.i("测试数据1", "X" + coordinate[0] + "Y" + coordinate[1]);
         if (isOpposite) {
-            endX = new Random().nextInt(contentContainer.getWidth());
+            endX = new Random().nextInt(mContentContainer.getWidth());
             endY = 0;
             startX = coordinate[0];
             startY = coordinate[1];
@@ -164,8 +167,8 @@ public class FlyEditText extends EditText {
         final AnimatorSet animSet = new AnimatorSet();
         ObjectAnimator animX = ObjectAnimator.ofFloat(textView, "translationX", startX, endX);
         ObjectAnimator translationY = ObjectAnimator.ofFloat(textView, "translationY", startY, endY);
-        translationY.setEvaluator(new BounceEaseOut(biuDuration));
-        animSet.setDuration(biuDuration);
+        translationY.setEvaluator(new BounceEaseOut(mFlyDuration));
+        animSet.setDuration(mFlyDuration);
         animSet.addListener(listenerAdapter);
         animSet.playTogether(translationY, animX);
         animSet.start();
@@ -173,41 +176,36 @@ public class FlyEditText extends EditText {
 
     private void playFlyUp(TextView textView, boolean isOpposite, AnimatorListenerAdapter listenerAdapter) {
 
-        float startX = 0;
-        float startY = 0;
-        float endX = 0;
-        float endY = 0;
+        float startX;
+        float startY;
+        float endX;
+        float endY;
         float[] coordinate = getCursorCoordinate();
         if (isOpposite) {
-            endX = new Random().nextInt(contentContainer.getWidth());
-            endY = height / 3 * 2;
+            endX = new Random().nextInt(mContentContainer.getWidth());
+            endY = mHeight / 3.0f * 2;
             startX = coordinate[0];
             startY = coordinate[1];
         } else {
 
             startX = coordinate[0];
-            startY = height / 3 * 2;
+            startY = mHeight / 3.0f * 2;
             endX = startX;
             endY = coordinate[1];
         }
         final AnimatorSet animSet = new AnimatorSet();
         ObjectAnimator animX = ObjectAnimator.ofFloat(textView, "translationX", startX, endX);
         ObjectAnimator animY = ObjectAnimator.ofFloat(textView, "translationY", startY, endY);
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(textView, "scaleX", 1f, biuTextScale);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(textView, "scaleY", 1f, biuTextScale);
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(textView, "scaleX", 1f, mFlyTextScale);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(textView, "scaleY", 1f, mFlyTextScale);
 
         animY.setInterpolator(new DecelerateInterpolator());
-        animSet.setDuration(biuDuration);
+        animSet.setDuration(mFlyDuration);
         animSet.addListener(listenerAdapter);
         animSet.playTogether(animX, animY, scaleX, scaleY);
         animSet.start();
     }
 
-    /**
-     * @return the coordinate of cursor. x=float[0]; y=float[1];
-     *
-     * thanks @covetcode for this beautiful method
-     */
     private float[] getCursorCoordinate() {
      /*
        *以下通过反射获取光标cursor的坐标。
@@ -222,7 +220,6 @@ public class FlyEditText extends EditText {
       */
 
         int xOffset = 0;
-        int yOffset = 0;
         Class<?> clazz = EditText.class;
         clazz = clazz.getSuperclass();
         try {
