@@ -10,13 +10,13 @@ import android.view.ViewAnimationUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BaseDialogFragment;
+import com.rdc.project.traveltrace.ui.PicturePuzzleActivity;
 import com.rdc.project.traveltrace.utils.action.Action;
 import com.rdc.project.traveltrace.utils.action.IActionListener;
 import com.rdc.project.traveltrace.view.PublishDrawerItemView.DrawerItemData;
 import com.rdc.project.traveltrace.view.PublishDrawerView;
 import com.rdc.project.traveltrace.view.float_background.FloatBackground;
 import com.rdc.project.traveltrace.view.float_background.FloatViewFactory;
-import com.seu.magiccamera.activity.CameraActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +101,9 @@ public class TopDialogFragment extends BaseDialogFragment implements IActionList
         if (getDialog().isShowing()) {
             getDialog().dismiss();
         }
-        Intent intent = new Intent(getActivity(), CameraActivity.class);
+        Intent intent = new Intent(getActivity(), PicturePuzzleActivity.class);
         startActivity(intent);
+//        Intent intent = new Intent(getActivity(), CameraActivity.class);
+//        startActivity(intent);
     }
 }

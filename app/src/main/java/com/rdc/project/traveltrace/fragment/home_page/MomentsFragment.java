@@ -220,15 +220,12 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
     public void onResume() {
         super.onResume();
         if(!mList.isEmpty()){
-            mMultiTypeView.post(new Runnable() {
-                @Override
-                public void run() {
-                    LinearLayoutManager layoutManager = (LinearLayoutManager) mMultiTypeView.getLayoutManager();
-                    mListItemsVisibilityCalculator.onScrollStateIdle(
-                            mRecyclerViewItemPositionGetter,
-                            layoutManager.findFirstVisibleItemPosition(),
-                            layoutManager.findLastVisibleItemPosition());
-                }
+            mMultiTypeView.post(() -> {
+                LinearLayoutManager layoutManager = (LinearLayoutManager) mMultiTypeView.getLayoutManager();
+                mListItemsVisibilityCalculator.onScrollStateIdle(
+                        mRecyclerViewItemPositionGetter,
+                        layoutManager.findFirstVisibleItemPosition(),
+                        layoutManager.findLastVisibleItemPosition());
             });
         }
     }

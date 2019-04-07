@@ -1,15 +1,14 @@
 package com.rdc.project.traveltrace.ui;
 
 import android.content.Intent;
-import android.view.View;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.rdc.project.traveltrace.R;
+import com.rdc.project.traveltrace.base.BaseBounceActivity;
 import com.rdc.project.traveltrace.base.BaseFragment;
-import com.rdc.project.traveltrace.base.BaseRTRActivity;
 import com.rdc.project.traveltrace.fragment.PublishPictureNoteFragment;
 
-public class PublishPictureNoteActivity extends BaseRTRActivity {
+public class PublishPictureNoteActivity extends BaseBounceActivity {
 
     private PublishPictureNoteFragment mPublishPictureNoteFragment;
 
@@ -29,26 +28,6 @@ public class PublishPictureNoteActivity extends BaseRTRActivity {
     protected BaseFragment createPTRFragment() {
         mPublishPictureNoteFragment = new PublishPictureNoteFragment();
         return mPublishPictureNoteFragment;
-    }
-
-    @Override
-    protected boolean isNeedCreateViewStub() {
-        return false;
-    }
-
-    @Override
-    protected void onCreateViewStub(View view) {
-
-    }
-
-    @Override
-    protected int getLayoutResID() {
-        return 0;
-    }
-
-    @Override
-    protected boolean isEnableSwipeBack() {
-        return true;
     }
 
     @Override

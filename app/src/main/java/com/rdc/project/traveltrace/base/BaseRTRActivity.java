@@ -59,12 +59,7 @@ public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
         if (needBackIcon()) {
             Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
+            mToolbar.setNavigationOnClickListener(v -> onBackPressed());
         }
     }
 
