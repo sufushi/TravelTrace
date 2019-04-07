@@ -14,10 +14,10 @@ import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BaseFragment;
 import com.rdc.project.traveltrace.base.BaseRTRActivity;
 import com.rdc.project.traveltrace.base.CommonSwipeAwayDialogFragment;
+import com.rdc.project.traveltrace.fragment.dialog_fragment.PublishDrawerDialogFragment;
 import com.rdc.project.traveltrace.fragment.home_page.MomentsFragment;
 import com.rdc.project.traveltrace.fragment.home_page.PersonCenterFragment;
 import com.rdc.project.traveltrace.fragment.home_page.TimelineFragment;
-import com.rdc.project.traveltrace.fragment.TopDialogFragment;
 import com.rdc.project.traveltrace.utils.HandlerUtil;
 import com.rdc.project.traveltrace.view.pop_menu.PopMenu;
 import com.rdc.project.traveltrace.view.pop_menu.PopMenuItem;
@@ -103,8 +103,8 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
 //                        Intent intent = new Intent(HomeActivity.this, PublishPictureNoteActivity.class);
 //                        startActivity(intent);
                         if (pos == 0) {
-                            TopDialogFragment topDialogFragment = new TopDialogFragment();
-                            topDialogFragment.show(getSupportFragmentManager(), TopDialogFragment.class.getSimpleName());
+                            PublishDrawerDialogFragment publishDrawerDialogFragment = new PublishDrawerDialogFragment();
+                            publishDrawerDialogFragment.show(getSupportFragmentManager(), PublishDrawerDialogFragment.class.getSimpleName());
                         } else {
                             CommonSwipeAwayDialogFragment.newInstance(CommonSwipeAwayDialogFragment.Type.APPCOMPAT).show(getSupportFragmentManager(), "alert");
                         }
