@@ -10,10 +10,8 @@ import android.widget.ImageView;
 
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BaseSwipeBackActivity;
-import com.rdc.project.traveltrace.fragment.LoginFragment;
+import com.rdc.project.traveltrace.fragment.SignFragment;
 import com.rdc.project.traveltrace.fragment.guide_page.GuidePageFragment;
-import com.rdc.project.traveltrace.fragment.guide_page.GuidePageScrollCallback;
-import com.rdc.project.traveltrace.fragment.guide_page.GuidePageSkipCallback;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.view.guide_page.OuterViewPager;
 
@@ -30,6 +28,7 @@ public class GuidePageActivity extends BaseSwipeBackActivity {
     private AnimatorSet mAnimatorSet;
 
     private GuidePageFragment mGuidePageFragment;
+    private SignFragment mSignFragment;
 
     private GuidePageFragmentStatePagerAdapter mAdapter;
 
@@ -73,9 +72,7 @@ public class GuidePageActivity extends BaseSwipeBackActivity {
                         }
                         playLogoInAnim();
                     }, 500);
-                    mOuterViewPager.postDelayed(() -> {
-
-                    }, 300);
+                    mOuterViewPager.postDelayed(() -> mSignFragment.playInAnim(), 300);
                 }
             }
 
@@ -104,7 +101,7 @@ public class GuidePageActivity extends BaseSwipeBackActivity {
 
     private class GuidePageFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
-        public GuidePageFragmentStatePagerAdapter(FragmentManager fm) {
+        GuidePageFragmentStatePagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -118,7 +115,8 @@ public class GuidePageActivity extends BaseSwipeBackActivity {
                     mOuterViewPager.setGuidePageScrollCallback(mGuidePageFragment);
                     return mGuidePageFragment;
                 case FRAGMENT_LOGIN_PAGE:
-                    return new LoginFragment();
+                    mSignFragment = new SignFragment();
+                    return mSignFragment;
             }
             return null;
         }

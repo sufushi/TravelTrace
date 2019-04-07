@@ -33,7 +33,7 @@ public class GuidePageFragment extends BaseFragment implements GuidePageScrollCa
 
     @Override
     protected int getLayoutResourceId() {
-        return R.layout.fragment_guide_page_anim;
+        return R.layout.fragment_guide_page;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class GuidePageFragment extends BaseFragment implements GuidePageScrollCa
 
         mImageViewPager.setOffscreenPageLimit(3);
         mImageViewPager.setAdapter(mImageAdapter);
-//        mImageViewPager.isLockScroll = true;
+        mImageViewPager.isLockScroll = false;
 
         mTextViewPager.setAdapter(mTextAdapter);
 

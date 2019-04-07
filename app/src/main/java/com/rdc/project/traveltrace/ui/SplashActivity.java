@@ -1,6 +1,5 @@
 package com.rdc.project.traveltrace.ui;
 
-import android.content.Intent;
 import android.view.View;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
