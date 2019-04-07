@@ -1,6 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/rl_country"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="4dp"
+        android:background="?attr/selectableItemBackground">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/string_register_select_country"
+            android:textColor="@color/lightGray"
+            android:textSize="@dimen/dimen_text_size_middle"/>
+
+        <TextView
+            android:id="@+id/tv_country"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen_text_size_middle"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_right_arrow"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@color/lightGray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="1dp">
+
+        <TextView
+            android:id="@+id/tv_country_num"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="@string/string_phone_title"
+            android:textColor="#ff363636"
+            android:textSize="@dimen/dimen_text_size_middle"/>
+
+        <EditText
+            android:id="@+id/et_write_phone"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawablePadding="8dp"
+            android:hint="@string/string_input_phone_number"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen_text_size_middle"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="#e3e3e3"/>
+
+    <EditText
+        android:id="@+id/et_put_identify"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@null"
+        android:drawablePadding="8dp"
+        android:hint="@string/string_input_identify_code"
+        android:inputType="number"
+        android:maxLength="6"
+        android:paddingStart="12dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_text_size_middle"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="#e3e3e3"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@drawable/selector_btn_bg"
+            android:text="@string/string_send"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_text_size_middle"/>
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_weight="3"
+            android:background="@drawable/selector_btn_bg"
+            android:text="@string/string_identify_and_login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_text_size_middle"/>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -30,4 +30,8 @@
     <string name="string_forget_password">忘记密码?</string>
     <string name="string_login">登录</string>
     <string name="string_register">注册</string>
+    <string name="string_register_select_country">请选择国家地区</string>
+    <string name="string_input_identify_code">请输入验证码</string>
+    <string name="string_send">发送</string>
+    <string name="string_identify_and_login">验证并登录</string>
 </resources>
