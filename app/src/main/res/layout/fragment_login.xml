@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignParentTop="true"
@@ -33,7 +34,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_text_size_big"/>
 
-            <EditText
+            <com.rdc.project.traveltrace.view.fly_edit_text.FlyEditText
                 android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,7 +46,12 @@
                 android:singleLine="true"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/gray"
-                android:textSize="@dimen/dimen_text_size_big"/>
+                android:textSize="@dimen/dimen_text_size_big"
+                app:fly_duration="800"
+                app:fly_text_color="@color/colorPrimary"
+                app:fly_text_scale="1.5"
+                app:fly_text_start_size="@dimen/dimen_text_size_tiny"
+                app:fly_type="flyup"/>
         </RelativeLayout>
 
         <View
@@ -73,7 +79,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_text_size_big"/>
 
-            <EditText
+            <com.rdc.project.traveltrace.view.fly_edit_text.FlyEditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,7 +92,12 @@
                 android:singleLine="true"
                 android:textColor="@color/lightGray"
                 android:textColorHint="@color/gray"
-                android:textSize="@dimen/dimen_text_size_big"/>
+                android:textSize="@dimen/dimen_text_size_big"
+                app:fly_duration="800"
+                app:fly_text_color="@color/colorPrimary"
+                app:fly_text_scale="1.5"
+                app:fly_text_start_size="@dimen/dimen_text_size_tiny"
+                app:fly_type="flyup"/>
 
             <TextView
                 android:id="@+id/tv_forget_password"

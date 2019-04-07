@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rdc.project.traveltrace.R;
@@ -21,6 +22,7 @@ public class SignFragment extends BaseFragment {
     private static final int SIGN_PAGE_LOGIN = 0;
     private static final int SIGN_PAGE_REGISTER = 1;
 
+    private RelativeLayout mSignLayout;
     private TextView mTvLogin;
     private TextView mTvRegister;
     private ViewPager mViewPager;
@@ -43,6 +45,7 @@ public class SignFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        mSignLayout = mRootView.findViewById(R.id.sign_layout);
         mTvLogin = mRootView.findViewById(R.id.tv_login);
         mTvRegister = mRootView.findViewById(R.id.tv_register);
         mViewPager = mRootView.findViewById(R.id.view_pager_sign);
@@ -69,12 +72,12 @@ public class SignFragment extends BaseFragment {
     }
 
     public void playInAnim() {
-        mRootView.setVisibility(View.VISIBLE);
+        mSignLayout.setVisibility(View.VISIBLE);
         AnimatorSet mAnimatorSet;
-        ObjectAnimator anim3 = ObjectAnimator.ofFloat(mRootView, "y", MeasureUtil.getScreenHeight(getActivity()), DensityUtil.dp2px(160, getActivity()));
+        ObjectAnimator anim = ObjectAnimator.ofFloat(mSignLayout, "y", MeasureUtil.getScreenHeight(getActivity()), DensityUtil.dp2px(160, getActivity()));
 
         mAnimatorSet = new AnimatorSet();
-        mAnimatorSet.play(anim3);
+        mAnimatorSet.play(anim);
         mAnimatorSet.setDuration(1000);
         mAnimatorSet.start();
     }

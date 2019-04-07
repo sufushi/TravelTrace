@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/white"
@@ -9,8 +10,7 @@
         android:id="@+id/rl_country"
         android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:layout_marginTop="4dp"
-        android:background="?attr/selectableItemBackground">
+        android:layout_marginTop="4dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,6 +30,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
             android:gravity="end"
             android:textColor="@color/black"
             android:textSize="@dimen/dimen_text_size_middle"/>
@@ -39,9 +40,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@null"
-            android:src="@drawable/ic_right_arrow"
-            android:background="?attr/selectableItemBackgroundBorderless"/>
+            android:src="@drawable/ic_right_arrow"/>
 
     </LinearLayout>
 
@@ -71,7 +72,7 @@
             android:textColor="#ff363636"
             android:textSize="@dimen/dimen_text_size_middle"/>
 
-        <EditText
+        <com.rdc.project.traveltrace.view.fly_edit_text.FlyEditText
             android:id="@+id/et_write_phone"
             android:layout_width="0dp"
             android:layout_height="40dp"
@@ -86,7 +87,12 @@
             android:maxLength="11"
             android:singleLine="true"
             android:textColor="@color/black"
-            android:textSize="@dimen/dimen_text_size_middle"/>
+            android:textSize="@dimen/dimen_text_size_middle"
+            app:fly_duration="800"
+            app:fly_text_color="@color/colorPrimary"
+            app:fly_text_scale="1.5"
+            app:fly_text_start_size="@dimen/dimen_text_size_tiny"
+            app:fly_type="flyup"/>
 
     </LinearLayout>
 
@@ -97,10 +103,11 @@
         android:layout_marginRight="12dp"
         android:background="#e3e3e3"/>
 
-    <EditText
+    <com.rdc.project.traveltrace.view.fly_edit_text.FlyEditText
         android:id="@+id/et_put_identify"
         android:layout_width="match_parent"
         android:layout_height="46dp"
+        android:layout_gravity="center_vertical"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:background="@null"
@@ -114,7 +121,12 @@
         android:paddingBottom="5dp"
         android:singleLine="true"
         android:textColor="@color/black"
-        android:textSize="@dimen/dimen_text_size_middle"/>
+        android:textSize="@dimen/dimen_text_size_middle"
+        app:fly_duration="800"
+        app:fly_text_color="@color/colorPrimary"
+        app:fly_text_scale="1.5"
+        app:fly_text_start_size="@dimen/dimen_text_size_tiny"
+        app:fly_type="flyup"/>
 
     <View
         android:layout_width="match_parent"

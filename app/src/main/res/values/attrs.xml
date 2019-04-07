@@ -49,4 +49,16 @@
         <attr name="expandCollapseToggleId" format="reference"/>
         <attr name="expandToggleOnTextClick" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="FlyEditText">
+        <attr name="fly_text_color" format="color" />
+        <attr name="fly_text_start_size" format="dimension" />
+        <attr name="fly_text_scale" format="float" />
+        <attr name="fly_duration" format="integer" />
+        <attr name="fly_type" format="enum">
+            <enum name="flyup" value="0" />
+            <enum name="flydown" value="1" />
+        </attr>
+
+    </declare-styleable>
 </resources>
