@@ -3,6 +3,7 @@ package com.rdc.project.traveltrace.fragment.dialog_fragment;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 
@@ -18,6 +19,10 @@ import com.rdc.project.traveltrace.view.float_background.FloatViewFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.rdc.project.traveltrace.fragment.PicturePuzzleFragment.PUZZLE_PIECE_SIZE;
+import static com.rdc.project.traveltrace.fragment.PicturePuzzleFragment.PUZZLE_THEME;
+import static com.rdc.project.traveltrace.fragment.PicturePuzzleFragment.PUZZLE_TYPE;
+
 public class PublishDrawerDialogFragment extends TopDialogFragment implements IActionListener {
 
     private FloatBackground mFloatBackground;
@@ -30,7 +35,7 @@ public class PublishDrawerDialogFragment extends TopDialogFragment implements IA
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.fragment_top_dialog;
+        return R.layout.fragment_publish_drawer_dialog;
     }
 
     @Override
@@ -88,6 +93,11 @@ public class PublishDrawerDialogFragment extends TopDialogFragment implements IA
             getDialog().dismiss();
         }
         Intent intent = new Intent(getActivity(), PicturePuzzleActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt(PUZZLE_TYPE, 1);
+        bundle.putInt(PUZZLE_PIECE_SIZE, 3);
+        bundle.putInt(PUZZLE_THEME, 2);
+        intent.putExtra("bundle", bundle);
         startActivity(intent);
 //        Intent intent = new Intent(getActivity(), CameraActivity.class);
 //        startActivity(intent);

@@ -15,7 +15,9 @@ public class PicturePuzzleActivity extends BaseBounceActivity {
 
     @Override
     protected BaseFragment createPTRFragment() {
-        return new PicturePuzzleFragment();
+        PicturePuzzleFragment fragment = new PicturePuzzleFragment();
+        fragment.setArguments(getIntent().getBundleExtra("bundle"));
+        return fragment;
     }
 
     @Override

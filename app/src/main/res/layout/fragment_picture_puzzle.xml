@@ -2,15 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/black">
+              android:background="@color/black"
+              android:orientation="vertical"
+              android:padding="10dp">
 
-    <TextView
+    <com.rdc.project.traveltrace.view.puzzle_view.extend.SquarePuzzleView
+        android:id="@+id/square_puzzle_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.rdc.project.traveltrace.view.DegreeSeekBar
+        android:id="@+id/degree_seek_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="@string/string_puzzle"
-        android:textColor="@color/white"
-        android:textSize="@dimen/dimen_text_size_huge"/>
+        android:visibility="gone"/>
+
+
 
 </LinearLayout>
