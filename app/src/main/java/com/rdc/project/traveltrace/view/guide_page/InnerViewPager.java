@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 
 public class InnerViewPager extends ViewPager {
 
-    protected boolean mIsLockScroll = false;
+    public boolean isLockScroll = false;
 
     public InnerViewPager(@NonNull Context context) {
         this(context, null);

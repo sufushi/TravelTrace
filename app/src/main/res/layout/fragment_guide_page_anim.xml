@@ -9,8 +9,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="60dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="60dp"
-        android:orientation="vertical">
+        android:layout_marginBottom="60dp">
 
         <com.rdc.project.traveltrace.view.guide_page.InnerViewPager
             android:id="@+id/vp_image"

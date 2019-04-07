@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
-import com.rdc.project.traveltrace.fragment.guide_page.GuidePageAnimFragment;
+import com.rdc.project.traveltrace.fragment.guide_page.GuidePageFragment;
 import com.rdc.project.traveltrace.fragment.guide_page.GuidePageScrollCallback;
 import com.rdc.project.traveltrace.fragment.guide_page.GuidePageSkipCallback;
 import com.rdc.project.traveltrace.utils.DensityUtil;
@@ -24,7 +24,7 @@ public class OuterViewPager extends ViewPager {
     private int mRight;
     private int mBottom;
 
-    private GuidePageAnimFragment mGuidePageAnimFragment;
+    private GuidePageFragment mGuidePageFragment;
     private TextView mTvSkip;
 
     private GuidePageSkipCallback mGuidePageSkipCallback;
@@ -38,12 +38,8 @@ public class OuterViewPager extends ViewPager {
         super(context, attrs);
     }
 
-    public void setGuidePageAnimFragment(GuidePageAnimFragment guidePageAnimFragment) {
-        mGuidePageAnimFragment = guidePageAnimFragment;
-    }
-
-    public void setTvSkip(TextView tvSkip) {
-        mTvSkip = tvSkip;
+    public void setGuidePageFragment(GuidePageFragment guidePageFragment) {
+        mGuidePageFragment = guidePageFragment;
     }
 
     public void setGuidePageSkipCallback(GuidePageSkipCallback guidePageSkipCallback) {
@@ -68,11 +64,12 @@ public class OuterViewPager extends ViewPager {
         if (getCurrentItem() == 1 || sIsOtherPageLock) {
             return true;
         }
-        if (mGuidePageAnimFragment != null) {
+        if (mGuidePageFragment != null) {
             float x = ev.getX();
             float y = ev.getY();
             if (mTvSkipLocation == null) {
                 mTvSkipLocation = new int[2];
+                mTvSkip = mGuidePageFragment.getSkipBtn();
                 mTvSkip.getLocationOnScreen(mTvSkipLocation);
             }
             if (mLeft == 0) {
@@ -94,9 +91,9 @@ public class OuterViewPager extends ViewPager {
                 mSkipFlag = true;
             }
             if (mGuidePageScrollCallback != null) {
-                mGuidePageScrollCallback.onGuidePageScroll();
+                mGuidePageScrollCallback.onGuidePageScroll(ev);
             }
-            if (mGuidePageAnimFragment.readyToMoveParent) {
+            if (mGuidePageFragment.readyToMoveParent) {
                 return super.onTouchEvent(ev);
             }
         }
