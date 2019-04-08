@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <com.rdc.project.traveltrace.view.DrawableTextView
+            android:id="@+id/btn_replace"
+            style="@style/DrawableTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/string_puzzle_replace"
+            app:drawableHeight="20dp"
+            app:drawableTop="@drawable/ic_puzzle_action_replace"
+            app:drawableWidth="20dp"/>
+
+        <com.rdc.project.traveltrace.view.DrawableTextView
+            android:id="@+id/btn_rotate"
+            style="@style/DrawableTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/string_puzzle_rotate"
+            app:drawableHeight="20dp"
+            app:drawableTop="@drawable/ic_puzzle_action_rotate"
+            app:drawableWidth="20dp"/>
+
+        <com.rdc.project.traveltrace.view.DrawableTextView
+            android:id="@+id/btn_flip_horizontal"
+            style="@style/DrawableTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/string_puzzle_flip_horizontal"
+            app:drawableHeight="20dp"
+            app:drawableTop="@drawable/ic_puzzle_action_flip_horizontal"
+            app:drawableWidth="20dp"/>
+
+        <com.rdc.project.traveltrace.view.DrawableTextView
+            android:id="@+id/btn_flip_vertical"
+            style="@style/DrawableTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/string_puzzle_flip_vertical"
+            app:drawableHeight="20dp"
+            app:drawableTop="@drawable/ic_puzzle_action_flip_vertical"
+            app:drawableWidth="20dp"/>
+
+        <com.rdc.project.traveltrace.view.DrawableTextView
+            android:id="@+id/btn_border"
+            style="@style/DrawableTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/string_puzzle_border"
+            app:drawableHeight="20dp"
+            app:drawableTop="@drawable/ic_puzzle_border"
+            app:drawableWidth="20dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <com.rdc.project.traveltrace.view.DrawableTextView
+            android:id="@+id/btn_filter"
+            style="@style/DrawableTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/string_puzzle_filter"
+            app:drawableHeight="20dp"
+            app:drawableTop="@drawable/ic_puzzle_action_filter"
+            app:drawableWidth="20dp"/>
+
+        <com.rdc.project.traveltrace.view.DrawableTextView
+            android:id="@+id/btn_temple"
+            style="@style/DrawableTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/string_puzzle_temple"
+            app:drawableHeight="20dp"
+            app:drawableTop="@drawable/ic_puzzle_action_temple"
+            app:drawableWidth="20dp"/>
+
+        <com.rdc.project.traveltrace.view.DrawableTextView
+            android:id="@+id/btn_save"
+            style="@style/DrawableTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/string_puzzle_save"
+            app:drawableHeight="20dp"
+            app:drawableTop="@drawable/ic_puzzle_action_save"
+            app:drawableWidth="20dp"/>
+
+        <com.rdc.project.traveltrace.view.DrawableTextView
+            android:id="@+id/btn_share"
+            style="@style/DrawableTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/string_puzzle_share"
+            app:drawableHeight="20dp"
+            app:drawableTop="@drawable/ic_puzzle_action_share"
+            app:drawableWidth="20dp"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</merge>

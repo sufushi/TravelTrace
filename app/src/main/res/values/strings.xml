@@ -35,4 +35,13 @@
     <string name="string_send">发送</string>
     <string name="string_identify_and_login">验证并登录</string>
     <string name="string_puzzle">拼图</string>
+    <string name="string_puzzle_replace">替换</string>
+    <string name="string_puzzle_rotate">旋转</string>
+    <string name="string_puzzle_flip_horizontal">镜像</string>
+    <string name="string_puzzle_flip_vertical">翻转</string>
+    <string name="string_puzzle_border">边框</string>
+    <string name="string_puzzle_filter">滤镜</string>
+    <string name="string_puzzle_temple">模版</string>
+    <string name="string_puzzle_save">保存</string>
+    <string name="string_puzzle_share">分享</string>
 </resources>

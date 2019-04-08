@@ -17,6 +17,10 @@
         android:layout_height="wrap_content"
         android:visibility="gone"/>
 
+    <com.rdc.project.traveltrace.view.puzzle_view.impl.ui.PuzzlePanelView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+    </com.rdc.project.traveltrace.view.puzzle_view.impl.ui.PuzzlePanelView>
 
 </LinearLayout>

@@ -35,6 +35,13 @@
         <item name="colorControlActivated">@color/white</item>
     </style>
 
+    <style name="DrawableTextStyle" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/dimen_text_size_small</item>
+        <item name="android:drawablePadding">2dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <style name="ToolbarStyle" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:actionBarSize">46dp</item>

@@ -3,16 +3,18 @@ package com.rdc.project.traveltrace.view.puzzle_view.impl.controller;
 import android.content.Context;
 
 import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzleView;
+import com.rdc.project.traveltrace.view.puzzle_view.impl.ui.PuzzlePanelView;
 import com.rdc.project.traveltrace.view.puzzle_view.util.FileUtils;
 
 import java.io.File;
 
-public class PuzzleController implements IPuzzleController {
+public class PuzzlePanelController implements IPuzzleController {
 
+    private PuzzlePanelView mPuzzlePanelView;
     private Context mContext;
     private PuzzleView mPuzzleView;
 
-    public PuzzleController(Context context, PuzzleView puzzleView) {
+    public PuzzlePanelController(Context context, PuzzleView puzzleView) {
         mContext = context;
         mPuzzleView = puzzleView;
     }
