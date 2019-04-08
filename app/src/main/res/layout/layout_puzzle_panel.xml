@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-       xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/black"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:background="@color/black">
 
         <com.rdc.project.traveltrace.view.DrawableTextView
             android:id="@+id/btn_replace"
@@ -13,6 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:text="@string/string_puzzle_replace"
             app:drawableHeight="20dp"
             app:drawableTop="@drawable/ic_puzzle_action_replace"
@@ -67,7 +73,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:background="@color/black">
 
         <com.rdc.project.traveltrace.view.DrawableTextView
             android:id="@+id/btn_filter"
@@ -120,4 +127,4 @@
 
     </LinearLayout>
 
-</merge>
+</LinearLayout>

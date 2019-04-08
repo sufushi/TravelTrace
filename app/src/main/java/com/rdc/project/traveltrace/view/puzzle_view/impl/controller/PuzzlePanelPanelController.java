@@ -8,15 +8,20 @@ import com.rdc.project.traveltrace.view.puzzle_view.util.FileUtils;
 
 import java.io.File;
 
-public class PuzzlePanelController implements IPuzzleController {
+public class PuzzlePanelPanelController implements IPuzzlePanelController {
 
     private PuzzlePanelView mPuzzlePanelView;
     private Context mContext;
     private PuzzleView mPuzzleView;
 
-    public PuzzlePanelController(Context context, PuzzleView puzzleView) {
+    public PuzzlePanelPanelController(Context context, PuzzleView puzzleView) {
         mContext = context;
         mPuzzleView = puzzleView;
+    }
+
+    public void attachPuzzlePanelView(PuzzlePanelView puzzlePanelView) {
+        mPuzzlePanelView = puzzlePanelView;
+        mPuzzlePanelView.setIPuzzlePanelController(this);
     }
 
     @Override

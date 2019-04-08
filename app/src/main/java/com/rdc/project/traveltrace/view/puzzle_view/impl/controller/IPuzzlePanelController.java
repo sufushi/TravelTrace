@@ -1,6 +1,6 @@
 package com.rdc.project.traveltrace.view.puzzle_view.impl.controller;
 
-public interface IPuzzleController {
+public interface IPuzzlePanelController {
 
     void replace();
 

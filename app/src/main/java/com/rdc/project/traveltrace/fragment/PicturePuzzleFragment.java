@@ -16,7 +16,9 @@ import com.rdc.project.traveltrace.base.BaseFragment;
 import com.rdc.project.traveltrace.view.DegreeSeekBar;
 import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzleLayout;
 import com.rdc.project.traveltrace.view.puzzle_view.extend.SquarePuzzleView;
+import com.rdc.project.traveltrace.view.puzzle_view.impl.controller.PuzzlePanelPanelController;
 import com.rdc.project.traveltrace.view.puzzle_view.impl.provider.PuzzleProvider;
+import com.rdc.project.traveltrace.view.puzzle_view.impl.ui.PuzzlePanelView;
 import com.rdc.project.traveltrace.view.toast.CommonToast;
 
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class PicturePuzzleFragment extends BaseFragment {
 
     private SquarePuzzleView mSquarePuzzleView;
     private DegreeSeekBar mDegreeSeekBar;
+    private PuzzlePanelView mPuzzlePanelView;
 
     private PuzzleLayout mPuzzleLayout;
     private List<String> mPictureList;
@@ -57,6 +60,7 @@ public class PicturePuzzleFragment extends BaseFragment {
     protected void initView() {
         mSquarePuzzleView = mRootView.findViewById(R.id.square_puzzle_view);
         mDegreeSeekBar = mRootView.findViewById(R.id.degree_seek_bar);
+        mPuzzlePanelView = mRootView.findViewById(R.id.puzzle_panel_view);
 
         mSquarePuzzleView.setPuzzleLayout(mPuzzleLayout);
         mSquarePuzzleView.setTouchEnable(true);
@@ -68,6 +72,9 @@ public class PicturePuzzleFragment extends BaseFragment {
         mSquarePuzzleView.setHandleBarColor(Color.BLACK);
         mSquarePuzzleView.setAnimateDuration(300);
         mSquarePuzzleView.post(this::loadPictures);
+
+        PuzzlePanelPanelController controller = new PuzzlePanelPanelController(getActivity(), mSquarePuzzleView);
+        mPuzzlePanelView.setIPuzzlePanelController(controller);
     }
 
     private void loadPictures() {

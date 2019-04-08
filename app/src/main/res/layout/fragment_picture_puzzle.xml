@@ -14,10 +14,11 @@
     <com.rdc.project.traveltrace.view.DegreeSeekBar
         android:id="@+id/degree_seek_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:visibility="gone"/>
 
     <com.rdc.project.traveltrace.view.puzzle_view.impl.ui.PuzzlePanelView
+        android:id="@+id/puzzle_panel_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

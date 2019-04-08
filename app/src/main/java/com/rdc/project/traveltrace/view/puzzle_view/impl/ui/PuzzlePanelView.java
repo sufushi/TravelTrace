@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.view.DrawableTextView;
+import com.rdc.project.traveltrace.view.puzzle_view.impl.controller.IPuzzlePanelController;
 
 public class PuzzlePanelView extends LinearLayout implements View.OnClickListener {
 
@@ -24,6 +25,8 @@ public class PuzzlePanelView extends LinearLayout implements View.OnClickListene
     private DrawableTextView mBtnTemple;
     private DrawableTextView mBtnSave;
     private DrawableTextView mBtnShare;
+
+    private IPuzzlePanelController mIPuzzlePanelController;
 
     public PuzzlePanelView(Context context) {
         this(context, null);
@@ -73,8 +76,43 @@ public class PuzzlePanelView extends LinearLayout implements View.OnClickListene
         mBtnShare.setOnClickListener(this);
     }
 
+    public void setIPuzzlePanelController(IPuzzlePanelController controller) {
+        mIPuzzlePanelController = controller;
+    }
+
     @Override
     public void onClick(View v) {
-
+        if (mIPuzzlePanelController == null) {
+            return;
+        }
+        switch (v.getId()) {
+            case R.id.btn_replace:
+                mIPuzzlePanelController.replace();
+                break;
+            case R.id.btn_rotate:
+                mIPuzzlePanelController.rotate();
+                break;
+            case R.id.btn_flip_horizontal:
+                mIPuzzlePanelController.flipHorizontal();
+                break;
+            case R.id.btn_flip_vertical:
+                mIPuzzlePanelController.flipVertical();
+                break;
+            case R.id.btn_border:
+                mIPuzzlePanelController.border();
+                break;
+            case R.id.btn_filter:
+                mIPuzzlePanelController.filter();
+                break;
+            case R.id.btn_temple:
+                mIPuzzlePanelController.temple();
+                break;
+            case R.id.btn_save:
+                mIPuzzlePanelController.save();
+                break;
+            case R.id.btn_share:
+                mIPuzzlePanelController.share();
+                break;
+        }
     }
 }
