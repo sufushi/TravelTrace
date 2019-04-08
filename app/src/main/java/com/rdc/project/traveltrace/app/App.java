@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.StrictMode;
 
+import com.kk.taurus.exoplayer.ExoMediaPlayer;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.record.PlayRecordManager;
@@ -28,6 +29,7 @@ public class App extends Application {
         }
         PlayerConfig.setUseDefaultNetworkEventProducer(true);
         PlayerLibrary.init(this);
+        ExoMediaPlayer.init(this);
         PlayerConfig.playRecord(true);
         PlayRecordManager.setRecordConfig(new PlayRecordManager.RecordConfig.Builder().setMaxRecordCount(100).build());
         CommonToast.Config.getInstance()
