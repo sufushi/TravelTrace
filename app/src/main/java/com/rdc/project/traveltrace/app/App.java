@@ -28,7 +28,7 @@ public class App extends Application {
             StrictMode.setVmPolicy(builder.build());
         }
         PlayerConfig.setUseDefaultNetworkEventProducer(true);
-        PlayerLibrary.init(this);
+//        PlayerLibrary.init(this);
         ExoMediaPlayer.init(this);
         PlayerConfig.playRecord(true);
         PlayRecordManager.setRecordConfig(new PlayRecordManager.RecordConfig.Builder().setMaxRecordCount(100).build());
