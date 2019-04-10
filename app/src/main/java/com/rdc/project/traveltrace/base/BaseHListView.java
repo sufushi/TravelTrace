@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 
+import com.rdc.project.traveltrace.decorator.SpaceGridItemDecoration;
+
 public abstract class BaseHListView extends RecyclerView {
 
     protected BaseRecyclerViewAdapter mAdapter;
@@ -32,8 +34,13 @@ public abstract class BaseHListView extends RecyclerView {
         mAdapter = createAdapter(context);
         setAdapter(mAdapter);
         setItemAnimator(new DefaultItemAnimator());
+        addItemDecoration(new SpaceGridItemDecoration(getItemDistance()));
     }
 
     protected abstract BaseRecyclerViewAdapter createAdapter(Context context);
+
+    protected int getItemDistance() {
+        return 0;
+    }
 
 }

@@ -1,7 +1,9 @@
 package com.rdc.project.traveltrace.view.puzzle_view.impl.controller;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 
+import com.rdc.project.traveltrace.fragment.dialog_fragment.PuzzleTempleListFragment;
 import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzleView;
 import com.rdc.project.traveltrace.view.puzzle_view.impl.ui.PuzzlePanelView;
 import com.rdc.project.traveltrace.view.puzzle_view.util.FileUtils;
@@ -78,6 +80,9 @@ public class PuzzlePanelPanelController implements IPuzzlePanelController {
 
     @Override
     public void temple() {
-
+        if (mContext instanceof FragmentActivity) {
+            PuzzleTempleListFragment fragment = new PuzzleTempleListFragment();
+            fragment.show(((FragmentActivity) mContext).getSupportFragmentManager(), PuzzleTempleListFragment.class.getSimpleName());
+        }
     }
 }
