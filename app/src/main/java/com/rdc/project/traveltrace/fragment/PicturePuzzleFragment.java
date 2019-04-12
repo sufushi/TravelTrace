@@ -71,6 +71,8 @@ public class PicturePuzzleFragment extends BaseFragment {
         mSquarePuzzleView.setSelectedLineColor(Color.BLACK);
         mSquarePuzzleView.setHandleBarColor(Color.BLACK);
         mSquarePuzzleView.setAnimateDuration(300);
+        mSquarePuzzleView.setPiecePadding(10);
+        mSquarePuzzleView.setBackgroundColor(Color.WHITE);
         mSquarePuzzleView.post(this::loadPictures);
 
         PuzzlePanelPanelController controller = new PuzzlePanelPanelController(getActivity(), mSquarePuzzleView);

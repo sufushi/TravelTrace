@@ -9,7 +9,9 @@
     <com.rdc.project.traveltrace.view.puzzle_view.extend.SquarePuzzleView
         android:id="@+id/square_puzzle_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/white"/>
 
     <com.rdc.project.traveltrace.view.DegreeSeekBar
         android:id="@+id/degree_seek_bar"
