@@ -71,12 +71,15 @@ public class PicturePuzzleFragment extends BaseFragment {
         mSquarePuzzleView.setSelectedLineColor(Color.BLACK);
         mSquarePuzzleView.setHandleBarColor(Color.BLACK);
         mSquarePuzzleView.setAnimateDuration(300);
-        mSquarePuzzleView.setPiecePadding(10);
+//        mSquarePuzzleView.setPiecePadding(10);
         mSquarePuzzleView.setBackgroundColor(Color.WHITE);
         mSquarePuzzleView.post(this::loadPictures);
 
         PuzzlePanelPanelController controller = new PuzzlePanelPanelController(getActivity(), mSquarePuzzleView);
         mPuzzlePanelView.setIPuzzlePanelController(controller);
+
+        mDegreeSeekBar.setCurrentDegrees(0);
+        mDegreeSeekBar.setDegreeRange(0, 30);
     }
 
     private void loadPictures() {
@@ -144,5 +147,21 @@ public class PicturePuzzleFragment extends BaseFragment {
     @Override
     protected void setListener() {
         mSquarePuzzleView.setOnPieceSelectedListener((piece, position) -> CommonToast.normal(Objects.requireNonNull(getActivity()), "position=" + position).show());
+        mDegreeSeekBar.setScrollingListener(new DegreeSeekBar.ScrollingListener() {
+            @Override
+            public void onScrollStart() {
+
+            }
+
+            @Override
+            public void onScroll(int currentDegrees) {
+                mSquarePuzzleView.setPiecePadding(currentDegrees);
+            }
+
+            @Override
+            public void onScrollEnd() {
+
+            }
+        });
     }
 }
