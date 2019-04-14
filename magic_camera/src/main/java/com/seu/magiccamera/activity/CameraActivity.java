@@ -132,13 +132,13 @@ public class CameraActivity extends Activity{
         animator = ObjectAnimator.ofFloat(btn_shutter,"rotation",0,360);
         animator.setDuration(500);
         animator.setRepeatCount(ValueAnimator.INFINITE);
-        Point screenSize = new Point();
-        getWindowManager().getDefaultDisplay().getSize(screenSize);
-        MagicCameraView cameraView = (MagicCameraView)findViewById(R.id.glsurfaceview_camera);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) cameraView.getLayoutParams();
-        params.width = screenSize.x;
-        params.height = screenSize.x * 4 / 3;
-        cameraView.setLayoutParams(params);
+//        Point screenSize = new Point();
+//        getWindowManager().getDefaultDisplay().getSize(screenSize);
+//        MagicCameraView cameraView = (MagicCameraView)findViewById(R.id.glsurfaceview_camera);
+//        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) cameraView.getLayoutParams();
+//        params.width = screenSize.x;
+//        params.height = screenSize.x * 4 / 3;
+//        cameraView.setLayoutParams(params);
     }
 
     private FilterAdapter.onFilterChangeListener onFilterChangeListener = new FilterAdapter.onFilterChangeListener(){

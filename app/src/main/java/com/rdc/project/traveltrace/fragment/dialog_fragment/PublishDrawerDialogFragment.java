@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 
 import com.rdc.project.traveltrace.R;
+import com.rdc.project.traveltrace.ui.PictureProcessActivity;
 import com.rdc.project.traveltrace.ui.PicturePuzzleActivity;
 import com.rdc.project.traveltrace.utils.action.Action;
 import com.rdc.project.traveltrace.utils.action.IActionListener;
@@ -92,15 +93,16 @@ public class PublishDrawerDialogFragment extends TopDialogFragment implements IA
         if (getDialog().isShowing()) {
             getDialog().dismiss();
         }
-        Intent intent = new Intent(getActivity(), PicturePuzzleActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt(PUZZLE_TYPE, 1);
-        bundle.putInt(PUZZLE_PIECE_SIZE, 3);
-        bundle.putInt(PUZZLE_THEME, 2);
-        intent.putExtra("bundle", bundle);
-        startActivity(intent);
-//        Intent intent = new Intent(getActivity(), CameraActivity.class);
+//        Intent intent = new Intent(getActivity(), PicturePuzzleActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putInt(PUZZLE_TYPE, 1);
+//        bundle.putInt(PUZZLE_PIECE_SIZE, 3);
+//        bundle.putInt(PUZZLE_THEME, 2);
+//        intent.putExtra("bundle", bundle);
 //        startActivity(intent);
+
+        Intent intent = new Intent(getActivity(), PictureProcessActivity.class);
+        startActivity(intent);
     }
 
 }

@@ -79,7 +79,7 @@ public class PicturePuzzleFragment extends BaseFragment {
         mPuzzlePanelView.setIPuzzlePanelController(controller);
 
         mDegreeSeekBar.setCurrentDegrees(0);
-        mDegreeSeekBar.setDegreeRange(0, 30);
+        mDegreeSeekBar.setDegreeRange(-30, 30);
     }
 
     private void loadPictures() {
@@ -156,6 +156,7 @@ public class PicturePuzzleFragment extends BaseFragment {
             @Override
             public void onScroll(int currentDegrees) {
                 mSquarePuzzleView.setPiecePadding(currentDegrees);
+                mSquarePuzzleView.postInvalidate();
             }
 
             @Override
@@ -164,4 +165,5 @@ public class PicturePuzzleFragment extends BaseFragment {
             }
         });
     }
+
 }
