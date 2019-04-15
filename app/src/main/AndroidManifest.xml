@@ -36,6 +36,11 @@
                 android:resource="@xml/file_paths_public"/>
         </provider>
 
+        <provider
+            android:name="cn.bmob.v3.util.BmobContentProvider"
+            android:authorities="com.rdc.project.traveltrace.BmobContentProvider">
+        </provider>
+
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4"/>
