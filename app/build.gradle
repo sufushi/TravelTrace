@@ -66,6 +66,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.5'
     compile 'com.squareup.okhttp3:okhttp:3.12.0'
     compile 'cn.bmob.android:http-legacy:1.0'
+    compile 'androidx.annotation:annotation:1.0.1'
     //    compile 'com.kk.taurus.playerbase:playerbase:3.3.5'
     //    compile 'cn.jiajunhui:exoplayer:335_291_009'
     //    compile files('libs/pldroid-player-2.1.7.jar')

@@ -16,12 +16,13 @@
             android:layout_height="wrap_content"
             android:visibility="gone">
 
-            <TextView
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/cell_content_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/app_name"/>
+                android:layout_height="wrap_content"
+                android:overScrollMode="never">
+
+            </android.support.v7.widget.RecyclerView>
         </FrameLayout>
 
         <FrameLayout
