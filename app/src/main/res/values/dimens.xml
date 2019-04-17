@@ -25,4 +25,11 @@
 
     <dimen name="dgv_overlap_if_switch_straight_line">16dp</dimen>
 
+    <dimen name="default_stack_spacing">12dp</dimen>
+
+    <dimen name="card_corner_radius">6dp</dimen>
+
+    <dimen name="elevation_normal">4dp</dimen>
+    <dimen name="elevation_large">8dp</dimen>
+
 </resources>

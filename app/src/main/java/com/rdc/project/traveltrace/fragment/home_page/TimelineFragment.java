@@ -7,12 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.rdc.project.traveltrace.R;
+import com.rdc.project.traveltrace.adapter.SwipeStackAdapter;
 import com.rdc.project.traveltrace.adapter.TimelineContentAdapter;
 import com.rdc.project.traveltrace.base.BasePTRFragment;
 import com.rdc.project.traveltrace.base.OnClickRecyclerViewListener;
 import com.rdc.project.traveltrace.base.OnRefreshListener;
 import com.rdc.project.traveltrace.entity.TimeLineContent;
 import com.rdc.project.traveltrace.view.folding_cell.FoldingCell;
+import com.rdc.project.traveltrace.view.swipe_stack_view.SwipeStack;
 import com.scwang.smartrefresh.header.DropBoxHeader;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
@@ -28,6 +30,10 @@ public class TimelineFragment extends BasePTRFragment implements OnRefreshListen
     private FoldingCell mFoldingCell;
     private RecyclerView mRecyclerView;
     private TimelineContentAdapter mAdapter;
+
+    private ArrayList<String> mData;
+    private SwipeStack mSwipeStack;
+    private SwipeStackAdapter mSwipeStackAdapter;
 
     @Override
     protected RefreshHeader createRefreshHeader() {
@@ -65,6 +71,12 @@ public class TimelineFragment extends BasePTRFragment implements OnRefreshListen
             list.add(new TimeLineContent());
         }
         mAdapter.appendData(list);
+
+        mData = new ArrayList<>();
+        for (int x = 0; x < 5; x++) {
+            mData.add(getString(R.string.app_name) + " " + (x + 1));
+        }
+        mSwipeStackAdapter = new SwipeStackAdapter(getActivity(), mData);
     }
 
     @Override
@@ -75,6 +87,9 @@ public class TimelineFragment extends BasePTRFragment implements OnRefreshListen
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
+
+        mSwipeStack = mRootView.findViewById(R.id.swipe_stack);
+        mSwipeStack.setAdapter(mSwipeStackAdapter);
     }
 
     @Override

@@ -4,4 +4,6 @@
     <item type="id" name="expand_collapse_toggle"/>
 
     <item type="id" name="dgv_wobble_tag"/>
+
+    <item type="id" name="new_view" />
 </resources>

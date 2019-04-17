@@ -38,4 +38,12 @@
 
     </com.rdc.project.traveltrace.view.folding_cell.FoldingCell>
 
+    <com.rdc.project.traveltrace.view.swipe_stack_view.SwipeStack
+        android:id="@+id/swipe_stack"
+        android:layout_width="320dp"
+        android:layout_height="240dp"
+        android:padding="32dp">
+
+    </com.rdc.project.traveltrace.view.swipe_stack_view.SwipeStack>
+    
 </LinearLayout>
