@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.rdc.project.traveltrace.view.DrawableTextView
+        android:id="@+id/btn_social_group"
+        style="@style/PersonCenterDrawableTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:text="@string/string_social_group"
+        app:drawableHeight="20dp"
+        app:drawableTop="@drawable/ic_social_group"
+        app:drawableWidth="20dp"/>
+
+    <com.rdc.project.traveltrace.view.DrawableTextView
+        android:id="@+id/btn_social_focus"
+        style="@style/PersonCenterDrawableTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/string_social_focus"
+        app:drawableHeight="20dp"
+        app:drawableTop="@drawable/ic_social_focus"
+        app:drawableWidth="20dp"/>
+
+    <com.rdc.project.traveltrace.view.DrawableTextView
+        android:id="@+id/btn_social_collection"
+        style="@style/PersonCenterDrawableTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/string_social_collection"
+        app:drawableHeight="20dp"
+        app:drawableTop="@drawable/ic_social_collection"
+        app:drawableWidth="20dp"/>
+
+    <com.rdc.project.traveltrace.view.DrawableTextView
+        android:id="@+id/btn_social_message"
+        style="@style/PersonCenterDrawableTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/string_social_message"
+        app:drawableHeight="20dp"
+        app:drawableTop="@drawable/ic_social_message"
+        app:drawableWidth="20dp"/>
+
+</merge>
