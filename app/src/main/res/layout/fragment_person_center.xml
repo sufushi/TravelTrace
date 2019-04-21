@@ -64,6 +64,11 @@
             android:layout_height="wrap_content">
 
         </com.rdc.project.traveltrace.view.custom_view.PersonExtendView>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+
     </LinearLayout>
 
 </ScrollView>

@@ -49,4 +49,12 @@
     <string name="string_social_focus">关注</string>
     <string name="string_social_collection">收藏</string>
     <string name="string_social_message">消息</string>
+    <string name="string_person_album">我的相册</string>
+    <string name="string_more">更多</string>
+    <string name="string_album_empty_tips">相册空空如也~</string>
+    <string name="string_person_video_list">我的视频</string>
+    <string name="string_video_list_empty_tips">视频空空如也~</string>
+    <string name="string_other">其他</string>
+    <string name="string_setting">设置</string>
+    <string name="string_about">关于</string>
 </resources>
