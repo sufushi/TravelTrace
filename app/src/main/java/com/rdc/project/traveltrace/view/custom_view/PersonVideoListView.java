@@ -1,20 +1,25 @@
 package com.rdc.project.traveltrace.view.custom_view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.arch.view.IView;
 import com.rdc.project.traveltrace.entity.VideoNoteList;
+import com.rdc.project.traveltrace.ui.PersonVideoListActivity;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.view.TipsView;
 
-public class PersonVideoListView extends LinearLayout implements IView {
+public class PersonVideoListView extends LinearLayout implements IView, View.OnClickListener {
 
+    private TextView mMoreView;
     private TipsView mTipsView;
     private VideoHListView mVideoHListView;
 
@@ -38,9 +43,11 @@ public class PersonVideoListView extends LinearLayout implements IView {
     }
 
     private void initViews() {
+        mMoreView = findViewById(R.id.tv_more_video);
         mTipsView = findViewById(R.id.tips_view);
         mVideoHListView = findViewById(R.id.video_list_view);
 
+        mMoreView.setOnClickListener(this);
         mTipsView.showEmptyView(R.drawable.bg_empty_video, getResources().getString(R.string.string_video_list_empty_tips));
     }
 
@@ -60,5 +67,17 @@ public class PersonVideoListView extends LinearLayout implements IView {
     @Override
     public void onActive() {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_more_video:
+                Intent intent = new Intent(getContext(), PersonVideoListActivity.class);
+                getContext().startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 }

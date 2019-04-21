@@ -1,6 +1,7 @@
 package com.rdc.project.traveltrace.view.custom_view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.arch.view.IView;
+import com.rdc.project.traveltrace.ui.AboutActivity;
+import com.rdc.project.traveltrace.ui.SettingActivity;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 
 public class PersonExtendView extends LinearLayout implements IView, View.OnClickListener {
@@ -55,6 +58,18 @@ public class PersonExtendView extends LinearLayout implements IView, View.OnClic
 
     @Override
     public void onClick(View v) {
-
+        Intent intent = new Intent();
+        switch (v.getId()) {
+            case R.id.person_setting:
+                intent.setClass(getContext(), SettingActivity.class);
+                getContext().startActivity(intent);
+                break;
+            case R.id.person_about:
+                intent.setClass(getContext(), AboutActivity.class);
+                getContext().startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 }

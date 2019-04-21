@@ -16,6 +16,7 @@
             android:text="@string/string_person_video_list"/>
 
         <TextView
+            android:id="@+id/tv_more_video"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -25,7 +26,8 @@
             android:gravity="center_vertical"
             android:text="@string/string_more"
             android:textColor="@color/gray"
-            android:textSize="@dimen/dimen_text_size_small"/>
+            android:textSize="@dimen/dimen_text_size_small"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
 
     </RelativeLayout>
 

@@ -1,13 +1,16 @@
 package com.rdc.project.traveltrace.view.custom_view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -17,6 +20,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.arch.view.IView;
 import com.rdc.project.traveltrace.entity.PersonAlbumList;
+import com.rdc.project.traveltrace.ui.PersonAlbumActivity;
 import com.rdc.project.traveltrace.utils.CollectionUtil;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.view.TipsView;
@@ -28,8 +32,9 @@ import com.rdc.project.traveltrace.view.puzzle_view.impl.straight.ZeroStraightLa
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonAlbumListView extends LinearLayout implements IView {
+public class PersonAlbumListView extends LinearLayout implements IView, View.OnClickListener {
 
+    private TextView mMoreView;
     private TipsView mTipsView;
     private RectanglePuzzleView mRectanglePuzzleView;
     List<Target> mTargets = new ArrayList<>();
@@ -54,8 +59,11 @@ public class PersonAlbumListView extends LinearLayout implements IView {
     }
 
     private void initViews() {
+        mMoreView = findViewById(R.id.tv_more_album);
         mTipsView = findViewById(R.id.tips_view);
         mRectanglePuzzleView = findViewById(R.id.rectangle_puzzle_view);
+
+        mMoreView.setOnClickListener(this);
 
         mTipsView.showEmptyView(R.drawable.bg_empty_album, getResources().getString(R.string.string_album_empty_tips), DensityUtil.dp2px(10, getContext()));
 
@@ -121,5 +129,17 @@ public class PersonAlbumListView extends LinearLayout implements IView {
     @Override
     public void onActive() {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_more_album:
+                Intent intent = new Intent(getContext(), PersonAlbumActivity.class);
+                getContext().startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 }

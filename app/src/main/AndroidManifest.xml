@@ -74,6 +74,14 @@
             android:name=".ui.PicturePuzzleActivity"
             android:theme="@style/DarkActivityTheme"/>
         <activity android:name=".ui.PictureProcessActivity"/>
+        <activity android:name=".ui.AboutActivity"/>
+        <activity android:name=".ui.SettingActivity"/>
+        <activity android:name=".ui.PersonGroupActivity"/>
+        <activity android:name=".ui.PersonFocusActivity"/>
+        <activity android:name=".ui.PersonCollectionActivity"/>
+        <activity android:name=".ui.PersonMessageActivity"/>
+        <activity android:name=".ui.PersonAlbumActivity"/>
+        <activity android:name=".ui.PersonVideoListActivity"/>
     </application>
 
 </manifest>

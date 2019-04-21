@@ -18,13 +18,6 @@ public class PublishPictureNoteActivity extends BaseBounceActivity {
     }
 
     @Override
-    protected void initImmersionBar() {
-        ImmersionBar.with(this).titleBar(R.id.tool_bar)
-                .navigationBarColor(R.color.gradient1)
-                .init();
-    }
-
-    @Override
     protected BaseFragment createPTRFragment() {
         mPublishPictureNoteFragment = new PublishPictureNoteFragment();
         return mPublishPictureNoteFragment;
