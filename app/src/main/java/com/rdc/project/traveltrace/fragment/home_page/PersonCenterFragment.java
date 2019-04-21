@@ -9,10 +9,13 @@ import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BasePTRFragment;
 import com.rdc.project.traveltrace.base.OnRefreshListener;
 import com.rdc.project.traveltrace.entity.PersonAlbumList;
+import com.rdc.project.traveltrace.entity.VideoNote;
+import com.rdc.project.traveltrace.entity.VideoNoteList;
 import com.rdc.project.traveltrace.ui.PersonDetailActivity;
 import com.rdc.project.traveltrace.view.EmptyViewFooter;
 import com.rdc.project.traveltrace.view.EmptyViewHeader;
 import com.rdc.project.traveltrace.view.custom_view.PersonAlbumListView;
+import com.rdc.project.traveltrace.view.custom_view.PersonVideoListView;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 
@@ -23,6 +26,7 @@ import java.util.List;
 public class PersonCenterFragment extends BasePTRFragment implements View.OnClickListener {
 
     private PersonAlbumListView mPersonAlbumListView;
+    private PersonVideoListView mPersonVideoListView;
     private CircleImageView mUserIcon;
 
     @Override
@@ -58,6 +62,7 @@ public class PersonCenterFragment extends BasePTRFragment implements View.OnClic
     @Override
     protected void initView() {
         mPersonAlbumListView = mRootView.findViewById(R.id.person_album_view);
+        mPersonVideoListView = mRootView.findViewById(R.id.person_video_list_view);
         mUserIcon = mRootView.findViewById(R.id.user_icon);
 
         String[] array = new String[]{"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2059324361,2516966890&fm=27&gp=0.jpg",
@@ -71,6 +76,15 @@ public class PersonCenterFragment extends BasePTRFragment implements View.OnClic
         List<String> list = new ArrayList<>(Arrays.asList(array));
         PersonAlbumList personAlbumList = new PersonAlbumList(list);
         mPersonAlbumListView.setData(personAlbumList);
+
+        List<VideoNote> videoNotes = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            VideoNote videoNote = new VideoNote();
+            videoNote.setVideoCoverUrl(list.get(i));
+            videoNotes.add(videoNote);
+        }
+        VideoNoteList videoNoteList = new VideoNoteList(videoNotes);
+        mPersonVideoListView.setData(videoNoteList);
 
         mUserIcon.setOnClickListener(this);
     }

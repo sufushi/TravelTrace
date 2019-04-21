@@ -36,4 +36,11 @@
 
     </com.rdc.project.traveltrace.view.TipsView>
 
+    <com.rdc.project.traveltrace.view.custom_view.VideoHListView
+        android:id="@+id/video_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.rdc.project.traveltrace.view.custom_view.VideoHListView>
+
 </merge>

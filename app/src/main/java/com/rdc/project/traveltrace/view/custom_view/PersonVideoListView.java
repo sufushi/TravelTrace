@@ -9,12 +9,14 @@ import android.widget.LinearLayout;
 
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.arch.view.IView;
+import com.rdc.project.traveltrace.entity.VideoNoteList;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.view.TipsView;
 
 public class PersonVideoListView extends LinearLayout implements IView {
 
     private TipsView mTipsView;
+    private VideoHListView mVideoHListView;
 
     public PersonVideoListView(Context context) {
         this(context, null);
@@ -37,12 +39,22 @@ public class PersonVideoListView extends LinearLayout implements IView {
 
     private void initViews() {
         mTipsView = findViewById(R.id.tips_view);
+        mVideoHListView = findViewById(R.id.video_list_view);
+
         mTipsView.showEmptyView(R.drawable.bg_empty_video, getResources().getString(R.string.string_video_list_empty_tips));
     }
 
     @Override
     public void setData(Object data) {
-
+        if (data instanceof VideoNoteList) {
+            VideoNoteList videoHListView = (VideoNoteList) data;
+            mVideoHListView.setData(videoHListView);
+            mVideoHListView.setVisibility(VISIBLE);
+            mTipsView.setVisibility(GONE);
+        } else {
+            mVideoHListView.setVisibility(GONE);
+            mTipsView.setVisibility(VISIBLE);
+        }
     }
 
     @Override

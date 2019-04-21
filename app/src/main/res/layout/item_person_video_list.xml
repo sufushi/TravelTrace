@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.rdc.project.traveltrace.view.round_image_view.RoundedImageView
+        android:id="@+id/rounded_image_view"
+        android:layout_width="90dp"
+        android:layout_height="160dp"
+        android:src="@drawable/test"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        app:riv_corner_radius="6dp"/>
+
+</merge>
