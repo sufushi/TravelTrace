@@ -12,30 +12,35 @@
         android:orientation="vertical">
 
         <com.rdc.project.traveltrace.view.custom_view.PersonHeaderView
+            android:id="@+id/person_header_view"
             android:layout_width="match_parent"
             android:layout_height="140dp">
 
         </com.rdc.project.traveltrace.view.custom_view.PersonHeaderView>
 
         <com.rdc.project.traveltrace.view.custom_view.PersonSocialView
+            android:id="@+id/person_social_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </com.rdc.project.traveltrace.view.custom_view.PersonSocialView>
 
         <com.rdc.project.traveltrace.view.custom_view.PersonAlbumListView
+            android:id="@+id/person_album_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </com.rdc.project.traveltrace.view.custom_view.PersonAlbumListView>
 
         <com.rdc.project.traveltrace.view.custom_view.PersonVideoListView
+            android:id="@+id/person_video_list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </com.rdc.project.traveltrace.view.custom_view.PersonVideoListView>
 
         <com.rdc.project.traveltrace.view.custom_view.PersonExtendView
+            android:id="@+id/person_extend_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

@@ -36,4 +36,11 @@
 
     </com.rdc.project.traveltrace.view.TipsView>
 
+    <com.rdc.project.traveltrace.view.puzzle_view.extend.RectanglePuzzleView
+        android:id="@+id/rectangle_puzzle_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:background="@color/white"/>
+
 </merge>
