@@ -30,7 +30,7 @@ public class PersonExtendView extends LinearLayout implements IView, View.OnClic
         super(context, attrs, defStyleAttr);
         LayoutInflater.from(context).inflate(R.layout.layout_person_extend, this);
         setOrientation(VERTICAL);
-        setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         int padding = DensityUtil.dp2px(10, context);
         setPadding(padding, padding, padding, padding);
         initViews();

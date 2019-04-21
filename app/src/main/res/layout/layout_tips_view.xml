@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/tips_image"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bg_empty_album"/>
+
+    <TextView
+        android:id="@+id/tips_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="6dp"
+        android:gravity="center"
+        android:text="@string/string_album_empty_tips"
+        android:textColor="@color/empty_album_tips_color"
+        android:textSize="@dimen/dimen_text_size_small"/>
+
+</merge>

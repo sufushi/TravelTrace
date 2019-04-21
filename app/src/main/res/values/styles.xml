@@ -44,7 +44,7 @@
 
     <style name="PersonCenterDrawableTextStyle" parent="Theme.AppCompat.Light">
         <item name="android:textColor">@color/black</item>
-        <item name="android:textStyle">italic|bold</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/dimen_text_size_small</item>
         <item name="android:drawablePadding">4dp</item>
         <item name="android:gravity">center</item>
