@@ -22,7 +22,9 @@ public class ThawingView extends View {
     private float mScale;
     private PorterDuffXfermode mMode = new PorterDuffXfermode(PorterDuff.Mode.DST_OUT);
     private Paint mPaint;
-    private long mDuration = 2000;
+    private long mDuration = 1000;
+
+    private OnEndListener mListener;
 
     public ThawingView(Context context) {
         this(context, null);
@@ -86,6 +88,9 @@ public class ThawingView extends View {
             @Override
             public void onAnimationEnd(Animator animator) {
                 setVisibility(GONE);
+                if (mListener != null) {
+                    mListener.onEnd(ThawingView.this);
+                }
             }
 
             @Override
@@ -100,5 +105,13 @@ public class ThawingView extends View {
         });
         alphaVa.setDuration(mDuration);
         return alphaVa;
+    }
+
+    public interface OnEndListener {
+        void onEnd(ThawingView thawingView);
+    }
+
+    public void setOnEndListener(OnEndListener listener) {
+        mListener = listener;
     }
 }

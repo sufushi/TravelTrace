@@ -1,5 +1,6 @@
 package com.rdc.project.traveltrace.ui;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -45,9 +46,11 @@ public class SplashActivity extends BaseSwipeBackActivity {
             mSplashView.setVisibility(View.GONE);
             mThawingView.setVisibility(View.VISIBLE);
             mThawingView.startAnimate(splashView.getDrawingCache());
-//            Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
-//            startActivity(intent);
-//            overridePendingTransition(0, 0);
+        });
+        mThawingView.setOnEndListener(thawingView -> {
+            Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
         });
     }
 
