@@ -10,11 +10,14 @@ import com.rdc.project.traveltrace.adapter.ImageFragmentStatePagerAdapter;
 import com.rdc.project.traveltrace.adapter.TextFragmentStatePagerAdapter;
 import com.rdc.project.traveltrace.base.BaseFragment;
 import com.rdc.project.traveltrace.entity.GuidePageText;
+import com.rdc.project.traveltrace.utils.SharePreferenceUtil;
 import com.rdc.project.traveltrace.view.guide_page.GuidePageIndicator;
 import com.rdc.project.traveltrace.view.guide_page.InnerViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.rdc.project.traveltrace.ui.GuidePageActivity.HAS_SHOW_GUIDE;
 
 public class GuidePageFragment extends BaseFragment implements GuidePageScrollCallback {
 
@@ -66,6 +69,8 @@ public class GuidePageFragment extends BaseFragment implements GuidePageScrollCa
         mTextViewPager.setAdapter(mTextAdapter);
 
         mGuidePageIndicator.initIndicator(mTextAdapter.getCount());
+
+        SharePreferenceUtil.put(getActivity(), HAS_SHOW_GUIDE, true);
     }
 
     @Override

@@ -9,6 +9,8 @@ import com.rdc.project.traveltrace.base.BaseSwipeBackActivity;
 import com.rdc.project.traveltrace.view.splash_view.SplashView;
 import com.rdc.project.traveltrace.view.splash_view.ThawingView;
 
+import cn.bmob.v3.BmobUser;
+
 public class SplashActivity extends BaseSwipeBackActivity {
 
     private SplashView mSplashView;
@@ -48,7 +50,12 @@ public class SplashActivity extends BaseSwipeBackActivity {
             mThawingView.startAnimate(splashView.getDrawingCache());
         });
         mThawingView.setOnEndListener(thawingView -> {
-            Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+            Intent intent = new Intent();
+            if (BmobUser.isLogin()) {
+                intent.setClass(SplashActivity.this, HomeActivity.class);
+            } else {
+                intent.setClass(SplashActivity.this, GuidePageActivity.class);
+            }
             startActivity(intent);
             overridePendingTransition(0, 0);
         });

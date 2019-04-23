@@ -13,13 +13,17 @@ import com.rdc.project.traveltrace.base.BaseSwipeBackActivity;
 import com.rdc.project.traveltrace.fragment.SignFragment;
 import com.rdc.project.traveltrace.fragment.guide_page.GuidePageFragment;
 import com.rdc.project.traveltrace.utils.DensityUtil;
+import com.rdc.project.traveltrace.utils.SharePreferenceUtil;
 import com.rdc.project.traveltrace.view.guide_page.OuterViewPager;
 
 public class GuidePageActivity extends BaseSwipeBackActivity {
 
     private static final int FRAGMENT_GUIDE_PAGE = 0;
     private static final int FRAGMENT_LOGIN_PAGE = 1;
-    private static final int FRAGMENT_PAGE_COUNT = 2;
+
+    private int mFragmentPageCount = 2;
+
+    public static final String HAS_SHOW_GUIDE = "has_show_guide";
 
     private ImageView mIvLogo;
     private OuterViewPager mOuterViewPager;
@@ -31,6 +35,8 @@ public class GuidePageActivity extends BaseSwipeBackActivity {
     private SignFragment mSignFragment;
 
     private GuidePageFragmentStatePagerAdapter mAdapter;
+
+    private boolean mHasShowGuide = false;
 
     @Override
     protected int getLayoutResID() {
@@ -44,6 +50,10 @@ public class GuidePageActivity extends BaseSwipeBackActivity {
 
     @Override
     protected void initData() {
+        mHasShowGuide = (boolean) SharePreferenceUtil.get(this, HAS_SHOW_GUIDE, false);
+        if (mHasShowGuide) {
+            mFragmentPageCount = 1;
+        }
         mAdapter = new GuidePageFragmentStatePagerAdapter(getSupportFragmentManager());
     }
 
@@ -65,14 +75,7 @@ public class GuidePageActivity extends BaseSwipeBackActivity {
             @Override
             public void onPageSelected(int i) {
                 if (i == FRAGMENT_LOGIN_PAGE) {
-                    OuterViewPager.sIsOtherPageLock = true;
-                    mIvLogo.postDelayed(() -> {
-                        if (mLogoY == 0) {
-                            mLogoY = mIvLogo.getY();
-                        }
-                        playLogoInAnim();
-                    }, 500);
-                    mOuterViewPager.postDelayed(() -> mSignFragment.playInAnim(), 300);
+                    onShowSignFragment();
                 }
             }
 
@@ -81,6 +84,17 @@ public class GuidePageActivity extends BaseSwipeBackActivity {
 
             }
         });
+    }
+
+    private void onShowSignFragment() {
+        OuterViewPager.sIsOtherPageLock = true;
+        mIvLogo.postDelayed(() -> {
+            if (mLogoY == 0) {
+                mLogoY = mIvLogo.getY();
+            }
+            playLogoInAnim();
+        }, 500);
+        mOuterViewPager.postDelayed(() -> mSignFragment.playInAnim(), 300);
     }
 
     private void playLogoInAnim() {
@@ -107,23 +121,29 @@ public class GuidePageActivity extends BaseSwipeBackActivity {
 
         @Override
         public Fragment getItem(int position) {
-            switch (position) {
-                case FRAGMENT_GUIDE_PAGE:
-                    mGuidePageFragment = new GuidePageFragment();
-                    mOuterViewPager.setGuidePageFragment(mGuidePageFragment);
-                    mOuterViewPager.setGuidePageSkipCallback(() -> mOuterViewPager.setCurrentItem(FRAGMENT_LOGIN_PAGE));
-                    mOuterViewPager.setGuidePageScrollCallback(mGuidePageFragment);
-                    return mGuidePageFragment;
-                case FRAGMENT_LOGIN_PAGE:
-                    mSignFragment = new SignFragment();
-                    return mSignFragment;
+            if (mFragmentPageCount == 1) {
+                mSignFragment = new SignFragment();
+                onShowSignFragment();
+                return mSignFragment;
+            } else {
+                switch (position) {
+                    case FRAGMENT_GUIDE_PAGE:
+                        mGuidePageFragment = new GuidePageFragment();
+                        mOuterViewPager.setGuidePageFragment(mGuidePageFragment);
+                        mOuterViewPager.setGuidePageSkipCallback(() -> mOuterViewPager.setCurrentItem(FRAGMENT_LOGIN_PAGE));
+                        mOuterViewPager.setGuidePageScrollCallback(mGuidePageFragment);
+                        return mGuidePageFragment;
+                    case FRAGMENT_LOGIN_PAGE:
+                        mSignFragment = new SignFragment();
+                        return mSignFragment;
+                }
             }
             return null;
         }
 
         @Override
         public int getCount() {
-            return FRAGMENT_PAGE_COUNT;
+            return mFragmentPageCount;
         }
     }
 

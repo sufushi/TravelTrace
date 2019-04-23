@@ -134,4 +134,10 @@
             <enum name="mirror" value="2" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="VerificationCodeView">
+        <attr name="isNetCode" format="boolean"/>
+        <attr name="codeNumber" format="integer"/>
+    </declare-styleable>
+
 </resources>
