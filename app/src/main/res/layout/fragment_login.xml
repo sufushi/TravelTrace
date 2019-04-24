@@ -126,5 +126,16 @@
             android:layout_below="@+id/rl_password"
             android:background="@color/lightGray"/>
 
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/spit_view2"
+            android:layout_margin="10dp"
+            android:background="@drawable/selector_btn_bg"
+            android:text="@string/string_login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_text_size_middle"/>
+
     </RelativeLayout>
 </ScrollView>
