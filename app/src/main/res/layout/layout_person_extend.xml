@@ -39,4 +39,18 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"/>
 
+    <TextView
+        android:id="@+id/person_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/string_logout"
+        android:textSize="@dimen/dimen_text_size_small"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:drawableStart="@drawable/ic_logout"
+        android:drawablePadding="2dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
 </merge>

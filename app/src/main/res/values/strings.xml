@@ -57,4 +57,5 @@
     <string name="string_other">其他</string>
     <string name="string_setting">设置</string>
     <string name="string_about">关于</string>
+    <string name="string_logout">注销</string>
 </resources>

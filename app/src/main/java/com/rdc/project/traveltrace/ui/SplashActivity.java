@@ -57,7 +57,7 @@ public class SplashActivity extends BaseSwipeBackActivity {
                 intent.setClass(SplashActivity.this, GuidePageActivity.class);
             }
             startActivity(intent);
-            overridePendingTransition(0, 0);
+            finish();
         });
     }
 

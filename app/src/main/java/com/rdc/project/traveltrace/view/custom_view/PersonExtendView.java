@@ -1,5 +1,6 @@
 package com.rdc.project.traveltrace.view.custom_view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -13,13 +14,17 @@ import android.widget.TextView;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.arch.view.IView;
 import com.rdc.project.traveltrace.ui.AboutActivity;
+import com.rdc.project.traveltrace.ui.GuidePageActivity;
 import com.rdc.project.traveltrace.ui.SettingActivity;
 import com.rdc.project.traveltrace.utils.DensityUtil;
+
+import cn.bmob.v3.BmobUser;
 
 public class PersonExtendView extends LinearLayout implements IView, View.OnClickListener {
 
     private TextView mSettingView;
     private TextView mAboutView;
+    private TextView mLogoutView;
 
     public PersonExtendView(Context context) {
         this(context, null);
@@ -42,8 +47,11 @@ public class PersonExtendView extends LinearLayout implements IView, View.OnClic
     private void initViews() {
         mSettingView = findViewById(R.id.person_setting);
         mAboutView = findViewById(R.id.person_about);
+        mLogoutView = findViewById(R.id.person_logout);
+
         mSettingView.setOnClickListener(this);
         mAboutView.setOnClickListener(this);
+        mLogoutView.setOnClickListener(this);
     }
 
     @Override
@@ -67,6 +75,14 @@ public class PersonExtendView extends LinearLayout implements IView, View.OnClic
             case R.id.person_about:
                 intent.setClass(getContext(), AboutActivity.class);
                 getContext().startActivity(intent);
+                break;
+            case R.id.person_logout:
+                if (BmobUser.isLogin()) {
+                    BmobUser.logOut();
+                    intent.setClass(getContext(), GuidePageActivity.class);
+                    getContext().startActivity(intent);
+                    ((Activity) getContext()).finish();
+                }
                 break;
             default:
                 break;
