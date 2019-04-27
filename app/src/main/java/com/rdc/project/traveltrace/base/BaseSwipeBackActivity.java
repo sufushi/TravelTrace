@@ -8,6 +8,8 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 public abstract class BaseSwipeBackActivity extends SwipeBackActivity {
 
+    protected boolean mIsJumpOut = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +24,9 @@ public abstract class BaseSwipeBackActivity extends SwipeBackActivity {
 
     protected void init() {
         initData();
+        if (mIsJumpOut) {
+            return;
+        }
         initView();
         initListener();
     }

@@ -61,6 +61,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                         if (e == null) {
                             Intent intent = new Intent(getActivity(), HomeActivity.class);
                             startActivity(intent);
+                            Objects.requireNonNull(getActivity()).finish();
                         } else {
                             CommonToast.error(Objects.requireNonNull(getActivity()), e.getMessage()).show();
                         }

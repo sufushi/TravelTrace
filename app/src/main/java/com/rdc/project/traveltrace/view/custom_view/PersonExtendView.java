@@ -1,9 +1,9 @@
 package com.rdc.project.traveltrace.view.custom_view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +13,11 @@ import android.widget.TextView;
 
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.arch.view.IView;
+import com.rdc.project.traveltrace.base.BaseSwipeAwayDialogFragment;
 import com.rdc.project.traveltrace.ui.AboutActivity;
-import com.rdc.project.traveltrace.ui.GuidePageActivity;
 import com.rdc.project.traveltrace.ui.SettingActivity;
 import com.rdc.project.traveltrace.utils.DensityUtil;
-
-import cn.bmob.v3.BmobUser;
+import com.rdc.project.traveltrace.view.swipe_away_dialog.dialog_factory.DialogFactory;
 
 public class PersonExtendView extends LinearLayout implements IView, View.OnClickListener {
 
@@ -77,12 +76,10 @@ public class PersonExtendView extends LinearLayout implements IView, View.OnClic
                 getContext().startActivity(intent);
                 break;
             case R.id.person_logout:
-                if (BmobUser.isLogin()) {
-                    BmobUser.logOut();
-                    intent.setClass(getContext(), GuidePageActivity.class);
-                    getContext().startActivity(intent);
-                    ((Activity) getContext()).finish();
-                }
+                FragmentActivity activity = (FragmentActivity) getContext();
+                BaseSwipeAwayDialogFragment
+                        .newInstance(DialogFactory.createLogoutDialog())
+                        .show(activity.getSupportFragmentManager(), "logout");
                 break;
             default:
                 break;
