@@ -1,6 +1,7 @@
 package com.rdc.project.traveltrace.ui;
 
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +19,7 @@ import com.rdc.project.traveltrace.fragment.dialog_fragment.PublishDrawerDialogF
 import com.rdc.project.traveltrace.fragment.home_page.MomentsFragment;
 import com.rdc.project.traveltrace.fragment.home_page.PersonCenterFragment;
 import com.rdc.project.traveltrace.fragment.home_page.TimelineFragment;
+import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.utils.HandlerUtil;
 import com.rdc.project.traveltrace.view.pop_menu.PopMenu;
 import com.rdc.project.traveltrace.view.pop_menu.PopMenuItem;
@@ -28,11 +30,14 @@ import com.yw.game.floatmenu.FloatMenuView;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar.OnTabSelectedListener, HandlerUtil.OnReceiveMessageListener {
+public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar.OnTabSelectedListener, HandlerUtil.OnReceiveMessageListener, View.OnClickListener {
 
     private static final int NAV_TAB_MOMENTS = 0;
     private static final int NAV_TAB_TIMELINE = 1;
     private static final int NAV_TAB_PERSON_CENTER = 2;
+
+    private static final int ACTION_BTN_TAG_SEND = 3;
+    private static final int ACTION_BTN_TAG_CALENDAR = 4;
 
     private static final int MSG_BACK_CLICK = 0x11;
     private static final int BACK_EXIT_INTERVAL = 2000;
@@ -67,6 +72,7 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
     protected void initView() {
         initPopMenu();
         initFloatMenu();
+        updateActionBtn(R.drawable.ic_action_send, ACTION_BTN_TAG_SEND);
         mToolbar.post(() -> mContainer.setPadding(0, mToolbar.getHeight(), 0, 0));
     }
 
@@ -176,6 +182,7 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
                 }
                 mCurrentFragment = mMomentsFragment;
                 titleRes = R.string.string_moments;
+                updateActionBtn(R.drawable.ic_action_send, ACTION_BTN_TAG_SEND);
                 break;
             case NAV_TAB_TIMELINE:
                 if (mTimelineFragment == null) {
@@ -183,6 +190,7 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
                 }
                 mCurrentFragment = mTimelineFragment;
                 titleRes = R.string.string_timeline;
+                updateActionBtn(R.drawable.ic_action_calendar, ACTION_BTN_TAG_CALENDAR);
                 break;
             case NAV_TAB_PERSON_CENTER:
                 if (mPersonCenterFragment == null) {
@@ -190,12 +198,23 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
                 }
                 mCurrentFragment = mPersonCenterFragment;
                 titleRes = R.string.string_person_center;
+                mActionBtn.setVisibility(View.GONE);
                 break;
             default:
                 break;
         }
         mToolbar.setTitle(titleRes);
         updateContainerLayout();
+    }
+
+    private void updateActionBtn(int drawableResId, int tag) {
+        int size = DensityUtil.dp2px(24, this);
+        Drawable send = getResources().getDrawable(drawableResId);
+        send.setBounds(0, 0, size, size);
+        mActionBtn.setCompoundDrawables(send, null, null, null);
+        mActionBtn.setVisibility(View.VISIBLE);
+        mActionBtn.setTag(tag);
+        mActionBtn.setOnClickListener(this);
     }
 
     @Override
@@ -241,5 +260,18 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
             return false;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int tag = (int) v.getTag();
+        switch (tag) {
+            case ACTION_BTN_TAG_SEND:
+                PublishDrawerDialogFragment publishDrawerDialogFragment = new PublishDrawerDialogFragment();
+                publishDrawerDialogFragment.show(getSupportFragmentManager(), PublishDrawerDialogFragment.class.getSimpleName());
+                break;
+            case ACTION_BTN_TAG_CALENDAR:
+                break;
+        }
     }
 }

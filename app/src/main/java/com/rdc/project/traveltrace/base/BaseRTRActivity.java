@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.rdc.project.traveltrace.R;
@@ -16,6 +17,7 @@ import java.util.Objects;
 public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
 
     protected Toolbar mToolbar;
+    protected TextView mActionBtn;
     protected ViewGroup mContainer;
     protected ViewStub mViewStub;
     protected ViewGroup mRoot;
@@ -61,6 +63,7 @@ public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             mToolbar.setNavigationOnClickListener(v -> onBackPressed());
         }
+        mActionBtn = (TextView) findViewById(R.id.tool_bar_action_btn);
     }
 
     protected boolean needBackIcon() {

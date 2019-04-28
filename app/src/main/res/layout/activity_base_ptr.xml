@@ -26,6 +26,17 @@
         app:title="@string/app_name"
         app:titleTextColor="@color/white">
 
+        <TextView
+            android:id="@+id/tool_bar_action_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="?actionBarSize"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
     </android.support.v7.widget.Toolbar>
 
     <ViewStub
