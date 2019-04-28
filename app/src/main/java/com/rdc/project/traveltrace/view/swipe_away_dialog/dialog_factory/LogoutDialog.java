@@ -28,7 +28,7 @@ public class LogoutDialog implements BaseSwipeAwayDialogFragment.DialogBuilder {
                         ((Activity) context).finish();
                     }
                 })
-                .setNegativeButton(R.string.string_cancle, (dialog, which) -> dialog.dismiss())
+                .setNegativeButton(R.string.string_cancel, (dialog, which) -> dialog.dismiss())
                 .create();
     }
 }

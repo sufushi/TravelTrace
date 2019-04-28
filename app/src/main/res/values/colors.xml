@@ -164,4 +164,5 @@
     <color name="normalColor">#353A3E</color>
 
     <color name="empty_album_tips_color">#ACABAB</color>
+    <color name="about_page_background_color">#EDEAEA</color>
 </resources>

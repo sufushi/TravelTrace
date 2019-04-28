@@ -60,5 +60,15 @@
     <string name="string_logout">注销</string>
     <string name="string_logout_tips">您确定要退出登录吗？</string>
     <string name="string_ok">OK</string>
-    <string name="string_cancle">Cancel</string>
+    <string name="string_cancel">Cancel</string>
+    <string name="string_theme_setting">主题设置</string>
+    <string name="string_clear_cache">清除缓存</string>
+    <string name="string_gesture_password">手势密码</string>
+    <string name="string_stream_control">流量控制</string>
+    <string name="string_function_introduction">功能介绍</string>
+    <string name="string_about_author">关于作者</string>
+    <string name="string_version_update">版本更新</string>
+    <string name="string_online_feedback">在线反馈</string>
+    <string name="string_version_own">研发中心 版权所有</string>
+    <string name="string_copyright">CopyRight © 2017 All Rights Reserved</string>
 </resources>
