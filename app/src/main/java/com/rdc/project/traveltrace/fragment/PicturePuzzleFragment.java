@@ -48,9 +48,9 @@ public class PicturePuzzleFragment extends BaseFragment {
     @Override
     protected void initData(Bundle bundle) {
         if (bundle != null) {
-            int type = bundle.getInt(PUZZLE_TYPE, 0);
-            int pieceSize = bundle.getInt(PUZZLE_PIECE_SIZE, 0);
-            int theme = bundle.getInt(PUZZLE_THEME, 0);
+            int type = Integer.parseInt(bundle.getString(PUZZLE_TYPE));
+            int pieceSize = Integer.parseInt(bundle.getString(PUZZLE_PIECE_SIZE));
+            int theme = Integer.parseInt(bundle.getString(PUZZLE_THEME));
             mPictureList = bundle.getStringArrayList(PUZZLE_PICTURE_LIST);
             mPuzzleLayout = PuzzleProvider.getPuzzleLayout(type, pieceSize, theme);
         }

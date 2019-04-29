@@ -9,6 +9,10 @@ public class Action {
 
     }
 
+    public Action(String actionUrl) {
+        this(actionUrl, 0);
+    }
+
     public Action(String actionUrl, int transition) {
         mActionUrl = actionUrl;
         mTransition = transition;

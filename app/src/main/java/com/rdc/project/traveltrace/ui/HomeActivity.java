@@ -70,8 +70,8 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
 
     @Override
     protected void initView() {
-        initPopMenu();
-        initFloatMenu();
+//        initPopMenu();
+//        initFloatMenu();
         updateActionBtn(R.drawable.ic_action_send, ACTION_BTN_TAG_SEND);
         mToolbar.post(() -> mContainer.setPadding(0, mToolbar.getHeight(), 0, 0));
     }
