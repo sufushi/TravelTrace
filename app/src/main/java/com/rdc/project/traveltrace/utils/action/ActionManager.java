@@ -80,6 +80,7 @@ public class ActionManager {
         }
         sPreActionUrl = action.getActionUrl();
         executeAction(action.getActionUrl(), context);
+        sPreActionUrl = Constant.EMPTY;
     }
 
     private static void executeAction(String actionUrl, Context context) {
