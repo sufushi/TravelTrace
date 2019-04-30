@@ -18,7 +18,7 @@
             android:layout_gravity="center_horizontal|bottom"
             android:layout_marginTop="30dp"
             android:contentDescription="@null"
-            android:src="@mipmap/ic_launcher_round"
+            android:src="@drawable/ic_logo"
             app:shape="circle"/>
 
         <TextView

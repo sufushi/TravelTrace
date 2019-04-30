@@ -16,7 +16,7 @@
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:contentDescription="@null"
-        android:src="@mipmap/ic_launcher_round"/>
+        android:src="@drawable/ic_logo_v2"/>
 
     <com.rdc.project.traveltrace.view.guide_page.OuterViewPager
         android:id="@+id/vp_parent"
