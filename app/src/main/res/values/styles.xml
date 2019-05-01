@@ -8,6 +8,7 @@
         <item name="android:windowBackground">@color/white</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowAnimationStyle">@style/scale</item>
     </style>
 
     <!-- Base application theme. -->
@@ -88,24 +89,9 @@
         <item name="android:windowExitAnimation">@anim/dialog_right_out</item>
     </style>
 
-
-    <!--<style name="CustomMatisseTheme" parent="Matisse.Zhihu">-->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="toolbar">@style/Toolbar.Zhihu</item>-->
-        <!--<item name="album.title.color">@color/zhihu_album_title_text</item>-->
-        <!--<item name="album.count.color">@color/zhihu_album_count_text</item>-->
-        <!--<item name="album.selected">@android:color/white</item>-->
-        <!--<item name="album.placeholder">@color/zhihu_album_placeholder</item>-->
-        <!--<item name="album.emptyView">@drawable/ic_empty_zhihu</item>-->
-        <!--<item name="album.emptyView.color">@color/zhihu_empty_view</item>-->
-        <!--<item name="item.placeholder">@color/zhihu_item_placeholder</item>-->
-        <!--<item name="page.bg">@color/zhihu_page_bg</item>-->
-        <!--<item name="bottomToolbar.bg">@color/zhihu_bottom_toolbar_bg</item>-->
-        <!--<item name="bottomToolbar.preview.color">@color/zhihu_bottom_toolbar_preview</item>-->
-        <!--<item name="bottomToolbar.apply.color">@color/colorPrimary</item>-->
-        <!--<item name="listPopupWindowStyle">@style/Popup.Zhihu</item>-->
-        <!--<item name="capture.color">@color/zhihu_capture</item>-->
-    <!--</style>-->
+    <style name="scale" parent="@android:style/Animation.Translucent">
+        <item name="android:windowEnterAnimation">@anim/scale_in</item>
+        <item name="android:windowExitAnimation">@anim/scale_out</item>
+    </style>
 
 </resources>
