@@ -2,6 +2,7 @@ package com.rdc.project.traveltrace.fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,46 +13,54 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 
 import com.lzy.ninegrid.ImageInfo;
-import com.lzy.ninegrid.preview.ImagePreviewActivity;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.adapter.SelectedPictureGirdAdapter;
 import com.rdc.project.traveltrace.base.BaseFragment;
 import com.rdc.project.traveltrace.base.OnClickRecyclerViewListener;
+import com.rdc.project.traveltrace.contract.IUploadContract;
+import com.rdc.project.traveltrace.contract.IUploadFileContract;
 import com.rdc.project.traveltrace.decorator.SpaceGridItemDecoration;
+import com.rdc.project.traveltrace.entity.Note;
 import com.rdc.project.traveltrace.entity.Picture;
+import com.rdc.project.traveltrace.entity.PictureNote;
+import com.rdc.project.traveltrace.entity.PlainNote;
+import com.rdc.project.traveltrace.entity.User;
+import com.rdc.project.traveltrace.presenter.UploadFilePresenterImpl;
+import com.rdc.project.traveltrace.presenter.UploadPresenterImpl;
 import com.rdc.project.traveltrace.utils.CollectionUtil;
 import com.rdc.project.traveltrace.utils.CommonItemTouchHelper;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.utils.CommonItemTouchCallback;
 import com.rdc.project.traveltrace.utils.GlideGalleryPickImageLoader;
-import com.rdc.project.traveltrace.utils.MeasureUtil;
 import com.rdc.project.traveltrace.utils.PageSwitchUtil;
+import com.rdc.project.traveltrace.utils.PictureUtil;
+import com.rdc.project.traveltrace.utils.ProgressDialogUtil;
+import com.rdc.project.traveltrace.view.toast.CommonToast;
 import com.yancy.gallerypick.config.GalleryConfig;
 import com.yancy.gallerypick.config.GalleryPick;
 import com.yancy.gallerypick.inter.IHandlerCallBack;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import cn.bmob.v3.BmobUser;
 import me.weyye.hipermission.HiPermission;
 import me.weyye.hipermission.PermissionCallback;
 import me.weyye.hipermission.PermissionItem;
 
-import static com.lzy.ninegrid.preview.ImagePreviewActivity.CURRENT_ITEM;
-import static com.lzy.ninegrid.preview.ImagePreviewActivity.IMAGE_INFO;
-
-public class PublishPictureNoteFragment extends BaseFragment implements OnClickRecyclerViewListener, CommonItemTouchCallback.OnItemTouchListener {
+public class PublishPictureNoteFragment extends BaseFragment implements OnClickRecyclerViewListener, CommonItemTouchCallback.OnItemTouchListener, IUploadFileContract.View, IUploadContract.View {
 
     private static final String SAVE_DIR = "/Gallery/Pictures";
     private static final String CAPTURE_DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + SAVE_DIR;
 
+    private EditText mPublishTextView;
     private RecyclerView mRecyclerView;
     private SelectedPictureGirdAdapter mAdapter;
 
@@ -63,6 +72,9 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
     private List<PermissionItem> mPermissionItems = new ArrayList<>();
 
     private GalleryConfig mGalleryConfig;
+
+    private UploadFilePresenterImpl mUploadFilePresenter;
+    private UploadPresenterImpl<Note> mNoteUploadPresenter;
 
     @Override
     protected int getLayoutResourceId() {
@@ -78,6 +90,8 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
         mPermissionItems.add(new PermissionItem(Manifest.permission.CAMERA, "照相机", R.drawable.permission_ic_camera));
         mPermissionItems.add(new PermissionItem(Manifest.permission.WRITE_EXTERNAL_STORAGE, "存储", R.drawable.permission_ic_storage));
         initGalleryConfig();
+        mUploadFilePresenter = new UploadFilePresenterImpl(this);
+        mNoteUploadPresenter = new UploadPresenterImpl<>(this);
     }
 
     private void initGalleryConfig() {
@@ -149,6 +163,7 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
     @Override
     protected void initView() {
         addTakePhotoHolder();
+        mPublishTextView = mRootView.findViewById(R.id.et_publish_text);
         mRecyclerView = mRootView.findViewById(R.id.selected_picture_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         mRecyclerView.addItemDecoration(new SpaceGridItemDecoration(DensityUtil.dp2px(1, Objects.requireNonNull(getActivity()))));
@@ -252,5 +267,62 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
         if (CollectionUtil.inRange(mImageInfoList, position)) {
             mImageInfoList.remove(position);
         }
+    }
+
+    public void onActionBtnClick() {
+        String publishText = String.valueOf(mPublishTextView.getText());
+        if (TextUtils.isEmpty(publishText) && mSelectedList.isEmpty()) {
+            CommonToast.error(Objects.requireNonNull(getActivity()), "发表内容不能为空").show();
+        }
+        if (mSelectedList.isEmpty()) {
+            PlainNote plainNote = new PlainNote();
+            plainNote.setText(publishText);
+            plainNote.setUser(BmobUser.getCurrentUser(User.class));
+            mNoteUploadPresenter.upload(plainNote);
+            ProgressDialogUtil.showProgressDialog(getActivity(), "正在发表...");
+        } else {
+            for (int i = 0; i < mSelectedList.size(); i++) {
+                PictureUtil.compressImage(mSelectedList.get(i), 600, 800, 800);
+            }
+            mUploadFilePresenter.uploadFile(mSelectedList);
+            ProgressDialogUtil.showProgressDialog(getActivity(), "上传图片");
+        }
+    }
+
+    @Override
+    public void onUploadFileProgress(int curIndex, int curPercent, int total, int totalPercent) {
+        String str = "总上传图片数:" + total + "\n第 " + curIndex + " 张图片正在上传";
+        if (ProgressDialogUtil.isShow()) {
+            ProgressDialogUtil.setMsg(str);
+        }
+    }
+
+    @Override
+    public void onUploadFileSuccess(List<String> urlList, String response) {
+        String publishText = String.valueOf(mPublishTextView.getText());
+        PictureNote pictureNote = new PictureNote();
+        pictureNote.setImgUrls(urlList);
+        pictureNote.setText(publishText);
+        pictureNote.setUser(BmobUser.getCurrentUser(User.class));
+        mNoteUploadPresenter.upload(pictureNote);
+    }
+
+    @Override
+    public void onUploadFileFailed(String response) {
+        ProgressDialogUtil.dismiss();
+        CommonToast.error(Objects.requireNonNull(getActivity()), response).show();
+    }
+
+    @Override
+    public void onUploadSuccess(String response) {
+        ProgressDialogUtil.dismiss();
+        CommonToast.success(Objects.requireNonNull(getActivity()), "发表成功").show();
+        getActivity().finish();
+    }
+
+    @Override
+    public void onUploadFailed(String response) {
+        ProgressDialogUtil.dismiss();
+        CommonToast.error(Objects.requireNonNull(getActivity()), response).show();
     }
 }

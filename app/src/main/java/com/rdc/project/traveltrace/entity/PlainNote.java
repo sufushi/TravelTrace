@@ -1,28 +1,11 @@
 package com.rdc.project.traveltrace.entity;
 
-import android.view.View;
+public class PlainNote extends Note {
 
-import com.rdc.project.traveltrace.utils.visibility_util.items.ListItem;
-import com.rdc.project.traveltrace.utils.visibility_util.utils.DefaultPercentCalculator;
-
-public class PlainNote implements ListItem {
-
-    protected User mUser;
     protected String mText;
-    protected int mCommentCount;
-    protected int mLikeCount;
-    protected boolean mIsLike;
 
     public PlainNote() {
 
-    }
-
-    public User getUser() {
-        return mUser;
-    }
-
-    public void setUser(User user) {
-        mUser = user;
     }
 
     public String getText() {
@@ -33,53 +16,15 @@ public class PlainNote implements ListItem {
         mText = text;
     }
 
-    public int getCommentCount() {
-        return mCommentCount;
-    }
-
-    public void setCommentCount(int commentCount) {
-        mCommentCount = commentCount;
-    }
-
-    public int getLikeCount() {
-        return mLikeCount;
-    }
-
-    public void setLikeCount(int likeCount) {
-        mLikeCount = likeCount;
-    }
-
-    public boolean isLike() {
-        return mIsLike;
-    }
-
-    public void setLike(boolean like) {
-        mIsLike = like;
-    }
-
     @Override
     public String toString() {
         return "PlainNote{" +
-                "mUser=" + mUser +
-                ", mText='" + mText + '\'' +
+                "mText='" + mText + '\'' +
+                ", mUser=" + mUser +
                 ", mCommentCount=" + mCommentCount +
                 ", mLikeCount=" + mLikeCount +
                 ", mIsLike=" + mIsLike +
                 '}';
     }
 
-    @Override
-    public int getVisibilityPercents(View view) {
-        return DefaultPercentCalculator.getInstance().getVisibilityPercents(view);
-    }
-
-    @Override
-    public void setActive(View newActiveView, int newActiveViewPosition) {
-
-    }
-
-    @Override
-    public void deactivate(View currentView, int position) {
-
-    }
 }

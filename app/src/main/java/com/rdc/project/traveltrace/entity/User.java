@@ -1,6 +1,8 @@
 package com.rdc.project.traveltrace.entity;
 
-public class User {
+import cn.bmob.v3.BmobUser;
+
+public class User extends BmobUser {
 
     private String mUserIcon;
     private String mUserName;

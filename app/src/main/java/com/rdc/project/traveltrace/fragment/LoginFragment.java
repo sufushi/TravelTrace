@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BaseFragment;
+import com.rdc.project.traveltrace.entity.User;
 import com.rdc.project.traveltrace.ui.HomeActivity;
 import com.rdc.project.traveltrace.view.fly_edit_text.FlyEditText;
 import com.rdc.project.traveltrace.view.toast.CommonToast;
@@ -52,7 +53,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
             case R.id.btn_login:
                 String phone = String.valueOf(mPhoneEditText.getText());
                 String password = String.valueOf(mPasswordEditText.getText());
-                BmobUser user = new BmobUser();
+                User user = new User();
                 user.setUsername(phone);
                 user.setPassword(password);
                 user.login(new SaveListener<Object>() {

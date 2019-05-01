@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BaseFragment;
+import com.rdc.project.traveltrace.entity.User;
 import com.rdc.project.traveltrace.view.VerificationCodeView;
 import com.rdc.project.traveltrace.view.fly_edit_text.FlyEditText;
 import com.rdc.project.traveltrace.view.toast.CommonToast;
@@ -73,7 +74,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         if (!input.equals(code)) {
             CommonToast.error(Objects.requireNonNull(getActivity()), "验证码错误").show();
         } else {
-            BmobUser user = new BmobUser();
+            User user = new User();
             String phone = String.valueOf(mPhoneNumEditText.getText());
             user.setUsername(phone);
             user.setPassword("123456");

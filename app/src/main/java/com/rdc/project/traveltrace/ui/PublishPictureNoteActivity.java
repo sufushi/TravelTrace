@@ -1,6 +1,7 @@
 package com.rdc.project.traveltrace.ui;
 
 import android.content.Intent;
+import android.view.View;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.rdc.project.traveltrace.R;
@@ -30,12 +31,16 @@ public class PublishPictureNoteActivity extends BaseBounceActivity {
 
     @Override
     protected void initView() {
-
+        mActionBtn.setText(R.string.string_complete);
     }
 
     @Override
     protected void initListener() {
-
+        mActionBtn.setOnClickListener(v -> {
+            if (mPublishPictureNoteFragment != null) {
+                mPublishPictureNoteFragment.onActionBtnClick();
+            }
+        });
     }
 
     @Override
