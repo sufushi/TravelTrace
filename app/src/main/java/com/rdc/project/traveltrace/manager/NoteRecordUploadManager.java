@@ -1,4 +1,4 @@
-package com.rdc.project.traveltrace.utils;
+package com.rdc.project.traveltrace.manager;
 
 import android.util.Log;
 
@@ -6,21 +6,21 @@ import com.rdc.project.traveltrace.contract.IUploadContract;
 import com.rdc.project.traveltrace.entity.NoteRecord;
 import com.rdc.project.traveltrace.presenter.UploadPresenterImpl;
 
-public class NoteRecordUploadUtil implements IUploadContract.View {
+public class NoteRecordUploadManager implements IUploadContract.View {
 
-    private static final String TAG = "NoteRecordUploadUtil";
+    private static final String TAG = "NoteRecordUploadManager";
 
     private UploadPresenterImpl<NoteRecord> mNoteRecordUploadPresenter;
 
     private static class NoteRecordUploadHolder {
-        private static final NoteRecordUploadUtil INSTANCE = new NoteRecordUploadUtil();
+        private static final NoteRecordUploadManager INSTANCE = new NoteRecordUploadManager();
     }
 
-    private NoteRecordUploadUtil() {
+    private NoteRecordUploadManager() {
         mNoteRecordUploadPresenter = new UploadPresenterImpl<>(this);
     }
 
-    public static NoteRecordUploadUtil getInstance() {
+    public static NoteRecordUploadManager getInstance() {
         return NoteRecordUploadHolder.INSTANCE;
     }
 

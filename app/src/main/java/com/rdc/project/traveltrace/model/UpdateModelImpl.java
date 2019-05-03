@@ -11,7 +11,7 @@ public class UpdateModelImpl<T extends BmobObject> extends BaseModelImpl impleme
 
     @Override
     public void update(T t, final IUpdateContract.Presenter presenter) {
-        t.update(t.getObjectId(), new UpdateListener() {
+        t.update(new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (e == null) {

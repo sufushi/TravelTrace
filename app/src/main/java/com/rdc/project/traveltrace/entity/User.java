@@ -1,12 +1,14 @@
 package com.rdc.project.traveltrace.entity;
 
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobRelation;
 
 public class User extends BmobUser {
 
     private String mUserIcon;
     private String mUserExtraMsg;
     private boolean mHasFollow;
+    private BmobRelation mFollowUserList;
 
     public User() {
     }
@@ -33,6 +35,14 @@ public class User extends BmobUser {
 
     public void setHasFollow(boolean hasFollow) {
         mHasFollow = hasFollow;
+    }
+
+    public BmobRelation getFollowUserList() {
+        return mFollowUserList;
+    }
+
+    public void setFollowUserList(BmobRelation followUserList) {
+        mFollowUserList = followUserList;
     }
 
     @Override

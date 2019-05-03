@@ -28,6 +28,7 @@ import com.rdc.project.traveltrace.entity.Picture;
 import com.rdc.project.traveltrace.entity.PictureNote;
 import com.rdc.project.traveltrace.entity.PlainNote;
 import com.rdc.project.traveltrace.entity.User;
+import com.rdc.project.traveltrace.manager.NoteRecordUploadManager;
 import com.rdc.project.traveltrace.presenter.UploadFilePresenterImpl;
 import com.rdc.project.traveltrace.presenter.UploadPresenterImpl;
 import com.rdc.project.traveltrace.utils.CollectionUtil;
@@ -35,7 +36,6 @@ import com.rdc.project.traveltrace.utils.CommonItemTouchHelper;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.utils.CommonItemTouchCallback;
 import com.rdc.project.traveltrace.utils.GlideGalleryPickImageLoader;
-import com.rdc.project.traveltrace.utils.NoteRecordUploadUtil;
 import com.rdc.project.traveltrace.utils.PageSwitchUtil;
 import com.rdc.project.traveltrace.utils.PictureUtil;
 import com.rdc.project.traveltrace.utils.ProgressDialogUtil;
@@ -276,6 +276,7 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
         String publishText = String.valueOf(mPublishTextView.getText());
         if (TextUtils.isEmpty(publishText) && mSelectedList.isEmpty()) {
             CommonToast.error(Objects.requireNonNull(getActivity()), "发表内容不能为空").show();
+            return;
         }
         if (mSelectedList.isEmpty()) {
             PlainNote plainNote = new PlainNote();
@@ -328,7 +329,7 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
     public void onUploadSuccess(String response) {
         ProgressDialogUtil.dismiss();
         CommonToast.success(Objects.requireNonNull(getActivity()), "发表成功").show();
-        NoteRecordUploadUtil.getInstance().uploadNote(mNoteRecord);
+        NoteRecordUploadManager.getInstance().uploadNote(mNoteRecord);
         getActivity().finish();
     }
 
