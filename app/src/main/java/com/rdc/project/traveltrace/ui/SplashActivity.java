@@ -55,13 +55,19 @@ public class SplashActivity extends BaseSwipeBackActivity {
 
     @Override
     protected void initListener() {
-        mSplashView.setOnEndListener(splashView -> {
-            mSplashView.setVisibility(View.GONE);
-            mThawingView.setVisibility(View.VISIBLE);
-            mThawingView.startAnimate(splashView.getDrawingCache());
+        mSplashView.setOnEndListener(new SplashView.OnEndListener() {
+            @Override
+            public void onEnd(SplashView splashView) {
+                mSplashView.setVisibility(View.GONE);
+                mThawingView.setVisibility(View.VISIBLE);
+                mThawingView.startAnimate(splashView.getDrawingCache());
+            }
         });
-        mThawingView.setOnEndListener(thawingView -> {
-            jumpToHome();
+        mThawingView.setOnEndListener(new ThawingView.OnEndListener() {
+            @Override
+            public void onEnd(ThawingView thawingView) {
+                SplashActivity.this.jumpToHome();
+            }
         });
     }
 

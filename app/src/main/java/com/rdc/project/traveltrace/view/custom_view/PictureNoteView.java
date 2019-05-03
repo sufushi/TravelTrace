@@ -14,6 +14,7 @@ import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 import com.rdc.project.traveltrace.entity.PictureNote;
+import com.rdc.project.traveltrace.entity.PlainNote;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,9 +47,15 @@ public class PictureNoteView extends PLainNoteView {
 
     @Override
     public void setData(Object data) {
-        super.setData(data);
         if (data instanceof PictureNote) {
             PictureNote pictureNote = (PictureNote) data;
+            PlainNote plainNote = new PlainNote();
+            plainNote.setUser(pictureNote.getUser());
+            plainNote.setText(pictureNote.getText());
+            plainNote.setLikeCount(pictureNote.getLikeCount());
+            plainNote.setCommentCount(pictureNote.getCommentCount());
+            plainNote.setLike(pictureNote.isLike());
+            super.setData(plainNote);
             ArrayList<ImageInfo> imageInfoList = new ArrayList<>();
             List<String> imgUrls = pictureNote.getImgUrls();
             if (imgUrls != null) {

@@ -43,13 +43,16 @@ public class CompleteCover extends BaseCover {
         super.onReceiverUnBind();
     }
 
-    private View.OnClickListener mOnClickListener = v -> {
-        switch (v.getId()){
-            case R.id.iv_replay:
-                requestReplay(null);
-                break;
+    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.iv_replay:
+                    CompleteCover.this.requestReplay(null);
+                    break;
+            }
+            CompleteCover.this.setPlayCompleteState(false);
         }
-        setPlayCompleteState(false);
     };
 
     private void setPlayCompleteState(boolean state){

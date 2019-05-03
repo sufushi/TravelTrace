@@ -6,14 +6,24 @@ import android.view.View;
 import com.rdc.project.traveltrace.arch.view.IView;
 import com.rdc.project.traveltrace.utils.visibility_util.utils.DefaultPercentCalculator;
 
-public class VideoNote extends PlainNote {
+public class VideoNote extends Note {
 
+    private User mUser;
     private String mVideoCoverUrl;
     private String mVideoUrl;
     private long mVideoDuration;
+    private String mText;
 
     public VideoNote() {
 
+    }
+
+    public User getUser() {
+        return mUser;
+    }
+
+    public void setUser(User user) {
+        mUser = user;
     }
 
     public String getVideoCoverUrl() {
@@ -38,6 +48,14 @@ public class VideoNote extends PlainNote {
 
     public void setVideoDuration(long videoDuration) {
         mVideoDuration = videoDuration;
+    }
+
+    public String getText() {
+        return mText;
+    }
+
+    public void setText(String text) {
+        mText = text;
     }
 
     @Override
@@ -67,9 +85,9 @@ public class VideoNote extends PlainNote {
                 ", mVideoDuration=" + mVideoDuration +
                 ", mUser=" + mUser +
                 ", mText='" + mText + '\'' +
-                ", mCommentCount=" + mCommentCount +
-                ", mLikeCount=" + mLikeCount +
-                ", mIsLike=" + mIsLike +
+                ", mCommentCount=" + getCommentCount() +
+                ", mLikeCount=" + getLikeCount() +
+                ", mIsLike=" + isLike() +
                 '}';
     }
 }

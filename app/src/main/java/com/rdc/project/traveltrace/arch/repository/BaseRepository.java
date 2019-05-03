@@ -9,6 +9,10 @@ public abstract class BaseRepository<T> implements ICloseable {
     private IDataGetter<T> mDataGetter;
 
     public BaseRepository() {
+
+    }
+
+    protected void init() {
         mDataGetter = createDataGetter();
     }
 

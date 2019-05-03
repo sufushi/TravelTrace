@@ -12,6 +12,7 @@ import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BaseSwipeBackActivity;
 import com.rdc.project.traveltrace.fragment.SignFragment;
 import com.rdc.project.traveltrace.fragment.guide_page.GuidePageFragment;
+import com.rdc.project.traveltrace.fragment.guide_page.GuidePageSkipCallback;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.utils.SharePreferenceUtil;
 import com.rdc.project.traveltrace.view.guide_page.OuterViewPager;
@@ -88,13 +89,21 @@ public class GuidePageActivity extends BaseSwipeBackActivity {
 
     private void onShowSignFragment() {
         OuterViewPager.sIsOtherPageLock = true;
-        mIvLogo.postDelayed(() -> {
-            if (mLogoY == 0) {
-                mLogoY = mIvLogo.getY();
+        mIvLogo.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mLogoY == 0) {
+                    mLogoY = mIvLogo.getY();
+                }
+                GuidePageActivity.this.playLogoInAnim();
             }
-            playLogoInAnim();
         }, 500);
-        mOuterViewPager.postDelayed(() -> mSignFragment.playInAnim(), 300);
+        mOuterViewPager.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSignFragment.playInAnim();
+            }
+        }, 300);
     }
 
     private void playLogoInAnim() {
@@ -130,7 +139,12 @@ public class GuidePageActivity extends BaseSwipeBackActivity {
                     case FRAGMENT_GUIDE_PAGE:
                         mGuidePageFragment = new GuidePageFragment();
                         mOuterViewPager.setGuidePageFragment(mGuidePageFragment);
-                        mOuterViewPager.setGuidePageSkipCallback(() -> mOuterViewPager.setCurrentItem(FRAGMENT_LOGIN_PAGE));
+                        mOuterViewPager.setGuidePageSkipCallback(new GuidePageSkipCallback() {
+                            @Override
+                            public void onGuidePageSkip() {
+                                mOuterViewPager.setCurrentItem(FRAGMENT_LOGIN_PAGE);
+                            }
+                        });
                         mOuterViewPager.setGuidePageScrollCallback(mGuidePageFragment);
                         return mGuidePageFragment;
                     case FRAGMENT_LOGIN_PAGE:

@@ -68,7 +68,7 @@ public class NoteOperatorView extends LinearLayout implements View.OnClickListen
         Comment comment = new Comment();
         User sendUser = new User();
         sendUser.setUserIcon("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1247179626,1114338020&fm=26&gp=0.jpg");
-        sendUser.setUserName("pappy");
+        sendUser.setUsername("pappy");
         sendUser.setUserExtraMsg("3-23");
         comment.setSendUser(sendUser);
         comment.setMessage("这是一条评论！！");

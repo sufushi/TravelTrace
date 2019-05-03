@@ -2,7 +2,11 @@ package com.rdc.project.traveltrace.arch.view_model;
 
 import android.arch.lifecycle.LifecycleOwner;
 
+import com.rdc.project.traveltrace.arch.model.BmobModel;
 import com.rdc.project.traveltrace.arch.view_controller.BaseObserverViewController;
+import com.rdc.project.traveltrace.arch.view_controller.BmobObserverViewController;
+
+import cn.bmob.v3.BmobObject;
 
 public class ViewModelBinder {
 
@@ -20,4 +24,10 @@ public class ViewModelBinder {
 //        viewModel.getLiveData().observe(lifecycleOwner, observer);
 //    }
 
+    public static <T extends BmobObject, Model extends BmobModel<T>> void bind(LifecycleOwner lifecycleOwner, BmobViewModel<T, Model> viewModel, BmobObserverViewController<T, Model> view) {
+        if (lifecycleOwner == null || viewModel == null || view == null) {
+            return;
+        }
+        viewModel.getLiveData().observe(lifecycleOwner, view);
+    }
 }

@@ -49,20 +49,23 @@ public class PublishDrawerDialogFragment extends TopDialogFragment implements IA
     private void initFloatBackground() {
         mFloatBackground = mRootView.findViewById(R.id.float_background);
         mFloatBackground.addFloatViewList(FloatViewFactory.createFloatViewList(getActivity()));
-        mFloatBackground.post(() -> {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                int x = mFloatBackground.getMeasuredWidth() / 2;
-                int y = 0;
-                Animator animator = ViewAnimationUtils.createCircularReveal(mFloatBackground, x, y, 0, mFloatBackground.getMeasuredHeight());
-                animator.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        mFloatBackground.setVisibility(View.VISIBLE);
-                        mFloatBackground.startFloat();
-                    }
-                });
-                animator.setDuration(800);
-                animator.start();
+        mFloatBackground.post(new Runnable() {
+            @Override
+            public void run() {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    int x = mFloatBackground.getMeasuredWidth() / 2;
+                    int y = 0;
+                    Animator animator = ViewAnimationUtils.createCircularReveal(mFloatBackground, x, y, 0, mFloatBackground.getMeasuredHeight());
+                    animator.addListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            mFloatBackground.setVisibility(View.VISIBLE);
+                            mFloatBackground.startFloat();
+                        }
+                    });
+                    animator.setDuration(800);
+                    animator.start();
+                }
             }
         });
     }

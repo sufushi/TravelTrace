@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 public abstract class BaseFragment extends Fragment {
 
     protected AppCompatActivity mBaseActivity;
-    protected View mRootView;
+    protected ViewGroup mRootView;
 
     @Override
     public void onAttach(Context context) {
@@ -35,7 +35,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void onCreateContentView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-        mRootView = inflater.inflate(getLayoutResourceId(), container, false);
+        mRootView = (ViewGroup) inflater.inflate(getLayoutResourceId(), container, false);
     }
 
     protected abstract int getLayoutResourceId();

@@ -78,6 +78,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             String phone = String.valueOf(mPhoneNumEditText.getText());
             user.setUsername(phone);
             user.setPassword("123456");
+            user.setUserIcon("http://b-ssl.duitang.com/uploads/item/201607/16/20160716151334_LuskR.thumb.700_0.jpeg");
             user.setMobilePhoneNumber(phone);
             user.signUp(new SaveListener<Object>() {
                 @Override

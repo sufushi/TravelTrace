@@ -5,10 +5,10 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.os.StrictMode;
+import android.support.multidex.MultiDex;
 
 import com.kk.taurus.exoplayer.ExoMediaPlayer;
 import com.kk.taurus.playerbase.config.PlayerConfig;
-import com.kk.taurus.playerbase.config.PlayerLibrary;
 import com.kk.taurus.playerbase.record.PlayRecordManager;
 import com.lzy.ninegrid.NineGridView;
 import com.rdc.project.traveltrace.utils.GlideNineGirdImageLoader;
@@ -70,6 +70,7 @@ public class App extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         sContext = this;
+        MultiDex.install(this);
     }
 
     public static Context getAppContext() {

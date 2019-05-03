@@ -16,9 +16,6 @@ import com.rdc.project.traveltrace.entity.PlainNote;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.utils.more_text_util.MoreTextUtil;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class PLainNoteView extends LinearLayout implements IView {
 
     protected NoteUserView mNoteUserView;

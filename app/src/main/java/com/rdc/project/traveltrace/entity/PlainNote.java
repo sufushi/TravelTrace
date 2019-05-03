@@ -2,10 +2,19 @@ package com.rdc.project.traveltrace.entity;
 
 public class PlainNote extends Note {
 
-    protected String mText;
+    private User mUser;
+    private String mText;
 
     public PlainNote() {
 
+    }
+
+    public User getUser() {
+        return mUser;
+    }
+
+    public void setUser(User user) {
+        mUser = user;
     }
 
     public String getText() {
@@ -20,10 +29,10 @@ public class PlainNote extends Note {
     public String toString() {
         return "PlainNote{" +
                 "mText='" + mText + '\'' +
-                ", mUser=" + mUser +
-                ", mCommentCount=" + mCommentCount +
-                ", mLikeCount=" + mLikeCount +
-                ", mIsLike=" + mIsLike +
+                ", mUser=" + getUser() +
+                ", mCommentCount=" + getCommentCount() +
+                ", mLikeCount=" + getLikeCount() +
+                ", mIsLike=" + isLike() +
                 '}';
     }
 

@@ -82,7 +82,12 @@ public class TimelineFragment extends BasePTRFragment implements OnRefreshListen
     @Override
     protected void initView() {
         mFoldingCell = mRootView.findViewById(R.id.folding_cell);
-        mFoldingCell.setOnClickListener(v -> mFoldingCell.toggle(false));
+        mFoldingCell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFoldingCell.toggle(false);
+            }
+        });
         mRecyclerView = mRootView.findViewById(R.id.cell_content_recycler_view);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));

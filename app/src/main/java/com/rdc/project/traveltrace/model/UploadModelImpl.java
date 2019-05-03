@@ -10,7 +10,7 @@ import cn.bmob.v3.listener.SaveListener;
 public class UploadModelImpl<T extends BmobObject> extends BaseModelImpl implements IUploadContract.Model<T>{
 
     @Override
-    public void upload(T t, IUploadContract.Presenter presenter) {
+    public void upload(T t, final IUploadContract.Presenter presenter) {
         t.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {

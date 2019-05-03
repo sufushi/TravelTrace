@@ -25,7 +25,7 @@ public abstract class BasePTRFragment extends BaseFragment implements com.scwang
 
     @Override
     protected void onCreateContentView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-        mRootView = inflater.inflate(R.layout.fragment_base_ptr, container, false);
+        mRootView = (ViewGroup) inflater.inflate(R.layout.fragment_base_ptr, container, false);
         initRefreshLayout();
         initContainerLayout();
     }

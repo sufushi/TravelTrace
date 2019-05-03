@@ -66,7 +66,12 @@ public class ThawingView extends View {
     @NonNull
     private ValueAnimator getScaleValueAnimator() {
         ValueAnimator scaleVa = ValueAnimator.ofFloat(0, 6);
-        scaleVa.addUpdateListener(valueAnimator -> mScale = (float) valueAnimator.getAnimatedValue());
+        scaleVa.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                mScale = (float) valueAnimator.getAnimatedValue();
+            }
+        });
         scaleVa.setDuration(mDuration);
         return scaleVa;
     }
@@ -74,9 +79,12 @@ public class ThawingView extends View {
     @NonNull
     private ValueAnimator getAlphaValueAnimator() {
         ValueAnimator alphaVa = ValueAnimator.ofFloat(1, 0f);
-        alphaVa.addUpdateListener(valueAnimator -> {
-            mAlpha = (float) valueAnimator.getAnimatedValue();
-            postInvalidateDelayed(16);
+        alphaVa.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                mAlpha = (float) valueAnimator.getAnimatedValue();
+                ThawingView.this.postInvalidateDelayed(16);
+            }
         });
 
         alphaVa.addListener(new Animator.AnimatorListener() {

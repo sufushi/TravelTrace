@@ -14,7 +14,7 @@ import cn.bmob.v3.listener.QueryListListener;
 public class UploadBatchModelImpl extends BaseModelImpl implements IUploadBatchContract.Model {
 
     @Override
-    public void uploadBatch(List<BmobObject> objectList, IUploadBatchContract.Presenter presenter) {
+    public void uploadBatch(List<BmobObject> objectList, final IUploadBatchContract.Presenter presenter) {
         BmobBatch bmobBatch = new BmobBatch();
         bmobBatch.insertBatch(objectList).doBatch(new QueryListListener<BatchResult>() {
             @Override

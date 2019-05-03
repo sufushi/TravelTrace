@@ -6,24 +6,16 @@ import com.rdc.project.traveltrace.utils.visibility_util.items.ListItem;
 import com.rdc.project.traveltrace.utils.visibility_util.utils.DefaultPercentCalculator;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobPointer;
 
 public class Note extends BmobObject implements ListItem  {
 
-    protected User mUser;
-    protected int mCommentCount;
-    protected int mLikeCount;
-    protected boolean mIsLike;
+    private int mCommentCount;
+    private int mLikeCount;
+    private boolean mIsLike;
 
     public Note() {
 
-    }
-
-    public User getUser() {
-        return mUser;
-    }
-
-    public void setUser(User user) {
-        mUser = user;
     }
 
     public int getCommentCount() {
@@ -53,7 +45,6 @@ public class Note extends BmobObject implements ListItem  {
     @Override
     public String toString() {
         return "Note{" +
-                "mUser=" + mUser +
                 ", mCommentCount=" + mCommentCount +
                 ", mLikeCount=" + mLikeCount +
                 ", mIsLike=" + mIsLike +

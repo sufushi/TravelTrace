@@ -10,18 +10,22 @@ public abstract class BaseViewModel<T> extends ViewModel {
     private BaseRepository<T> mRepository;
 
     public BaseViewModel() {
+
+    }
+
+    protected void init() {
         initRepository();
         initLiveData();
     }
 
-    private void initLiveData() {
+    protected void initLiveData() {
         if (mLiveData != null) {
             return;
         }
         mLiveData = getDataSource();
     }
 
-    private void initRepository() {
+    protected void initRepository() {
         mRepository = createRepository();
     }
 

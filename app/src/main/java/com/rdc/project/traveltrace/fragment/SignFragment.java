@@ -54,8 +54,18 @@ public class SignFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-        mTvLogin.setOnClickListener(v -> mViewPager.setCurrentItem(SIGN_PAGE_LOGIN));
-        mTvRegister.setOnClickListener(v -> mViewPager.setCurrentItem(SIGN_PAGE_REGISTER));
+        mTvLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(SIGN_PAGE_LOGIN);
+            }
+        });
+        mTvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(SIGN_PAGE_REGISTER);
+            }
+        });
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {

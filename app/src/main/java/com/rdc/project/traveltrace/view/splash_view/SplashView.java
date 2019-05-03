@@ -162,7 +162,12 @@ public class SplashView extends View {
         //start could animate
         for (int i = 0; i < mCouldPaths.length; i++) {
             final ValueAnimator couldAnimator = getCouldValueAnimator(i);
-            postDelayed(() -> couldAnimator.start(), mDuration / 2);
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    couldAnimator.start();
+                }
+            }, mDuration / 2);
         }
 
         getTitleAnimate().start();
@@ -177,9 +182,12 @@ public class SplashView extends View {
     private ValueAnimator getTitleAnimate() {
 
         ValueAnimator va = ValueAnimator.ofFloat(0, mFinalTitleY);
-        va.addUpdateListener(valueAnimator -> {
-            mTitleY = (float) valueAnimator.getAnimatedValue();
-            invalidate();
+        va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                mTitleY = (float) valueAnimator.getAnimatedValue();
+                SplashView.this.invalidate();
+            }
         });
         va.setInterpolator(new DecelerateInterpolator());
         va.setDuration(mDuration / 3);
@@ -188,9 +196,12 @@ public class SplashView extends View {
 
     private ValueAnimator getCouldValueAnimator(final int pos) {
         ValueAnimator animator = ValueAnimator.ofFloat(getHeight(), mCouldFinalY[pos]);
-        animator.addUpdateListener(valueAnimator -> {
-            mCouldY[pos] = (float) valueAnimator.getAnimatedValue();
-            postInvalidateDelayed(10);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                mCouldY[pos] = (float) valueAnimator.getAnimatedValue();
+                SplashView.this.postInvalidateDelayed(10);
+            }
         });
         animator.setDuration(1500);
         animator.setInterpolator(new DecelerateInterpolator());
@@ -200,9 +211,12 @@ public class SplashView extends View {
     @NonNull
     private ValueAnimator getTowerValueAnimator() {
         final ValueAnimator towerAnimator = ValueAnimator.ofFloat(0, 1);
-        towerAnimator.addUpdateListener(valueAnimator -> {
-            mAnimatorValue = (float) valueAnimator.getAnimatedValue();
-            postInvalidateDelayed(10);
+        towerAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                mAnimatorValue = (float) valueAnimator.getAnimatedValue();
+                SplashView.this.postInvalidateDelayed(10);
+            }
         });
         towerAnimator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -239,9 +253,12 @@ public class SplashView extends View {
 
     private ValueAnimator getAlphaAnimator() {
         final ValueAnimator va = ValueAnimator.ofInt(0, 255);
-        va.addUpdateListener(animation -> {
-            mAlpha = (int) animation.getAnimatedValue();
-            invalidate();
+        va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mAlpha = (int) animation.getAnimatedValue();
+                SplashView.this.invalidate();
+            }
         });
         va.addListener(new Animator.AnimatorListener() {
             @Override

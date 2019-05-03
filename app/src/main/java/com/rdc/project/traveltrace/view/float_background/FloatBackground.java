@@ -46,7 +46,12 @@ public class FloatBackground extends FrameLayout {
 
     // 控制帧数
     // 重绘线程
-    private Runnable mRunnable = this::invalidate;
+    private Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            invalidate();
+        }
+    };
 
     public void startFloat() {
         for (FloatObject floatObject : mFloats) {

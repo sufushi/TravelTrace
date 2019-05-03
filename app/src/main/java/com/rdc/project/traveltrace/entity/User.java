@@ -5,7 +5,6 @@ import cn.bmob.v3.BmobUser;
 public class User extends BmobUser {
 
     private String mUserIcon;
-    private String mUserName;
     private String mUserExtraMsg;
     private boolean mHasFollow;
 
@@ -18,14 +17,6 @@ public class User extends BmobUser {
 
     public void setUserIcon(String userIcon) {
         mUserIcon = userIcon;
-    }
-
-    public String getUserName() {
-        return mUserName;
-    }
-
-    public void setUserName(String userName) {
-        mUserName = userName;
     }
 
     public String getUserExtraMsg() {
@@ -48,7 +39,6 @@ public class User extends BmobUser {
     public String toString() {
         return "User{" +
                 "mUserIcon='" + mUserIcon + '\'' +
-                ", mUserName='" + mUserName + '\'' +
                 ", mUserExtraMsg='" + mUserExtraMsg + '\'' +
                 ", mHasFollow=" + mHasFollow +
                 '}';

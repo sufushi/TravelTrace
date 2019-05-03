@@ -2,7 +2,6 @@ package com.rdc.project.traveltrace.fragment;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +23,7 @@ import com.rdc.project.traveltrace.contract.IUploadContract;
 import com.rdc.project.traveltrace.contract.IUploadFileContract;
 import com.rdc.project.traveltrace.decorator.SpaceGridItemDecoration;
 import com.rdc.project.traveltrace.entity.Note;
+import com.rdc.project.traveltrace.entity.NoteRecord;
 import com.rdc.project.traveltrace.entity.Picture;
 import com.rdc.project.traveltrace.entity.PictureNote;
 import com.rdc.project.traveltrace.entity.PlainNote;
@@ -35,6 +35,7 @@ import com.rdc.project.traveltrace.utils.CommonItemTouchHelper;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.utils.CommonItemTouchCallback;
 import com.rdc.project.traveltrace.utils.GlideGalleryPickImageLoader;
+import com.rdc.project.traveltrace.utils.NoteRecordUploadUtil;
 import com.rdc.project.traveltrace.utils.PageSwitchUtil;
 import com.rdc.project.traveltrace.utils.PictureUtil;
 import com.rdc.project.traveltrace.utils.ProgressDialogUtil;
@@ -75,6 +76,8 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
 
     private UploadFilePresenterImpl mUploadFilePresenter;
     private UploadPresenterImpl<Note> mNoteUploadPresenter;
+
+    private NoteRecord mNoteRecord;
 
     @Override
     protected int getLayoutResourceId() {
@@ -277,8 +280,12 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
         if (mSelectedList.isEmpty()) {
             PlainNote plainNote = new PlainNote();
             plainNote.setText(publishText);
-            plainNote.setUser(BmobUser.getCurrentUser(User.class));
+            User user = new User();
+            user.setObjectId(BmobUser.getCurrentUser(BmobUser.class).getObjectId());
+            plainNote.setUser(user);
             mNoteUploadPresenter.upload(plainNote);
+            mNoteRecord = new NoteRecord();
+            mNoteRecord.setPlainNote(plainNote);
             ProgressDialogUtil.showProgressDialog(getActivity(), "正在发表...");
         } else {
             for (int i = 0; i < mSelectedList.size(); i++) {
@@ -303,8 +310,12 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
         PictureNote pictureNote = new PictureNote();
         pictureNote.setImgUrls(urlList);
         pictureNote.setText(publishText);
-        pictureNote.setUser(BmobUser.getCurrentUser(User.class));
+        User user = new User();
+        user.setObjectId(BmobUser.getCurrentUser(BmobUser.class).getObjectId());
+        pictureNote.setUser(user);
         mNoteUploadPresenter.upload(pictureNote);
+        mNoteRecord = new NoteRecord();
+        mNoteRecord.setPictureNote(pictureNote);
     }
 
     @Override
@@ -317,6 +328,7 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
     public void onUploadSuccess(String response) {
         ProgressDialogUtil.dismiss();
         CommonToast.success(Objects.requireNonNull(getActivity()), "发表成功").show();
+        NoteRecordUploadUtil.getInstance().uploadNote(mNoteRecord);
         getActivity().finish();
     }
 

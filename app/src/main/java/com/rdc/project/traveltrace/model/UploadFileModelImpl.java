@@ -12,11 +12,11 @@ import cn.bmob.v3.listener.UploadBatchListener;
 public class UploadFileModelImpl extends BaseModelImpl implements IUploadFileContract.Model {
 
     @Override
-    public void uploadFile(List<String> fileList, IUploadFileContract.Presenter presenter) {
+    public void uploadFile(List<String> fileList, final IUploadFileContract.Presenter presenter) {
         if (CollectionUtil.isEmpty(fileList)) {
             return;
         }
-        String[] paths = new String[fileList.size()];
+        final String[] paths = new String[fileList.size()];
         fileList.toArray(paths);
         BmobFile.uploadBatch(paths, new UploadBatchListener() {
             @Override

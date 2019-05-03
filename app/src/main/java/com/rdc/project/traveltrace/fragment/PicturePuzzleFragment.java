@@ -15,6 +15,8 @@ import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BaseFragment;
 import com.rdc.project.traveltrace.view.DegreeSeekBar;
 import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzleLayout;
+import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzlePiece;
+import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzleView;
 import com.rdc.project.traveltrace.view.puzzle_view.extend.SquarePuzzleView;
 import com.rdc.project.traveltrace.view.puzzle_view.impl.controller.PuzzlePanelPanelController;
 import com.rdc.project.traveltrace.view.puzzle_view.impl.provider.PuzzleProvider;
@@ -73,7 +75,12 @@ public class PicturePuzzleFragment extends BaseFragment {
         mSquarePuzzleView.setAnimateDuration(300);
 //        mSquarePuzzleView.setPiecePadding(10);
         mSquarePuzzleView.setBackgroundColor(Color.WHITE);
-        mSquarePuzzleView.post(this::loadPictures);
+        mSquarePuzzleView.post(new Runnable() {
+            @Override
+            public void run() {
+                loadPictures();
+            }
+        });
 
         PuzzlePanelPanelController controller = new PuzzlePanelPanelController(getActivity(), mSquarePuzzleView);
         mPuzzlePanelView.setIPuzzlePanelController(controller);
@@ -146,7 +153,12 @@ public class PicturePuzzleFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-        mSquarePuzzleView.setOnPieceSelectedListener((piece, position) -> CommonToast.normal(Objects.requireNonNull(getActivity()), "position=" + position).show());
+        mSquarePuzzleView.setOnPieceSelectedListener(new PuzzleView.OnPieceSelectedListener() {
+            @Override
+            public void onPieceSelected(PuzzlePiece piece, int position) {
+                CommonToast.normal(Objects.requireNonNull(PicturePuzzleFragment.this.getActivity()), "position=" + position).show();
+            }
+        });
         mDegreeSeekBar.setScrollingListener(new DegreeSeekBar.ScrollingListener() {
             @Override
             public void onScrollStart() {

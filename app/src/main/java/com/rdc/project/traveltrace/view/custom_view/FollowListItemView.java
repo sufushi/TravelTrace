@@ -52,7 +52,7 @@ public class FollowListItemView extends LinearLayout implements IView {
                     .load(user.getUserIcon())
                     .apply(new RequestOptions().placeholder(R.drawable.ic_avatar))
                     .into(mFollowUserIconView);
-            mFollowUserNameView.setText(user.getUserName());
+            mFollowUserNameView.setText(user.getUsername());
         }
     }
 

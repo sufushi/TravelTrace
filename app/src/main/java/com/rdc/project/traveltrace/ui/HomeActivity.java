@@ -23,6 +23,7 @@ import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.utils.HandlerUtil;
 import com.rdc.project.traveltrace.view.pop_menu.PopMenu;
 import com.rdc.project.traveltrace.view.pop_menu.PopMenuItem;
+import com.rdc.project.traveltrace.view.pop_menu.PopMenuItemClickListener;
 import com.rdc.project.traveltrace.view.toast.CommonToast;
 import com.yw.game.floatmenu.FloatItem;
 import com.yw.game.floatmenu.FloatLogoMenu;
@@ -73,7 +74,12 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
 //        initPopMenu();
 //        initFloatMenu();
         updateActionBtn(R.drawable.ic_action_send, ACTION_BTN_TAG_SEND);
-        mToolbar.post(() -> mContainer.setPadding(0, mToolbar.getHeight(), 0, 0));
+        mToolbar.post(new Runnable() {
+            @Override
+            public void run() {
+                mContainer.setPadding(0, mToolbar.getHeight(), 0, 0);
+            }
+        });
     }
 
     private void initPopMenu() {
@@ -81,12 +87,18 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
                 .addMenuItem(new PopMenuItem("说说", getResources().getDrawable(R.drawable.ic_action_article)))
                 .addMenuItem(new PopMenuItem("相册", getResources().getDrawable(R.drawable.ic_action_picture)))
                 .addMenuItem(new PopMenuItem("拍摄", getResources().getDrawable(R.drawable.ic_action_video)))
-                .setOnItemClickListener((popMenu, position) -> {
+                .setOnItemClickListener(new PopMenuItemClickListener() {
+                    @Override
+                    public void onItemClick(PopMenu popMenu, int position) {
 
+                    }
                 })
                 .build();
-        mPopMenu.setOnMenuCloseListener(v -> {
+        mPopMenu.setOnMenuCloseListener(new PopMenu.OnMenuCloseListener() {
+            @Override
+            public void onClose(View v) {
 
+            }
         });
     }
 

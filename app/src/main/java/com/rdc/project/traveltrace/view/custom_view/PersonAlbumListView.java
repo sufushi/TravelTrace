@@ -77,11 +77,11 @@ public class PersonAlbumListView extends LinearLayout implements IView, View.OnC
     public void setData(Object data) {
         if (data instanceof PersonAlbumList) {
             PersonAlbumList personAlbumList = (PersonAlbumList) data;
-            List<String> list = personAlbumList.getAlbumList();
+            final List<String> list = personAlbumList.getAlbumList();
             if (CollectionUtil.isEmpty(list)) {
                 return;
             }
-            PuzzleLayout puzzleLayout;
+            final PuzzleLayout puzzleLayout;
             if (list.size() > 1) {
                 int pieceSize = list.size() > 9 ? 9 : list.size() % 9;
                 puzzleLayout = PuzzleProvider.getPuzzleLayout(1, pieceSize, 3);

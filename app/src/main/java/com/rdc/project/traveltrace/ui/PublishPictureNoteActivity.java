@@ -36,9 +36,12 @@ public class PublishPictureNoteActivity extends BaseBounceActivity {
 
     @Override
     protected void initListener() {
-        mActionBtn.setOnClickListener(v -> {
-            if (mPublishPictureNoteFragment != null) {
-                mPublishPictureNoteFragment.onActionBtnClick();
+        mActionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPublishPictureNoteFragment != null) {
+                    mPublishPictureNoteFragment.onActionBtnClick();
+                }
             }
         });
     }

@@ -10,7 +10,7 @@ import cn.bmob.v3.listener.UpdateListener;
 public class UpdateModelImpl<T extends BmobObject> extends BaseModelImpl implements IUpdateContract.Model<T> {
 
     @Override
-    public void update(T t, IUpdateContract.Presenter presenter) {
+    public void update(T t, final IUpdateContract.Presenter presenter) {
         t.update(t.getObjectId(), new UpdateListener() {
             @Override
             public void done(BmobException e) {

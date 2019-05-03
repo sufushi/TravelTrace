@@ -5,12 +5,22 @@ import android.view.View;
 
 import java.util.List;
 
-public class PictureNote extends PlainNote {
+public class PictureNote extends Note {
 
+    private User mUser;
     private List<String> mImgUrls;
+    private String mText;
 
     public PictureNote() {
 
+    }
+
+    public User getUser() {
+        return mUser;
+    }
+
+    public void setUser(User user) {
+        mUser = user;
     }
 
     public List<String> getImgUrls() {
@@ -19,6 +29,14 @@ public class PictureNote extends PlainNote {
 
     public void setImgUrls(List<String> imgUrls) {
         mImgUrls = imgUrls;
+    }
+
+    public String getText() {
+        return mText;
+    }
+
+    public void setText(String text) {
+        mText = text;
     }
 
     @Override
@@ -33,9 +51,9 @@ public class PictureNote extends PlainNote {
                 "mImgUrls=" + mImgUrls +
                 ", mUser=" + mUser +
                 ", mText='" + mText + '\'' +
-                ", mCommentCount=" + mCommentCount +
-                ", mLikeCount=" + mLikeCount +
-                ", mIsLike=" + mIsLike +
+                ", mCommentCount=" + getCommentCount() +
+                ", mLikeCount=" + getLikeCount() +
+                ", mIsLike=" + isLike() +
                 '}';
     }
 }

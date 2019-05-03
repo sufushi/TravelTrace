@@ -6,7 +6,7 @@ import com.rdc.project.traveltrace.arch.repository.CommonRepository;
 public class CommonViewModel<T> extends BaseViewModel<T> {
 
     public CommonViewModel() {
-        super();
+        init();
     }
 
     @Override
