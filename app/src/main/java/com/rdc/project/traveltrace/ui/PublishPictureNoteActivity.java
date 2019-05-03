@@ -21,6 +21,7 @@ public class PublishPictureNoteActivity extends BaseBounceActivity {
     @Override
     protected BaseFragment createPTRFragment() {
         mPublishPictureNoteFragment = new PublishPictureNoteFragment();
+        mPublishPictureNoteFragment.setArguments(getIntent().getBundleExtra("bundle"));
         return mPublishPictureNoteFragment;
     }
 

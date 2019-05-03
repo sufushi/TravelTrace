@@ -8,6 +8,7 @@ import com.rdc.project.traveltrace.adapter.PuzzleTempleAdapter;
 import com.rdc.project.traveltrace.arch.view.IView;
 import com.rdc.project.traveltrace.base.BaseHListView;
 import com.rdc.project.traveltrace.base.BaseRecyclerViewAdapter;
+import com.rdc.project.traveltrace.base.OnClickRecyclerViewListener;
 import com.rdc.project.traveltrace.entity.PuzzleTemple;
 import com.rdc.project.traveltrace.entity.PuzzleTempleList;
 import com.rdc.project.traveltrace.utils.DensityUtil;
@@ -34,6 +35,12 @@ public class PuzzleTempleHListView extends BaseHListView implements IView {
     protected BaseRecyclerViewAdapter createAdapter(Context context) {
         mAdapter = new PuzzleTempleAdapter(context);
         return mAdapter;
+    }
+
+    public void setItemClickListener(OnClickRecyclerViewListener listener) {
+        if (mAdapter != null) {
+            mAdapter.setOnRecyclerViewListener(listener);
+        }
     }
 
     @Override

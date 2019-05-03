@@ -77,7 +77,7 @@ public class PublishDrawerDialogFragment extends TopDialogFragment implements IA
         Action action2 = new Action(ACTION_PRE + ACTION_NAME_PICTURE_PUZZLE + "?" + PUZZLE_TYPE + "=1" + "&" + PUZZLE_PIECE_SIZE + "=3" + "&" + PUZZLE_THEME + "=2");
         Action action3 = new Action(ACTION_PRE + ACTION_NAME_PICTURE_PROCESS);
         list.add(new PublishDrawerItemView.DrawerItemData(R.drawable.ic_action_article, R.color.orangeRed, "说说", action1));
-        list.add(new PublishDrawerItemView.DrawerItemData(R.drawable.ic_action_picture, R.color.colorPrimary, "相册", action2));
+        list.add(new PublishDrawerItemView.DrawerItemData(R.drawable.ic_action_picture, R.color.colorPrimary, "拼图", action2));
         list.add(new PublishDrawerItemView.DrawerItemData(R.drawable.ic_action_video, R.color.seaGreen, "拍摄", action3));
         mPublishDrawerView.setDrawerItemList(list, 3);
     }

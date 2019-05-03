@@ -14,12 +14,18 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.rdc.project.traveltrace.R;
+import com.rdc.project.traveltrace.base.OnClickRecyclerViewListener;
 import com.rdc.project.traveltrace.fragment.dialog_fragment.PuzzleTempleListFragment;
 import com.rdc.project.traveltrace.utils.CollectionUtil;
 import com.rdc.project.traveltrace.utils.GlideGalleryPickImageLoader;
+import com.rdc.project.traveltrace.utils.action.Action;
+import com.rdc.project.traveltrace.utils.action.ActionManager;
+import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzleLayout;
 import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzleView;
+import com.rdc.project.traveltrace.view.puzzle_view.impl.provider.PuzzleProvider;
 import com.rdc.project.traveltrace.view.puzzle_view.impl.ui.PuzzlePanelView;
 import com.rdc.project.traveltrace.view.puzzle_view.util.FileUtils;
+import com.rdc.project.traveltrace.view.toast.CommonToast;
 import com.yancy.gallerypick.config.GalleryConfig;
 import com.yancy.gallerypick.config.GalleryPick;
 import com.yancy.gallerypick.inter.IHandlerCallBack;
@@ -32,6 +38,10 @@ import me.weyye.hipermission.HiPermission;
 import me.weyye.hipermission.PermissionCallback;
 import me.weyye.hipermission.PermissionItem;
 
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_FIELD_SHARE_PUZZLE_IMG;
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PUBLISH_PICTURE_NOTE;
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_PRE;
+
 public class PuzzlePanelPanelController implements IPuzzlePanelController {
 
     private static final String SAVE_DIR = "/Gallery/Pictures";
@@ -42,6 +52,10 @@ public class PuzzlePanelPanelController implements IPuzzlePanelController {
 
     private GalleryConfig mGalleryConfig;
     private List<PermissionItem> mPermissionItems = new ArrayList<>();
+
+    private OnClickRecyclerViewListener mTempleListener;
+
+    private boolean mShare = false;
 
     public PuzzlePanelPanelController(Context context, PuzzleView puzzleView) {
         mContext = context;
@@ -106,6 +120,10 @@ public class PuzzlePanelPanelController implements IPuzzlePanelController {
         mPuzzlePanelView.setIPuzzlePanelController(this);
     }
 
+    public void setTempleListener(OnClickRecyclerViewListener listener) {
+        mTempleListener = listener;
+    }
+
     @Override
     public void replace() {
         if (checkPermissions()) {
@@ -147,25 +165,41 @@ public class PuzzlePanelPanelController implements IPuzzlePanelController {
         FileUtils.savePuzzle(mPuzzleView, file, 100, new FileUtils.Callback() {
             @Override
             public void onSuccess() {
-
+                if (mShare) {
+                    assert file != null;
+                    Action action = new Action(ACTION_PRE + ACTION_NAME_PUBLISH_PICTURE_NOTE + "?" + ACTION_FIELD_SHARE_PUZZLE_IMG + "=" + file.getPath());
+                    ActionManager.doAction(action, mContext);
+                    ((Activity) mContext).finish();
+                } else {
+                    CommonToast.success(mContext, "保存成功").show();
+                }
             }
 
             @Override
             public void onFailed() {
-
+                String message;
+                if (mShare) {
+                    message = "分享失败";
+                    mShare = false;
+                } else {
+                    message = "保存失败";
+                }
+                CommonToast.success(mContext, message).show();
             }
         });
     }
 
     @Override
     public void share() {
-
+        mShare = true;
+        save();
     }
 
     @Override
     public void temple() {
         if (mContext instanceof FragmentActivity) {
             PuzzleTempleListFragment fragment = new PuzzleTempleListFragment();
+            fragment.setClickRecyclerViewListener(mTempleListener);
             fragment.show(((FragmentActivity) mContext).getSupportFragmentManager(), PuzzleTempleListFragment.class.getSimpleName());
         }
     }

@@ -25,4 +25,5 @@ public class ActionConstant {
     public static final String ACTION_NAME_PERSON_ALBUM = "PersonAlbumActivity";
     public static final String ACTION_NAME_VIDEO_LIST = "PersonVideoListActivity";
 
+    public static final String ACTION_FIELD_SHARE_PUZZLE_IMG = "share_puzzle_img";
 }

@@ -56,6 +56,8 @@ import me.weyye.hipermission.HiPermission;
 import me.weyye.hipermission.PermissionCallback;
 import me.weyye.hipermission.PermissionItem;
 
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_FIELD_SHARE_PUZZLE_IMG;
+
 public class PublishPictureNoteFragment extends BaseFragment implements OnClickRecyclerViewListener, CommonItemTouchCallback.OnItemTouchListener, IUploadFileContract.View, IUploadContract.View {
 
     private static final String SAVE_DIR = "/Gallery/Pictures";
@@ -92,6 +94,17 @@ public class PublishPictureNoteFragment extends BaseFragment implements OnClickR
         mCaptureSet = new HashSet<>();
         mPermissionItems.add(new PermissionItem(Manifest.permission.CAMERA, "照相机", R.drawable.permission_ic_camera));
         mPermissionItems.add(new PermissionItem(Manifest.permission.WRITE_EXTERNAL_STORAGE, "存储", R.drawable.permission_ic_storage));
+        String sharePuzzleImg = bundle.getString(ACTION_FIELD_SHARE_PUZZLE_IMG);
+        if (!TextUtils.isEmpty(sharePuzzleImg)) {
+            mSelectedList.add(sharePuzzleImg);
+            Picture picture = new Picture();
+            picture.setImgPath(sharePuzzleImg);
+            mPictureList.add(picture);
+            ImageInfo imageInfo = new ImageInfo();
+            imageInfo.setBigImageUrl(picture.getImgPath());
+            imageInfo.setThumbnailUrl(picture.getImgPath());
+            mImageInfoList.add(imageInfo);
+        }
         initGalleryConfig();
         mUploadFilePresenter = new UploadFilePresenterImpl(this);
         mNoteUploadPresenter = new UploadPresenterImpl<>(this);

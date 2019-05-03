@@ -1,6 +1,7 @@
 package com.rdc.project.traveltrace.fragment.dialog_fragment;
 
 import com.rdc.project.traveltrace.R;
+import com.rdc.project.traveltrace.base.OnClickRecyclerViewListener;
 import com.rdc.project.traveltrace.entity.PuzzleTemple;
 import com.rdc.project.traveltrace.entity.PuzzleTempleList;
 import com.rdc.project.traveltrace.utils.DensityUtil;
@@ -15,6 +16,11 @@ import java.util.Objects;
 public class PuzzleTempleListFragment extends BottomDialogFragment {
 
     private PuzzleTempleList mPuzzleTempleList;
+    private OnClickRecyclerViewListener mClickRecyclerViewListener;
+
+    public void setClickRecyclerViewListener(OnClickRecyclerViewListener listener) {
+        mClickRecyclerViewListener = listener;
+    }
 
     @Override
     protected int getLayoutResId() {
@@ -40,6 +46,9 @@ public class PuzzleTempleListFragment extends BottomDialogFragment {
     @Override
     protected void initView() {
         PuzzleTempleHListView puzzleTempleHListView = mRootView.findViewById(R.id.puzzle_temple_list_view);
+        if (mClickRecyclerViewListener != null) {
+            puzzleTempleHListView.setItemClickListener(mClickRecyclerViewListener);
+        }
         puzzleTempleHListView.setData(mPuzzleTempleList);
     }
 }

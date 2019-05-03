@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -13,6 +14,8 @@ import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BaseFragment;
+import com.rdc.project.traveltrace.base.OnClickRecyclerViewListener;
+import com.rdc.project.traveltrace.utils.CollectionUtil;
 import com.rdc.project.traveltrace.view.DegreeSeekBar;
 import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzleLayout;
 import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzlePiece;
@@ -38,6 +41,7 @@ public class PicturePuzzleFragment extends BaseFragment {
     private DegreeSeekBar mDegreeSeekBar;
     private PuzzlePanelView mPuzzlePanelView;
 
+    private List<PuzzleLayout> mLayoutList;
     private PuzzleLayout mPuzzleLayout;
     private List<String> mPictureList;
     List<Target> mTargets = new ArrayList<>();
@@ -56,6 +60,7 @@ public class PicturePuzzleFragment extends BaseFragment {
             mPictureList = bundle.getStringArrayList(PUZZLE_PICTURE_LIST);
             mPuzzleLayout = PuzzleProvider.getPuzzleLayout(type, pieceSize, theme);
         }
+        mLayoutList = PuzzleProvider.getAllPuzzleLayouts();
     }
 
     @Override
@@ -66,10 +71,10 @@ public class PicturePuzzleFragment extends BaseFragment {
 
         mSquarePuzzleView.setPuzzleLayout(mPuzzleLayout);
         mSquarePuzzleView.setTouchEnable(true);
-        mSquarePuzzleView.setNeedDrawLine(false);
+        mSquarePuzzleView.setNeedDrawLine(true);
         mSquarePuzzleView.setNeedDrawOuterLine(false);
-        mSquarePuzzleView.setLineSize(4);
-        mSquarePuzzleView.setLineColor(Color.BLACK);
+        mSquarePuzzleView.setLineSize(10);
+        mSquarePuzzleView.setLineColor(Color.WHITE);
         mSquarePuzzleView.setSelectedLineColor(Color.BLACK);
         mSquarePuzzleView.setHandleBarColor(Color.BLACK);
         mSquarePuzzleView.setAnimateDuration(300);
@@ -83,10 +88,25 @@ public class PicturePuzzleFragment extends BaseFragment {
         });
 
         PuzzlePanelPanelController controller = new PuzzlePanelPanelController(getActivity(), mSquarePuzzleView);
+        controller.setTempleListener(new OnClickRecyclerViewListener() {
+            @Override
+            public void onItemClick(int position, View view) {
+                if (CollectionUtil.inRange(mLayoutList, position)) {
+                    mPuzzleLayout = mLayoutList.get(position);
+                    mSquarePuzzleView.setPuzzleLayout(mPuzzleLayout);
+                    loadPictures();
+                }
+            }
+
+            @Override
+            public boolean onItemLongClick(int position) {
+                return false;
+            }
+        });
         mPuzzlePanelView.setIPuzzlePanelController(controller);
 
-        mDegreeSeekBar.setCurrentDegrees(0);
-        mDegreeSeekBar.setDegreeRange(-30, 30);
+        mDegreeSeekBar.setCurrentDegrees(10);
+        mDegreeSeekBar.setDegreeRange(-30, 45);
     }
 
     private void loadPictures() {
@@ -124,7 +144,8 @@ public class PicturePuzzleFragment extends BaseFragment {
 
     private void loadPicturesFromRes() {
         final List<Bitmap> pieces = new ArrayList<>();
-        final int[] resIds = new int[] {R.drawable.test, R.drawable.test, R.drawable.test, R.drawable.test};
+        final int[] resIds = new int[] {R.drawable.ic_picture_place_holder, R.drawable.ic_picture_place_holder,
+                R.drawable.ic_picture_place_holder, R.drawable.ic_picture_place_holder};
         final int count = Math.min(mPuzzleLayout.getAreaCount(), resIds.length);
         for (int i = 0; i < count; i++) {
             final Target<Bitmap> target = new SimpleTarget<Bitmap>() {
@@ -167,7 +188,7 @@ public class PicturePuzzleFragment extends BaseFragment {
 
             @Override
             public void onScroll(int currentDegrees) {
-                mSquarePuzzleView.setPiecePadding(currentDegrees);
+                mSquarePuzzleView.setLineSize(currentDegrees);
                 mSquarePuzzleView.postInvalidate();
             }
 
