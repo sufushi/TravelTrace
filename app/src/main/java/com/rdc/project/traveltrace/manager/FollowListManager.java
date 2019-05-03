@@ -3,37 +3,44 @@ package com.rdc.project.traveltrace.manager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.rdc.project.traveltrace.contract.IQueryContract;
 import com.rdc.project.traveltrace.contract.IUpdateContract;
+import com.rdc.project.traveltrace.contract.IUploadContract;
 import com.rdc.project.traveltrace.entity.FollowList;
 import com.rdc.project.traveltrace.entity.User;
+import com.rdc.project.traveltrace.model.query.FollowListQueryModelImpl;
+import com.rdc.project.traveltrace.presenter.QueryPresenterImpl;
 import com.rdc.project.traveltrace.presenter.UpdatePresenterImpl;
+import com.rdc.project.traveltrace.presenter.UploadPresenterImpl;
+import com.rdc.project.traveltrace.presenter.query.QueryPresenterImplFactory;
 import com.rdc.project.traveltrace.utils.CollectionUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobPointer;
-import cn.bmob.v3.datatype.BmobRelation;
 
-public class FollowListManager implements IUpdateContract.View {
+public class FollowListManager implements IUpdateContract.View, IQueryContract.View<FollowList>, IUploadContract.View {
 
     private static final String TAG = "FollowListManager";
 
     private static final int ACTION_FOLLOW = 0;
     private static final int ACTION_UN_FOLLOW = 1;
 
-    private static final int STATE_FOLLOWING = 3;
-    private static final int STATE_UN_FOLLOWING = 4;
     private static final int STATE_IDLE = 5;
 
     private int mAction;
     private int mState;
 
-    private UpdatePresenterImpl<User> mUserUpdatePresenter;
+    private UploadPresenterImpl<FollowList> mFollowListUploadPresenter;
+    private UpdatePresenterImpl<FollowList> mFollowListUpdatePresenter;
+    private QueryPresenterImpl<FollowList, FollowListQueryModelImpl> mFollowListQueryPresenter;
     private IFollowListener mFollowListener;
     private IUnFollowListener mUnFollowListener;
 
@@ -49,31 +56,26 @@ public class FollowListManager implements IUpdateContract.View {
     }
 
     private FollowListManager() {
-        mUserUpdatePresenter = new UpdatePresenterImpl<>(this);
+        mFollowListUploadPresenter = new UploadPresenterImpl<FollowList>(this);
+        mFollowListUpdatePresenter = new UpdatePresenterImpl<>(this);
+        mFollowListQueryPresenter = QueryPresenterImplFactory.createFollowListPresenterImpl(this);
         mFollowList = new FollowList();
         mFollowSet = new HashSet<>();
-        initFollowList();
         mState = STATE_IDLE;
     }
 
-    private void initFollowList() {
+    public void initFollowList() {
         User owner = BmobUser.getCurrentUser(User.class);
-        if (owner == null || owner.getFollowUserList() == null) {
+        if (owner == null) {
             return;
         }
-        List<BmobPointer> list = owner.getFollowUserList().getObjects();
-        if (CollectionUtil.isEmpty(list)) {
-            return;
+        if (!CollectionUtil.isEmpty(mFollowList.getFollowList())) {
+            mFollowList.getFollowList().clear();
         }
-        List<User> userList = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            User user = new User();
-            String objectId = list.get(i).getObjectId();
-            user.setObjectId(objectId);
-            userList.add(user);
-            mFollowSet.add(objectId);
-        }
-        mFollowList.setFollowList(userList);
+        mFollowSet.clear();
+        Map<String, Object> params = new HashMap<>();
+        params.put("mUserId", owner.getObjectId());
+        mFollowListQueryPresenter.query(params);
     }
 
     public boolean hasFollow(User user) {
@@ -120,28 +122,71 @@ public class FollowListManager implements IUpdateContract.View {
         }
         mAction = ACTION_FOLLOW;
         mFollowListener = listener;
-        User owner = BmobUser.getCurrentUser(User.class);
-        BmobRelation relation = new BmobRelation();
-        relation.add(user);
-        owner.setFollowUserList(relation);
-        mUserUpdatePresenter.update(owner);
+        if (mFollowList != null && !CollectionUtil.isEmpty(mFollowList.getFollowList())) {
+            mFollowList.add("mFollowList", user);
+            mFollowListUpdatePresenter.update(mFollowList);
+        } else {
+            mFollowList = new FollowList();
+            mFollowList.setUserId(BmobUser.getCurrentUser(User.class).getObjectId());
+            List<User> list = new ArrayList<>();
+            list.add(user);
+            mFollowList.setFollowList(list);
+            mFollowListUploadPresenter.upload(mFollowList);
+        }
     }
 
     public void unFollowUser(User user, IUnFollowListener listener) {
         if (mState != STATE_IDLE) {
             return;
         }
+        if (mFollowList == null || CollectionUtil.isEmpty(mFollowList.getFollowList())) {
+            return;
+        } else {
+            mFollowList.removeAll("mUserId", Collections.singletonList(user));
+            mFollowListUpdatePresenter.update(mFollowList);
+        }
         mAction = ACTION_UN_FOLLOW;
         mUnFollowListener = listener;
-        User owner = BmobUser.getCurrentUser(User.class);
-        BmobRelation relation = new BmobRelation();
-        relation.remove(user);
-        owner.setFollowUserList(relation);
-        mUserUpdatePresenter.update(owner);
     }
 
     @Override
     public void onUpdateSuccess(String response) {
+        followSuccess(response);
+    }
+
+    @Override
+    public void onUpdateFailed(String response) {
+        followFailed(response);
+    }
+
+    @Override
+    public void onQuerySuccess(List<FollowList> list) {
+        if (CollectionUtil.isEmpty(list)) {
+            return;
+        }
+        mFollowList = list.get(0);
+        List<User> userList = mFollowList.getFollowList();
+        for (int i = 0; i < userList.size(); i++) {
+            mFollowSet.add(userList.get(i).getObjectId());
+        }
+    }
+
+    @Override
+    public void onQueryFailed(String response) {
+
+    }
+
+    @Override
+    public void onUploadSuccess(String response) {
+        followSuccess(response);
+    }
+
+    @Override
+    public void onUploadFailed(String response) {
+        followFailed(response);
+    }
+
+    private void followSuccess(String response) {
         mState = STATE_IDLE;
         Log.i(TAG, "follow success");
         if (mAction == ACTION_FOLLOW) {
@@ -155,8 +200,7 @@ public class FollowListManager implements IUpdateContract.View {
         }
     }
 
-    @Override
-    public void onUpdateFailed(String response) {
+    private void followFailed(String response) {
         mState = STATE_IDLE;
         Log.i(TAG, "BmobException:" + response);
         if (mAction == ACTION_FOLLOW) {

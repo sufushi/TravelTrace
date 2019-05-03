@@ -68,12 +68,17 @@ public class UserDetailDialog implements BaseSwipeAwayDialogFragment.DialogBuild
             assert userName != null;
             userName.setText(username);
             assert mFollowBtn != null;
-            if (FollowListManager.getInstance().hasFollow(user)) {
-                mFollowBtn.setText(R.string.string_has_follow);
+            if (mUser.getObjectId().equals(BmobUser.getCurrentUser(User.class).getObjectId())) {
+                mFollowBtn.setVisibility(View.GONE);
             } else {
-                mFollowBtn.setText(R.string.string_follow_user);
+                mFollowBtn.setVisibility(View.VISIBLE);
+                if (FollowListManager.getInstance().hasFollow(user)) {
+                    mFollowBtn.setText(R.string.string_has_follow);
+                } else {
+                    mFollowBtn.setText(R.string.string_follow_user);
+                }
+                mFollowBtn.setOnClickListener(this);
             }
-            mFollowBtn.setOnClickListener(this);
         }
         return dialog;
     }

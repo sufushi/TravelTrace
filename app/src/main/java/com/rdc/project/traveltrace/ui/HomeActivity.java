@@ -19,6 +19,7 @@ import com.rdc.project.traveltrace.fragment.dialog_fragment.PublishDrawerDialogF
 import com.rdc.project.traveltrace.fragment.home_page.MomentsFragment;
 import com.rdc.project.traveltrace.fragment.home_page.PersonCenterFragment;
 import com.rdc.project.traveltrace.fragment.home_page.TimelineFragment;
+import com.rdc.project.traveltrace.manager.FollowListManager;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.utils.HandlerUtil;
 import com.rdc.project.traveltrace.view.pop_menu.PopMenu;
@@ -30,6 +31,8 @@ import com.yw.game.floatmenu.FloatLogoMenu;
 import com.yw.game.floatmenu.FloatMenuView;
 
 import java.util.ArrayList;
+
+import cn.bmob.v3.BmobUser;
 
 public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar.OnTabSelectedListener, HandlerUtil.OnReceiveMessageListener, View.OnClickListener {
 
@@ -284,6 +287,14 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
                 break;
             case ACTION_BTN_TAG_CALENDAR:
                 break;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (BmobUser.isLogin()) {
+            FollowListManager.getInstance().initFollowList();
         }
     }
 }

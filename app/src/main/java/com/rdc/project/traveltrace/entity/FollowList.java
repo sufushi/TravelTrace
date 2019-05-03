@@ -7,9 +7,11 @@ import com.rdc.project.traveltrace.utils.visibility_util.utils.DefaultPercentCal
 
 import java.util.List;
 
-public class FollowList implements ListItem {
+import cn.bmob.v3.BmobObject;
 
-    private String userId;
+public class FollowList extends BmobObject implements ListItem {
+
+    private String mUserId;
     private List<User> mFollowList;
 
     public FollowList() {
@@ -21,11 +23,11 @@ public class FollowList implements ListItem {
     }
 
     public String getUserId() {
-        return userId;
+        return mUserId;
     }
 
     public void setUserId(String userId) {
-        this.userId = userId;
+        this.mUserId = userId;
     }
 
     public List<User> getFollowList() {
@@ -39,7 +41,7 @@ public class FollowList implements ListItem {
     @Override
     public String toString() {
         return "FollowList{" +
-                "userId='" + userId + '\'' +
+                "mUserId='" + mUserId + '\'' +
                 ", mFollowList=" + mFollowList +
                 '}';
     }
