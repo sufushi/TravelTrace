@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-    <com.seu.magicfilter.widget.MagicImageView
-        android:id="@+id/magic_image_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/magic_filter_view">
+
+        <com.rdc.project.traveltrace.view.SquareMagicImageView
+            android:id="@+id/magic_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/magic_filter_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/magic_operate_view">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/magic_operate_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
         android:orientation="horizontal"
         android:padding="10dp"
-        android:background="@color/black">
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp">
 
         <ImageView
             android:id="@+id/btn_replace_photo"
@@ -40,4 +61,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.rdc.project.traveltrace.R;
+import com.rdc.project.traveltrace.adapter.PictureFilterAdapter;
 import com.rdc.project.traveltrace.base.BasePTRFragment;
 import com.rdc.project.traveltrace.base.OnRefreshListener;
 import com.rdc.project.traveltrace.utils.BitmapUtil;
@@ -19,9 +23,11 @@ import com.rdc.project.traveltrace.utils.GlideGalleryPickImageLoader;
 import com.rdc.project.traveltrace.utils.HandlerUtil;
 import com.rdc.project.traveltrace.view.EmptyViewFooter;
 import com.rdc.project.traveltrace.view.EmptyViewHeader;
+import com.rdc.project.traveltrace.view.SquareMagicImageView;
 import com.rdc.project.traveltrace.view.toast.CommonToast;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.seu.magiccamera.adapter.FilterAdapter;
 import com.seu.magicfilter.MagicEngine;
 import com.seu.magicfilter.filter.helper.MagicFilterType;
 import com.seu.magicfilter.helper.SavePictureTask;
@@ -33,6 +39,7 @@ import com.yancy.gallerypick.inter.IHandlerCallBack;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -42,7 +49,7 @@ import me.weyye.hipermission.HiPermission;
 import me.weyye.hipermission.PermissionCallback;
 import me.weyye.hipermission.PermissionItem;
 
-public class PictureProcessFragment extends BasePTRFragment implements View.OnClickListener, HandlerUtil.OnReceiveMessageListener {
+public class PictureProcessFragment extends BasePTRFragment implements View.OnClickListener, HandlerUtil.OnReceiveMessageListener, FilterAdapter.onFilterChangeListener {
 
     private static final String TAG = "PictureProcessFragment";
     private static final String SAVE_DIR = "/Gallery/Pictures";
@@ -51,13 +58,60 @@ public class PictureProcessFragment extends BasePTRFragment implements View.OnCl
     private ImageView mBtnReplacePhoto;
     private ImageView mBtnFilterPhoto;
     private ImageView mBtnSavePhoto;
-    private MagicImageView mMagicImageView;
+    private SquareMagicImageView mMagicImageView;
+    private RecyclerView mMagicFilterView;
     private MagicEngine mMagicEngine;
 
     private List<PermissionItem> mPermissionItems = new ArrayList<>();
 
     private GalleryConfig mGalleryConfig;
 
+    private PictureFilterAdapter mPictureFilterAdapter;
+    private List<MagicFilterType> mMagicFilterTypeList;
+    private final MagicFilterType[] mMagicFilterTypes = new MagicFilterType[]{
+            MagicFilterType.NONE,
+            MagicFilterType.FAIRYTALE,
+            MagicFilterType.SUNRISE,
+            MagicFilterType.SUNSET,
+            MagicFilterType.WHITECAT,
+            MagicFilterType.BLACKCAT,
+            MagicFilterType.SKINWHITEN,
+            MagicFilterType.HEALTHY,
+            MagicFilterType.SWEETS,
+            MagicFilterType.ROMANCE,
+            MagicFilterType.SAKURA,
+            MagicFilterType.WARM,
+            MagicFilterType.ANTIQUE,
+            MagicFilterType.NOSTALGIA,
+            MagicFilterType.CALM,
+            MagicFilterType.LATTE,
+            MagicFilterType.TENDER,
+            MagicFilterType.COOL,
+            MagicFilterType.EMERALD,
+            MagicFilterType.EVERGREEN,
+            MagicFilterType.CRAYON,
+            MagicFilterType.SKETCH,
+            MagicFilterType.AMARO,
+            MagicFilterType.BRANNAN,
+            MagicFilterType.BROOKLYN,
+            MagicFilterType.EARLYBIRD,
+            MagicFilterType.FREUD,
+            MagicFilterType.HEFE,
+            MagicFilterType.HUDSON,
+            MagicFilterType.INKWELL,
+            MagicFilterType.KEVIN,
+            MagicFilterType.LOMO,
+            MagicFilterType.N1977,
+            MagicFilterType.NASHVILLE,
+            MagicFilterType.PIXAR,
+            MagicFilterType.RISE,
+            MagicFilterType.SIERRA,
+            MagicFilterType.SUTRO,
+            MagicFilterType.TOASTER2,
+            MagicFilterType.VALENCIA,
+            MagicFilterType.WALDEN,
+            MagicFilterType.XPROII
+    };
 
     @Override
     protected RefreshHeader createRefreshHeader() {
@@ -90,6 +144,11 @@ public class PictureProcessFragment extends BasePTRFragment implements View.OnCl
         mPermissionItems.add(new PermissionItem(Manifest.permission.WRITE_EXTERNAL_STORAGE, "存储", R.drawable.permission_ic_storage));
         initGalleryConfig();
         HandlerUtil.getInstance().register(this);
+        mMagicFilterTypeList = new ArrayList<>();
+        mMagicFilterTypeList.addAll(Arrays.asList(mMagicFilterTypes));
+        mPictureFilterAdapter = new PictureFilterAdapter(getActivity());
+        mPictureFilterAdapter.setOnFilterChangeListener(this);
+        mPictureFilterAdapter.updateData(mMagicFilterTypeList);
     }
 
     private void initGalleryConfig() {
@@ -142,7 +201,12 @@ public class PictureProcessFragment extends BasePTRFragment implements View.OnCl
         mBtnFilterPhoto = mRootView.findViewById(R.id.btn_filter_photo);
         mBtnSavePhoto = mRootView.findViewById(R.id.btn_save_photo);
         mMagicImageView = mRootView.findViewById(R.id.magic_image_view);
+        mMagicFilterView = mRootView.findViewById(R.id.magic_filter_view);
         mMagicEngine = new MagicEngine.Builder().build(mMagicImageView);
+
+        mMagicFilterView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        mMagicFilterView.setItemAnimator(new DefaultItemAnimator());
+        mMagicFilterView.setAdapter(mPictureFilterAdapter);
     }
 
     @Override
@@ -248,5 +312,10 @@ public class PictureProcessFragment extends BasePTRFragment implements View.OnCl
     public void onDestroy() {
         HandlerUtil.getInstance().unregister(this);
         super.onDestroy();
+    }
+
+    @Override
+    public void onFilterChanged(MagicFilterType filterType) {
+        mMagicEngine.setFilter(filterType);
     }
 }

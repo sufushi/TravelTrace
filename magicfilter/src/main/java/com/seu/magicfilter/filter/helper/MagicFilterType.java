@@ -3,7 +3,7 @@ package com.seu.magicfilter.filter.helper;
 /**
  * Created by why8222 on 2016/2/25.
  */
-public enum  MagicFilterType {
+public enum MagicFilterType {
     NONE,
     FAIRYTALE,
     SUNRISE,
