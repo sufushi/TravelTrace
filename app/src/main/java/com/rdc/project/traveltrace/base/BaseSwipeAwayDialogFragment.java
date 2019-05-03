@@ -13,9 +13,12 @@ public class BaseSwipeAwayDialogFragment extends SwipeAwayDialogFragment {
 
     private static final String DIALOG_BUILDER = "dialog_builder";
 
-    public static BaseSwipeAwayDialogFragment newInstance(DialogBuilder dialogBuilder) {
+    public static BaseSwipeAwayDialogFragment newInstance(DialogBuilder dialogBuilder, Bundle args) {
         BaseSwipeAwayDialogFragment fragment = new BaseSwipeAwayDialogFragment();
         Bundle bundle = new Bundle();
+        if (args != null) {
+            bundle.putAll(args);
+        }
         bundle.putSerializable(DIALOG_BUILDER, dialogBuilder);
         fragment.setArguments(bundle);
         return fragment;

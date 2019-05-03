@@ -78,7 +78,7 @@ public class PersonExtendView extends LinearLayout implements IView, View.OnClic
             case R.id.person_logout:
                 FragmentActivity activity = (FragmentActivity) getContext();
                 BaseSwipeAwayDialogFragment
-                        .newInstance(DialogFactory.createLogoutDialog())
+                        .newInstance(DialogFactory.createLogoutDialog(), null)
                         .show(activity.getSupportFragmentManager(), "logout");
                 break;
             default:

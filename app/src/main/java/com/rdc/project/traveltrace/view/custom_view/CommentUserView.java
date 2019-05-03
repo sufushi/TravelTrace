@@ -21,6 +21,5 @@ public class CommentUserView extends NoteUserView {
     @Override
     public void setData(Object data) {
         super.setData(data);
-        mUserFollowBtn.setVisibility(GONE);
     }
 }

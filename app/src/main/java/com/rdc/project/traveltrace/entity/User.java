@@ -6,9 +6,11 @@ import cn.bmob.v3.datatype.BmobRelation;
 public class User extends BmobUser {
 
     private String mUserIcon;
+    private String mBackgroundUrl;
     private String mUserExtraMsg;
     private boolean mHasFollow;
     private BmobRelation mFollowUserList;
+    private FollowList mFollowList;
 
     public User() {
     }
@@ -19,6 +21,14 @@ public class User extends BmobUser {
 
     public void setUserIcon(String userIcon) {
         mUserIcon = userIcon;
+    }
+
+    public String getBackgroundUrl() {
+        return mBackgroundUrl;
+    }
+
+    public void setBackgroundUrl(String backgroundUrl) {
+        mBackgroundUrl = backgroundUrl;
     }
 
     public String getUserExtraMsg() {
@@ -49,8 +59,10 @@ public class User extends BmobUser {
     public String toString() {
         return "User{" +
                 "mUserIcon='" + mUserIcon + '\'' +
+                ", mBackgroundUrl='" + mBackgroundUrl + '\'' +
                 ", mUserExtraMsg='" + mUserExtraMsg + '\'' +
                 ", mHasFollow=" + mHasFollow +
+                ", mFollowUserList=" + mFollowUserList +
                 '}';
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 public class FollowList implements ListItem {
 
+    private String userId;
     private List<User> mFollowList;
 
     public FollowList() {
@@ -17,6 +18,14 @@ public class FollowList implements ListItem {
 
     public FollowList(List<User> followList) {
         mFollowList = followList;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public List<User> getFollowList() {
@@ -30,7 +39,8 @@ public class FollowList implements ListItem {
     @Override
     public String toString() {
         return "FollowList{" +
-                "mFollowList=" + mFollowList +
+                "userId='" + userId + '\'' +
+                ", mFollowList=" + mFollowList +
                 '}';
     }
 

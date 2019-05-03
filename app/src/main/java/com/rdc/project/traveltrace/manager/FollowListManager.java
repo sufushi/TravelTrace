@@ -22,10 +22,16 @@ import cn.bmob.v3.datatype.BmobRelation;
 public class FollowListManager implements IUpdateContract.View {
 
     private static final String TAG = "FollowListManager";
+
     private static final int ACTION_FOLLOW = 0;
     private static final int ACTION_UN_FOLLOW = 1;
 
+    private static final int STATE_FOLLOWING = 3;
+    private static final int STATE_UN_FOLLOWING = 4;
+    private static final int STATE_IDLE = 5;
+
     private int mAction;
+    private int mState;
 
     private UpdatePresenterImpl<User> mUserUpdatePresenter;
     private IFollowListener mFollowListener;
@@ -34,19 +40,30 @@ public class FollowListManager implements IUpdateContract.View {
     private static FollowList mFollowList;
     private static Set<String> mFollowSet;
 
+    private static class FollowListManagerHolder {
+        private static final FollowListManager INSTANCE = new FollowListManager();
+    }
 
-    public FollowListManager() {
+    public static FollowListManager getInstance() {
+        return FollowListManagerHolder.INSTANCE;
+    }
+
+    private FollowListManager() {
         mUserUpdatePresenter = new UpdatePresenterImpl<>(this);
         mFollowList = new FollowList();
         mFollowSet = new HashSet<>();
-        queryFollowList();
+        initFollowList();
+        mState = STATE_IDLE;
     }
 
-    private FollowList queryFollowList() {
+    private void initFollowList() {
         User owner = BmobUser.getCurrentUser(User.class);
+        if (owner == null || owner.getFollowUserList() == null) {
+            return;
+        }
         List<BmobPointer> list = owner.getFollowUserList().getObjects();
         if (CollectionUtil.isEmpty(list)) {
-            return mFollowList;
+            return;
         }
         List<User> userList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -57,7 +74,6 @@ public class FollowListManager implements IUpdateContract.View {
             mFollowSet.add(objectId);
         }
         mFollowList.setFollowList(userList);
-        return mFollowList;
     }
 
     public boolean hasFollow(User user) {
@@ -90,7 +106,8 @@ public class FollowListManager implements IUpdateContract.View {
         }
         Iterator<User> iterator = list.iterator();
         while (iterator.hasNext()) {
-            if (iterator.next().getObjectId().equals(user.getObjectId())) {
+            User tmp = iterator.next();
+            if (tmp.getObjectId().equals(user.getObjectId())) {
                 iterator.remove();
                 break;
             }
@@ -98,6 +115,9 @@ public class FollowListManager implements IUpdateContract.View {
     }
 
     public void followUser(User user, IFollowListener listener) {
+        if (mState != STATE_IDLE) {
+            return;
+        }
         mAction = ACTION_FOLLOW;
         mFollowListener = listener;
         User owner = BmobUser.getCurrentUser(User.class);
@@ -107,7 +127,10 @@ public class FollowListManager implements IUpdateContract.View {
         mUserUpdatePresenter.update(owner);
     }
 
-    public void unfollowUser(User user, IUnFollowListener listener) {
+    public void unFollowUser(User user, IUnFollowListener listener) {
+        if (mState != STATE_IDLE) {
+            return;
+        }
         mAction = ACTION_UN_FOLLOW;
         mUnFollowListener = listener;
         User owner = BmobUser.getCurrentUser(User.class);
@@ -119,6 +142,7 @@ public class FollowListManager implements IUpdateContract.View {
 
     @Override
     public void onUpdateSuccess(String response) {
+        mState = STATE_IDLE;
         Log.i(TAG, "follow success");
         if (mAction == ACTION_FOLLOW) {
             if (mFollowListener != null) {
@@ -133,6 +157,7 @@ public class FollowListManager implements IUpdateContract.View {
 
     @Override
     public void onUpdateFailed(String response) {
+        mState = STATE_IDLE;
         Log.i(TAG, "BmobException:" + response);
         if (mAction == ACTION_FOLLOW) {
             if (mFollowListener != null) {

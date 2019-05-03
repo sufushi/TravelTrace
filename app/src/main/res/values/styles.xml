@@ -65,6 +65,16 @@
         <item name="android:windowIsFloating">false</item>
     </style>
 
+    <!--对话框样式-->
+    <style name="TransparentDialogStyle" parent="Theme.AppCompat.Dialog">
+        <!--背景透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--没有标题-->
+        <item name="android:windowNoTitle">true</item>
+        <!--背景昏暗-->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
     <!--顶部弹出Dialog动画-->
     <style name="TopDialogStyle" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/dialog_top_in</item>

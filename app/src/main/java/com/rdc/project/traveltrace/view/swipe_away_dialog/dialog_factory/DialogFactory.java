@@ -8,4 +8,8 @@ public class DialogFactory {
         return new LogoutDialog();
     }
 
+    public static DialogBuilder createUserDetailDialog() {
+        return new UserDetailDialog();
+    }
+
 }
