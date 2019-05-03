@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.adapter.FollowListViewProvider;
 import com.rdc.project.traveltrace.adapter.PictureNoteViewProvider;
+import com.rdc.project.traveltrace.adapter.PlainNoteViewProvider;
 import com.rdc.project.traveltrace.adapter.VideoNoteViewProvider;
 import com.rdc.project.traveltrace.arch.model.impl.NoteRecordModel;
 import com.rdc.project.traveltrace.arch.view_controller.MultiTypeViewController;
@@ -18,6 +19,7 @@ import com.rdc.project.traveltrace.base.OnRefreshListener;
 import com.rdc.project.traveltrace.entity.FollowList;
 import com.rdc.project.traveltrace.entity.NoteRecord;
 import com.rdc.project.traveltrace.entity.PictureNote;
+import com.rdc.project.traveltrace.entity.PlainNote;
 import com.rdc.project.traveltrace.entity.VideoNote;
 import com.rdc.project.traveltrace.utils.player.VideoListViewManager;
 import com.scwang.smartrefresh.header.DeliveryHeader;
@@ -157,6 +159,7 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
 //            mList.add(new FragmentDataListItem(InfoFragment.class, "InfoFragment" + i));
 //        }
         ItemBinderFactory itemBinderFactory = new ItemBinderFactory(getFragmentManager());
+        itemBinderFactory.registerProvider(PlainNote.class, new PlainNoteViewProvider(getActivity()));
         itemBinderFactory.registerProvider(PictureNote.class, new PictureNoteViewProvider(getActivity()));
         itemBinderFactory.registerProvider(VideoNote.class, new VideoNoteViewProvider(getActivity(), mVideoListViewManager));
         itemBinderFactory.registerProvider(FollowList.class, new FollowListViewProvider(getActivity()));

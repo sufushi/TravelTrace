@@ -13,13 +13,17 @@ import android.widget.TextView;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.arch.view.IView;
 import com.rdc.project.traveltrace.entity.PlainNote;
+import com.rdc.project.traveltrace.entity.User;
 import com.rdc.project.traveltrace.utils.DensityUtil;
+import com.rdc.project.traveltrace.utils.MeasureUtil;
 import com.rdc.project.traveltrace.utils.more_text_util.MoreTextUtil;
+import com.rdc.project.traveltrace.view.expandable_text_view.ExpandableTextView;
 
 public class PLainNoteView extends LinearLayout implements IView {
 
     protected NoteUserView mNoteUserView;
-    protected TextView mText;
+//    protected TextView mText;
+    protected ExpandableTextView mExpandableTextView;
     protected FrameLayout mExtendViewContainer;
     protected NoteOperatorView mNoteOperatorView;
 
@@ -43,7 +47,8 @@ public class PLainNoteView extends LinearLayout implements IView {
         setPadding(padding, padding, padding, padding);
         setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mNoteUserView = findViewById(R.id.note_user_view);
-        mText = findViewById(R.id.note_user_text_view);
+//        mText = findViewById(R.id.note_user_text_view);
+        mExpandableTextView = findViewById(R.id.expandable_text_view);
         mNoteOperatorView = findViewById(R.id.note_operator_view);
         mExtendViewContainer = findViewById(R.id.note_extend_view_container);
         View extendView = createNoteExtendView(context);
@@ -60,8 +65,15 @@ public class PLainNoteView extends LinearLayout implements IView {
     public void setData(Object data) {
         if (data instanceof PlainNote) {
             PlainNote plainNote = (PlainNote) data;
-            mNoteUserView.setData(plainNote.getUser());
-            new MoreTextUtil(mText, plainNote.getText()).setSpanTextColor(R.color.colorPrimary).setLines(4).createString();
+            User user = plainNote.getUser();
+            user.setUserExtraMsg(plainNote.getCreatedAt());
+            mNoteUserView.setData(user);
+//            new MoreTextUtil(mText, plainNote.getText())
+//                    .setSpanTextColor(R.color.colorPrimary)
+//                    .setLines(4)
+//                    .setExpectedWidth(MeasureUtil.getScreenWidth(getContext()) - DensityUtil.dp2px(10, getContext()))
+//                    .createString1();
+            mExpandableTextView.setText(plainNote.getText());
             mNoteOperatorView.setLikeCountView(plainNote.getLikeCount());
             mNoteOperatorView.setCommentCountView(String.valueOf(plainNote.getCommentCount()));
             mNoteOperatorView.setIsLike(plainNote.isLike());

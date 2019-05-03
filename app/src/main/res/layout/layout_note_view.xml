@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.rdc.project.traveltrace.view.custom_view.NoteUserView
         android:id="@+id/note_user_view"
@@ -8,44 +9,45 @@
 
     </com.rdc.project.traveltrace.view.custom_view.NoteUserView>
 
-    <!--<com.rdc.project.traveltrace.view.expandable_text_view.ExpandableTextView-->
-        <!--android:id="@+id/expandable_text_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="6dp"-->
-        <!--app:animDuration="400"-->
-        <!--app:maxCollapsedLines="4"-->
-        <!--android:visibility="gone">-->
-
-        <!--<TextView-->
-            <!--android:id="@id/expandable_text"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:padding="2dp"-->
-            <!--android:textColor="@color/black"-->
-            <!--android:textSize="14sp"/>-->
-
-        <!--<ImageButton-->
-            <!--android:id="@id/expand_collapse_toggle"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="end|bottom"-->
-            <!--android:background="@color/transparent"-->
-            <!--android:contentDescription="@null"-->
-            <!--android:padding="4dp"/>-->
-
-    <!--</com.rdc.project.traveltrace.view.expandable_text_view.ExpandableTextView>-->
-
-    <TextView
-        android:id="@+id/note_user_text_view"
+    <com.rdc.project.traveltrace.view.expandable_text_view.ExpandableTextView
+        android:id="@+id/expandable_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="2dp"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:lineSpacingExtra="1.2dp"
-        android:layout_marginBottom="4dp"
-        android:background="?attr/selectableItemBackground"/>
+        android:layout_marginBottom="6dp"
+        app:animDuration="400"
+        app:maxCollapsedLines="4"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@id/expandable_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"/>
+
+        <ImageButton
+            android:id="@id/expand_collapse_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:background="@color/transparent"
+            android:contentDescription="@null"
+            android:padding="4dp"/>
+
+    </com.rdc.project.traveltrace.view.expandable_text_view.ExpandableTextView>
+
+    <!--<TextView-->
+        <!--android:id="@+id/note_user_text_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="2dp"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="14sp"-->
+        <!--android:lineSpacingExtra="1.2dp"-->
+        <!--android:layout_marginBottom="4dp"-->
+        <!--android:visibility="gone"-->
+        <!--android:background="?attr/selectableItemBackground"/>-->
 
     <FrameLayout
         android:id="@+id/note_extend_view_container"
@@ -53,13 +55,6 @@
         android:layout_height="wrap_content">
 
     </FrameLayout>
-
-    <!--<com.lzy.ninegrid.NineGridView-->
-        <!--android:id="@+id/nine_grid_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-
-    <!--</com.lzy.ninegrid.NineGridView>-->
 
     <com.rdc.project.traveltrace.view.custom_view.NoteOperatorView
         android:id="@+id/note_operator_view"

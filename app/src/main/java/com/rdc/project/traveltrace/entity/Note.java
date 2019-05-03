@@ -8,7 +8,7 @@ import com.rdc.project.traveltrace.utils.visibility_util.utils.DefaultPercentCal
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobPointer;
 
-public class Note extends BmobObject implements ListItem  {
+public class Note extends BmobObject implements ListItem {
 
     private int mCommentCount;
     private int mLikeCount;
@@ -40,6 +40,11 @@ public class Note extends BmobObject implements ListItem  {
 
     public void setLike(boolean like) {
         mIsLike = like;
+    }
+
+    @Override
+    public void setCreatedAt(String createdAt) {
+        super.setCreatedAt(createdAt);
     }
 
     @Override

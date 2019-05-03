@@ -55,6 +55,7 @@ public class PictureNoteView extends PLainNoteView {
             plainNote.setLikeCount(pictureNote.getLikeCount());
             plainNote.setCommentCount(pictureNote.getCommentCount());
             plainNote.setLike(pictureNote.isLike());
+            plainNote.setCreatedAt(pictureNote.getCreatedAt());
             super.setData(plainNote);
             ArrayList<ImageInfo> imageInfoList = new ArrayList<>();
             List<String> imgUrls = pictureNote.getImgUrls();

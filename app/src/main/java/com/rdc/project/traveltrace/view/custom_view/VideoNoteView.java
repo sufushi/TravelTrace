@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.rdc.project.traveltrace.R;
+import com.rdc.project.traveltrace.entity.PlainNote;
 import com.rdc.project.traveltrace.entity.VideoNote;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.utils.player.VideoListViewManager;
@@ -53,9 +54,16 @@ public class VideoNoteView extends PLainNoteView {
 
     @Override
     public void setData(Object data) {
-        super.setData(data);
         if (data instanceof VideoNote) {
             mVideoNote = (VideoNote) data;
+            PlainNote plainNote = new PlainNote();
+            plainNote.setUser(mVideoNote.getUser());
+            plainNote.setText(mVideoNote.getText());
+            plainNote.setLikeCount(mVideoNote.getLikeCount());
+            plainNote.setCommentCount(mVideoNote.getCommentCount());
+            plainNote.setLike(mVideoNote.isLike());
+            plainNote.setCreatedAt(mVideoNote.getCreatedAt());
+            super.setData(plainNote);
         }
     }
 

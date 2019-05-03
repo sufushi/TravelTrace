@@ -100,6 +100,11 @@ public class MoreTextUtil {
         mTextView.setText(compressedWithString());
     }
 
+    public void createString1() {
+        mTextView.setMovementMethod(LinkMovementMethod.getInstance());//必须设置否则无效
+        mTextView.setText(compressedWithString1());
+    }
+
     /**
      * 创建图片形似的结尾
      */
@@ -108,7 +113,7 @@ public class MoreTextUtil {
         mTextView.setText(compressedWithImg());
     }
 
-    private MoreTextUtil setExpectedWidth(float expectedWidth) {
+    public MoreTextUtil setExpectedWidth(float expectedWidth) {
         this.mExpectedWidth = expectedWidth;
         return this;
     }
