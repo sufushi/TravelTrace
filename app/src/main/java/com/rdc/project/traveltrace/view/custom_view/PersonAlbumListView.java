@@ -59,7 +59,6 @@ public class PersonAlbumListView extends LinearLayout implements IView, View.OnC
         setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         int padding = DensityUtil.dp2px(10, context);
         setPadding(padding, padding, padding, padding);
-        this.setOnClickListener(this);
         initViews();
     }
 
@@ -129,6 +128,7 @@ public class PersonAlbumListView extends LinearLayout implements IView, View.OnC
                 mTargets.add(target);
             }
         }
+        this.setOnClickListener(this);
     }
 
     @Override
