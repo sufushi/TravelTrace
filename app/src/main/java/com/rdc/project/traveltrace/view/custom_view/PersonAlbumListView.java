@@ -23,6 +23,8 @@ import com.rdc.project.traveltrace.entity.PersonAlbumList;
 import com.rdc.project.traveltrace.ui.PersonAlbumActivity;
 import com.rdc.project.traveltrace.utils.CollectionUtil;
 import com.rdc.project.traveltrace.utils.DensityUtil;
+import com.rdc.project.traveltrace.utils.action.Action;
+import com.rdc.project.traveltrace.utils.action.ActionManager;
 import com.rdc.project.traveltrace.view.TipsView;
 import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzleLayout;
 import com.rdc.project.traveltrace.view.puzzle_view.extend.RectanglePuzzleView;
@@ -31,6 +33,9 @@ import com.rdc.project.traveltrace.view.puzzle_view.impl.straight.ZeroStraightLa
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PERSON_ALBUM;
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_PRE;
 
 public class PersonAlbumListView extends LinearLayout implements IView, View.OnClickListener {
 
@@ -54,7 +59,7 @@ public class PersonAlbumListView extends LinearLayout implements IView, View.OnC
         setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         int padding = DensityUtil.dp2px(10, context);
         setPadding(padding, padding, padding, padding);
-
+        this.setOnClickListener(this);
         initViews();
     }
 
@@ -133,13 +138,7 @@ public class PersonAlbumListView extends LinearLayout implements IView, View.OnC
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_more_album:
-                Intent intent = new Intent(getContext(), PersonAlbumActivity.class);
-                getContext().startActivity(intent);
-                break;
-            default:
-                break;
-        }
+        Action action = new Action(ACTION_PRE + ACTION_NAME_PERSON_ALBUM);
+        ActionManager.doAction(action, getContext());
     }
 }

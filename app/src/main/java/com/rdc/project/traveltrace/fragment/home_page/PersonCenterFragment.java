@@ -11,6 +11,7 @@ import com.rdc.project.traveltrace.base.OnRefreshListener;
 import com.rdc.project.traveltrace.entity.PersonAlbumList;
 import com.rdc.project.traveltrace.entity.VideoNote;
 import com.rdc.project.traveltrace.entity.VideoNoteList;
+import com.rdc.project.traveltrace.manager.PictureNoteListManager;
 import com.rdc.project.traveltrace.ui.PersonDetailActivity;
 import com.rdc.project.traveltrace.view.EmptyViewFooter;
 import com.rdc.project.traveltrace.view.EmptyViewHeader;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PersonCenterFragment extends BasePTRFragment implements View.OnClickListener {
+public class PersonCenterFragment extends BasePTRFragment implements View.OnClickListener, PictureNoteListManager.GetPictureUrlCallback {
 
     private PersonAlbumListView mPersonAlbumListView;
     private PersonVideoListView mPersonVideoListView;
@@ -55,7 +56,7 @@ public class PersonCenterFragment extends BasePTRFragment implements View.OnClic
 
     @Override
     protected void initData(Bundle bundle) {
-
+        PictureNoteListManager.getInstance().queryPictureNoteList(this);
     }
 
     @Override
@@ -72,8 +73,8 @@ public class PersonCenterFragment extends BasePTRFragment implements View.OnClic
                 "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=753449481,625992609&fm=26&gp=0.jpg"};
 
         List<String> list = new ArrayList<>(Arrays.asList(array));
-        PersonAlbumList personAlbumList = new PersonAlbumList(list);
-        mPersonAlbumListView.setData(personAlbumList);
+//        PersonAlbumList personAlbumList = new PersonAlbumList(list);
+//        mPersonAlbumListView.setData(personAlbumList);
 
         List<VideoNote> videoNotes = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -106,5 +107,9 @@ public class PersonCenterFragment extends BasePTRFragment implements View.OnClic
         }
     }
 
-
+    @Override
+    public void onGetPictureUrls(List<String> list) {
+        PersonAlbumList personAlbumList = new PersonAlbumList(list);
+        mPersonAlbumListView.setData(personAlbumList);
+    }
 }
