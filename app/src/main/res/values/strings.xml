@@ -73,4 +73,12 @@
     <string name="string_copyright">CopyRight © 2017 All Rights Reserved</string>
     <string name="string_complete">完成</string>
     <string name="string_has_follow">已关注</string>
+    <string name="string_person_detail">个人信息</string>
+    <string name="string_user_icon">头像</string>
+    <string name="string_phone_number">手机号码</string>
+    <string name="string_user_name">用户名</string>
+    <string name="string_user_password">密码</string>
+    <string name="string_user_sex">性别</string>
+    <string name="string_male">男</string>
+    <string name="string_female">女</string>
 </resources>

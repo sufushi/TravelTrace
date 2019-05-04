@@ -4,13 +4,22 @@ import cn.bmob.v3.BmobUser;
 
 public class User extends BmobUser {
 
+    private String mUserNikName;
     private String mUserIcon;
     private String mBackgroundUrl;
     private String mUserExtraMsg;
-    private boolean mHasFollow;
-    private FollowList mFollowList;
+    private boolean mSex;
 
     public User() {
+
+    }
+
+    public String getUserNikName() {
+        return mUserNikName;
+    }
+
+    public void setUserNikName(String userNikName) {
+        mUserNikName = userNikName;
     }
 
     public String getUserIcon() {
@@ -37,30 +46,22 @@ public class User extends BmobUser {
         mUserExtraMsg = userExtraMsg;
     }
 
-    public boolean isHasFollow() {
-        return mHasFollow;
+    public boolean isSex() {
+        return mSex;
     }
 
-    public void setHasFollow(boolean hasFollow) {
-        mHasFollow = hasFollow;
-    }
-
-    public FollowList getFollowList() {
-        return mFollowList;
-    }
-
-    public void setFollowList(FollowList followList) {
-        mFollowList = followList;
+    public void setSex(boolean sex) {
+        mSex = sex;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "mUserIcon='" + mUserIcon + '\'' +
+                "mUserNikName='" + mUserNikName + '\'' +
+                ", mUserIcon='" + mUserIcon + '\'' +
                 ", mBackgroundUrl='" + mBackgroundUrl + '\'' +
                 ", mUserExtraMsg='" + mUserExtraMsg + '\'' +
-                ", mHasFollow=" + mHasFollow +
-                ", mFollowList=" + mFollowList +
+                ", mSex=" + mSex +
                 '}';
     }
 }

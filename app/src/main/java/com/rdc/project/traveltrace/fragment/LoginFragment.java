@@ -9,12 +9,12 @@ import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BaseFragment;
 import com.rdc.project.traveltrace.entity.User;
 import com.rdc.project.traveltrace.ui.HomeActivity;
+import com.rdc.project.traveltrace.utils.SharePreferenceUtil;
 import com.rdc.project.traveltrace.view.fly_edit_text.FlyEditText;
 import com.rdc.project.traveltrace.view.toast.CommonToast;
 
 import java.util.Objects;
 
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -52,14 +52,16 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.btn_login:
                 String phone = String.valueOf(mPhoneEditText.getText());
-                String password = String.valueOf(mPasswordEditText.getText());
+                final String password = String.valueOf(mPasswordEditText.getText());
                 User user = new User();
                 user.setUsername(phone);
                 user.setPassword(password);
-                user.login(new SaveListener<Object>() {
+                user.login(new SaveListener<User>() {
                     @Override
-                    public void done(Object o, BmobException e) {
+                    public void done(User u, BmobException e) {
                         if (e == null) {
+                            String key = "password" + "[" + u.getObjectId() + "]";
+                            SharePreferenceUtil.put(getActivity(), key, password);
                             Intent intent = new Intent(getActivity(), HomeActivity.class);
                             startActivity(intent);
                             Objects.requireNonNull(getActivity()).finish();

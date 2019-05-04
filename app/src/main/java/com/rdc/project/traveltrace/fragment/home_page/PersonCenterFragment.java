@@ -27,7 +27,6 @@ public class PersonCenterFragment extends BasePTRFragment implements View.OnClic
 
     private PersonAlbumListView mPersonAlbumListView;
     private PersonVideoListView mPersonVideoListView;
-    private CircleImageView mUserIcon;
 
     @Override
     protected int getLayoutResourceId() {
@@ -63,7 +62,6 @@ public class PersonCenterFragment extends BasePTRFragment implements View.OnClic
     protected void initView() {
         mPersonAlbumListView = mRootView.findViewById(R.id.person_album_view);
         mPersonVideoListView = mRootView.findViewById(R.id.person_video_list_view);
-        mUserIcon = mRootView.findViewById(R.id.user_icon);
 
         String[] array = new String[]{"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2059324361,2516966890&fm=27&gp=0.jpg",
                 "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3782685451,3066622536&fm=27&gp=0.jpg",
@@ -85,8 +83,6 @@ public class PersonCenterFragment extends BasePTRFragment implements View.OnClic
         }
         VideoNoteList videoNoteList = new VideoNoteList(videoNotes);
         mPersonVideoListView.setData(videoNoteList);
-
-        mUserIcon.setOnClickListener(this);
     }
 
     @Override

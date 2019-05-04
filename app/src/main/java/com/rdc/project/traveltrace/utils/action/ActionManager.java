@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.rdc.project.traveltrace.constant.Constant;
 import com.rdc.project.traveltrace.ui.HomeActivity;
+import com.rdc.project.traveltrace.ui.PersonDetailActivity;
 import com.rdc.project.traveltrace.ui.PictureProcessActivity;
 import com.rdc.project.traveltrace.ui.PicturePuzzleActivity;
 import com.rdc.project.traveltrace.ui.PublishPictureNoteActivity;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_HOME;
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PERSON_DETAIL;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PICTURE_PROCESS;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PICTURE_PUZZLE;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PUBLISH_PICTURE_NOTE;
@@ -119,6 +121,9 @@ public class ActionManager {
                 break;
             case ACTION_NAME_HOME:
                 intent.setClass(context, HomeActivity.class);
+                break;
+            case ACTION_NAME_PERSON_DETAIL:
+                intent.setClass(context, PersonDetailActivity.class);
                 break;
             default:
                 intent.setClass(context, HomeActivity.class);
