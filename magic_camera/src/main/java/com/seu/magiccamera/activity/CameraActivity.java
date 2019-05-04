@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -19,7 +18,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.seu.magiccamera.R;
 import com.seu.magiccamera.adapter.FilterAdapter;
@@ -34,10 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * Created by why8222 on 2016/3/17.
- */
-public class CameraActivity extends Activity{
+public class CameraActivity extends Activity {
     private LinearLayout mFilterLayout;
     private RecyclerView mFilterListView;
     private FilterAdapter mAdapter;
@@ -103,16 +98,16 @@ public class CameraActivity extends Activity{
         setContentView(R.layout.activity_camera);
         MagicEngine.Builder builder = new MagicEngine.Builder();
         magicEngine = builder
-                .build((MagicCameraView)findViewById(R.id.glsurfaceview_camera));
+                .build((MagicCameraView) findViewById(R.id.glsurfaceview_camera));
         initView();
     }
 
-    private void initView(){
-        mFilterLayout = (LinearLayout)findViewById(R.id.layout_filter);
-        mFilterListView = (RecyclerView) findViewById(R.id.filter_listView);
+    private void initView() {
+        mFilterLayout = findViewById(R.id.layout_filter);
+        mFilterListView = findViewById(R.id.filter_listView);
 
-        btn_shutter = (ImageView)findViewById(R.id.btn_camera_shutter);
-        btn_mode = (ImageView)findViewById(R.id.btn_camera_mode);
+        btn_shutter = findViewById(R.id.btn_camera_shutter);
+        btn_mode = findViewById(R.id.btn_camera_mode);
 
         findViewById(R.id.btn_camera_filter).setOnClickListener(btn_listener);
         findViewById(R.id.btn_camera_closefilter).setOnClickListener(btn_listener);
@@ -129,7 +124,7 @@ public class CameraActivity extends Activity{
         mFilterListView.setAdapter(mAdapter);
         mAdapter.setOnFilterChangeListener(onFilterChangeListener);
 
-        animator = ObjectAnimator.ofFloat(btn_shutter,"rotation",0,360);
+        animator = ObjectAnimator.ofFloat(btn_shutter, "rotation", 0, 360);
         animator.setDuration(500);
         animator.setRepeatCount(ValueAnimator.INFINITE);
 //        Point screenSize = new Point();
@@ -141,7 +136,7 @@ public class CameraActivity extends Activity{
 //        cameraView.setLayoutParams(params);
     }
 
-    private FilterAdapter.onFilterChangeListener onFilterChangeListener = new FilterAdapter.onFilterChangeListener(){
+    private FilterAdapter.onFilterChangeListener onFilterChangeListener = new FilterAdapter.onFilterChangeListener() {
 
         @Override
         public void onFilterChanged(MagicFilterType filterType) {
@@ -150,10 +145,9 @@ public class CameraActivity extends Activity{
     };
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (grantResults.length != 1 || grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            if(mode == MODE_PIC)
+            if (mode == MODE_PIC)
                 takePhoto();
             else
                 takeVideo();
@@ -207,17 +201,17 @@ public class CameraActivity extends Activity{
         }
     };
 
-    private void switchMode(){
-        if(mode == MODE_PIC){
+    private void switchMode() {
+        if (mode == MODE_PIC) {
             mode = MODE_VIDEO;
             btn_mode.setImageResource(R.drawable.icon_camera);
-        }else{
+        } else {
             mode = MODE_PIC;
             btn_mode.setImageResource(R.drawable.icon_video);
         }
     }
 
-    private void takePhoto(){
+    private void takePhoto() {
         magicEngine.savePicture(getOutputMediaFile(), new SavePictureTask.OnPictureSaveListener() {
             @Override
             public void onSaved(String result) {
@@ -226,18 +220,18 @@ public class CameraActivity extends Activity{
         });
     }
 
-    private void takeVideo(){
-        if(isRecording) {
+    private void takeVideo() {
+        if (isRecording) {
             animator.end();
             magicEngine.stopRecord();
-        }else {
+        } else {
             animator.start();
             magicEngine.startRecord();
         }
         isRecording = !isRecording;
     }
 
-    private void showFilters(){
+    private void showFilters() {
         ObjectAnimator animator = ObjectAnimator.ofFloat(mFilterLayout, "translationY", mFilterLayout.getHeight(), 0);
         animator.setDuration(200);
         animator.addListener(new Animator.AnimatorListener() {
@@ -266,8 +260,8 @@ public class CameraActivity extends Activity{
         animator.start();
     }
 
-    private void hideFilters(){
-        ObjectAnimator animator = ObjectAnimator.ofFloat(mFilterLayout, "translationY", 0 ,  mFilterLayout.getHeight());
+    private void hideFilters() {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(mFilterLayout, "translationY", 0, mFilterLayout.getHeight());
         animator.setDuration(200);
         animator.addListener(new Animator.AnimatorListener() {
 

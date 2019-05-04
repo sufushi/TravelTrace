@@ -32,9 +32,6 @@ import java.nio.IntBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-/**
- * Created by why8222 on 2016/2/25.
- */
 public class MagicCameraView extends MagicBaseView {
 
     private MagicCameraInputFilter cameraInputFilter;
@@ -63,6 +60,10 @@ public class MagicCameraView extends MagicBaseView {
         recordingStatus = -1;
         recordingEnabled = false;
         scaleType = ScaleType.CENTER_CROP;
+    }
+
+    public void setOutputFile(String path) {
+        outputFile = new File(path);
     }
 
     @Override

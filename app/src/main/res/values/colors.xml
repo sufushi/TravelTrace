@@ -165,4 +165,7 @@
 
     <color name="empty_album_tips_color">#ACABAB</color>
     <color name="about_page_background_color">#EDEAEA</color>
+
+    <color name="colorSpeedPanel">#99222222</color>
+    <color name="speedTextNormal">#ffdddddd</color>
 </resources>

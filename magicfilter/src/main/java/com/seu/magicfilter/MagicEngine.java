@@ -1,7 +1,5 @@
 package com.seu.magicfilter;
 
-import android.content.Context;
-
 import com.seu.magicfilter.camera.CameraEngine;
 import com.seu.magicfilter.filter.helper.MagicFilterType;
 import com.seu.magicfilter.utils.MagicParams;
@@ -11,9 +9,6 @@ import com.seu.magicfilter.widget.base.MagicBaseView;
 
 import java.io.File;
 
-/**
- * Created by why8222 on 2016/2/25.
- */
 public class MagicEngine {
     private static MagicEngine magicEngine;
 

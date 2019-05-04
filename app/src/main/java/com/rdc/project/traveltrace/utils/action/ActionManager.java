@@ -1,27 +1,37 @@
 package com.rdc.project.traveltrace.utils.action;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.rdc.project.traveltrace.constant.Constant;
+import com.rdc.project.traveltrace.short_video.activity.VideoRecordActivity;
+import com.rdc.project.traveltrace.short_video.utils.PermissionChecker;
+import com.rdc.project.traveltrace.short_video.utils.ToastUtils;
+import com.rdc.project.traveltrace.ui.CaptureActivity;
 import com.rdc.project.traveltrace.ui.HomeActivity;
 import com.rdc.project.traveltrace.ui.PersonAlbumActivity;
 import com.rdc.project.traveltrace.ui.PersonDetailActivity;
 import com.rdc.project.traveltrace.ui.PictureProcessActivity;
 import com.rdc.project.traveltrace.ui.PicturePuzzleActivity;
 import com.rdc.project.traveltrace.ui.PublishPictureNoteActivity;
+import com.seu.magiccamera.activity.CameraActivity;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_CAMERA;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_HOME;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PERSON_ALBUM;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PERSON_DETAIL;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PICTURE_PROCESS;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PICTURE_PUZZLE;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PUBLISH_PICTURE_NOTE;
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_CAPTURE;
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_VIDEO_RECORD;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_PRE;
 
 public class ActionManager {
@@ -96,6 +106,9 @@ public class ActionManager {
             return;
         }
         Intent intent = getIntent(actionName, context);
+        if (intent == null) {
+            return;
+        }
         HashMap<String, String> params = getActionParams(actionUrl);
         Bundle bundle = new Bundle();
         if (params != null && !params.isEmpty()) {
@@ -130,10 +143,32 @@ public class ActionManager {
             case ACTION_NAME_PERSON_ALBUM:
                 intent.setClass(context, PersonAlbumActivity.class);
                 break;
+            case ACTION_NAME_CAMERA:
+                intent.setClass(context, CameraActivity.class);
+                break;
+            case ACTION_NAME_CAPTURE:
+                if (isPermissionOK(context)) {
+                    intent.setClass(context, CaptureActivity.class);
+                } else {
+                    return null;
+                }
+                break;
+            case ACTION_NAME_VIDEO_RECORD:
+                intent.setClass(context, VideoRecordActivity.class);
+                break;
             default:
                 intent.setClass(context, HomeActivity.class);
                 break;
         }
         return intent;
+    }
+
+    private static boolean isPermissionOK(Context context) {
+        PermissionChecker checker = new PermissionChecker((Activity) context);
+        boolean isPermissionOK = Build.VERSION.SDK_INT < Build.VERSION_CODES.M || checker.checkPermission();
+        if (!isPermissionOK) {
+            ToastUtils.s(context, "Some permissions is not approved !!!");
+        }
+        return isPermissionOK;
     }
 }
