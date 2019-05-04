@@ -1,7 +1,13 @@
 package com.rdc.project.traveltrace.utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.NinePatchDrawable;
 import android.util.Log;
 
 import java.io.File;
@@ -132,6 +138,31 @@ public class BitmapUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static Bitmap drawable2Bitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        } else if (drawable instanceof NinePatchDrawable) {
+            Bitmap bitmap = Bitmap.createBitmap(
+                            drawable.getIntrinsicWidth(),
+                            drawable.getIntrinsicHeight(),
+                            drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            drawable.draw(canvas);
+            return bitmap;
+        } else {
+            return null;
+        }
+    }
+
+    public static Bitmap drawable2Bitmap(Context context, int resId) {
+        return BitmapFactory.decodeResource(context.getResources(), resId);
+    }
+
+    public static Drawable bitmap2Drawable(Context context, Bitmap bitmap) {
+        return new BitmapDrawable(context.getResources(), bitmap);
     }
 
 }

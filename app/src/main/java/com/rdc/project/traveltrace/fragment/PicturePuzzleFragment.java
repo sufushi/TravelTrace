@@ -18,13 +18,10 @@ import com.rdc.project.traveltrace.base.OnClickRecyclerViewListener;
 import com.rdc.project.traveltrace.utils.CollectionUtil;
 import com.rdc.project.traveltrace.view.DegreeSeekBar;
 import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzleLayout;
-import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzlePiece;
-import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzleView;
 import com.rdc.project.traveltrace.view.puzzle_view.extend.SquarePuzzleView;
 import com.rdc.project.traveltrace.view.puzzle_view.impl.controller.PuzzlePanelPanelController;
 import com.rdc.project.traveltrace.view.puzzle_view.impl.provider.PuzzleProvider;
 import com.rdc.project.traveltrace.view.puzzle_view.impl.ui.PuzzlePanelView;
-import com.rdc.project.traveltrace.view.toast.CommonToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +42,7 @@ public class PicturePuzzleFragment extends BaseFragment {
     private PuzzleLayout mPuzzleLayout;
     private List<String> mPictureList;
     List<Target> mTargets = new ArrayList<>();
+    private PuzzlePanelPanelController mPuzzlePanelPanelController;
 
     @Override
     protected int getLayoutResourceId() {
@@ -87,14 +85,15 @@ public class PicturePuzzleFragment extends BaseFragment {
             }
         });
 
-        PuzzlePanelPanelController controller = new PuzzlePanelPanelController(getActivity(), mSquarePuzzleView);
-        controller.setTempleListener(new OnClickRecyclerViewListener() {
+        mPuzzlePanelPanelController = new PuzzlePanelPanelController(getActivity(), mSquarePuzzleView);
+        mPuzzlePanelPanelController.setTempleListener(new OnClickRecyclerViewListener() {
             @Override
             public void onItemClick(int position, View view) {
                 if (CollectionUtil.inRange(mLayoutList, position)) {
                     mPuzzleLayout = mLayoutList.get(position);
                     mSquarePuzzleView.setPuzzleLayout(mPuzzleLayout);
                     loadPictures();
+                    mPuzzlePanelPanelController.reset();
                 }
             }
 
@@ -103,7 +102,7 @@ public class PicturePuzzleFragment extends BaseFragment {
                 return false;
             }
         });
-        mPuzzlePanelView.setIPuzzlePanelController(controller);
+        mPuzzlePanelView.setIPuzzlePanelController(mPuzzlePanelPanelController);
 
         mDegreeSeekBar.setCurrentDegrees(10);
         mDegreeSeekBar.setDegreeRange(-30, 45);
@@ -174,12 +173,6 @@ public class PicturePuzzleFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-        mSquarePuzzleView.setOnPieceSelectedListener(new PuzzleView.OnPieceSelectedListener() {
-            @Override
-            public void onPieceSelected(PuzzlePiece piece, int position) {
-                CommonToast.normal(Objects.requireNonNull(PicturePuzzleFragment.this.getActivity()), "position=" + position).show();
-            }
-        });
         mDegreeSeekBar.setScrollingListener(new DegreeSeekBar.ScrollingListener() {
             @Override
             public void onScrollStart() {
@@ -199,4 +192,11 @@ public class PicturePuzzleFragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mPuzzlePanelPanelController != null) {
+            mPuzzlePanelPanelController.onResume();
+        }
+    }
 }

@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.res.ResourcesCompat;
+import android.text.TextUtils;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -16,13 +17,13 @@ import com.bumptech.glide.request.transition.Transition;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.OnClickRecyclerViewListener;
 import com.rdc.project.traveltrace.fragment.dialog_fragment.PuzzleTempleListFragment;
+import com.rdc.project.traveltrace.manager.PuzzleHandlePieceManager;
 import com.rdc.project.traveltrace.utils.CollectionUtil;
 import com.rdc.project.traveltrace.utils.GlideGalleryPickImageLoader;
 import com.rdc.project.traveltrace.utils.action.Action;
 import com.rdc.project.traveltrace.utils.action.ActionManager;
-import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzleLayout;
+import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzlePiece;
 import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzleView;
-import com.rdc.project.traveltrace.view.puzzle_view.impl.provider.PuzzleProvider;
 import com.rdc.project.traveltrace.view.puzzle_view.impl.ui.PuzzlePanelView;
 import com.rdc.project.traveltrace.view.puzzle_view.util.FileUtils;
 import com.rdc.project.traveltrace.view.toast.CommonToast;
@@ -39,6 +40,7 @@ import me.weyye.hipermission.PermissionCallback;
 import me.weyye.hipermission.PermissionItem;
 
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_FIELD_SHARE_PUZZLE_IMG;
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PICTURE_PROCESS;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PUBLISH_PICTURE_NOTE;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_PRE;
 
@@ -46,9 +48,11 @@ public class PuzzlePanelPanelController implements IPuzzlePanelController {
 
     private static final String SAVE_DIR = "/Gallery/Pictures";
 
-    private PuzzlePanelView mPuzzlePanelView;
     private Context mContext;
+    private PuzzlePanelView mPuzzlePanelView;
     private PuzzleView mPuzzleView;
+    private PuzzlePiece mHandlingPiece;
+    private int mPositon = -1;
 
     private GalleryConfig mGalleryConfig;
     private List<PermissionItem> mPermissionItems = new ArrayList<>();
@@ -62,7 +66,14 @@ public class PuzzlePanelPanelController implements IPuzzlePanelController {
         mPuzzleView = puzzleView;
         mPermissionItems.add(new PermissionItem(Manifest.permission.CAMERA, "照相机", R.drawable.permission_ic_camera));
         mPermissionItems.add(new PermissionItem(Manifest.permission.WRITE_EXTERNAL_STORAGE, "存储", R.drawable.permission_ic_storage));
-        initGalleryConfig();
+        mPuzzleView.setOnPieceSelectedListener(new PuzzleView.OnPieceSelectedListener() {
+            @Override
+            public void onPieceSelected(PuzzlePiece piece, int position) {
+                mPositon = position;
+                mHandlingPiece = piece;
+                CommonToast.normal(mContext, "position=" + position).show();
+            }
+        });
     }
 
     private void initGalleryConfig() {
@@ -156,7 +167,13 @@ public class PuzzlePanelPanelController implements IPuzzlePanelController {
 
     @Override
     public void filter() {
-
+        if (mPositon == -1) {
+            CommonToast.info(mContext, "please select a piece first").show();
+        } else if (mHandlingPiece != null) {
+            PuzzleHandlePieceManager.getInstance().setPieceDrawable(mHandlingPiece.getDrawable());
+            Action action = new Action(ACTION_PRE + ACTION_NAME_PICTURE_PROCESS);
+            ActionManager.doAction(action, mContext);
+        }
     }
 
     @Override
@@ -244,5 +261,26 @@ public class PuzzlePanelPanelController implements IPuzzlePanelController {
 
     private void choosePicture() {
         GalleryPick.getInstance().setGalleryConfig(mGalleryConfig).open((Activity) mContext);
+    }
+
+    public void reset() {
+        mPositon = -1;
+    }
+
+    public void onResume() {
+        String path = PuzzleHandlePieceManager.getInstance().getPath();
+        if (!TextUtils.isEmpty(path)) {
+            Glide.with(mContext)
+                    .asBitmap()
+                    .load(path)
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
+                            mPuzzleView.replace(bitmap);
+                        }
+                    });
+        }
+        PuzzleHandlePieceManager.getInstance().recycle();
+        initGalleryConfig();
     }
 }

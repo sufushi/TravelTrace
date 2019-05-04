@@ -224,9 +224,9 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
 
     private void updateActionBtn(int drawableResId, int tag) {
         int size = DensityUtil.dp2px(24, this);
-        Drawable send = getResources().getDrawable(drawableResId);
-        send.setBounds(0, 0, size, size);
-        mActionBtn.setCompoundDrawables(send, null, null, null);
+        Drawable drawable = getResources().getDrawable(drawableResId);
+        drawable.setBounds(0, 0, size, size);
+        mActionBtn.setCompoundDrawables(drawable, null, null, null);
         mActionBtn.setVisibility(View.VISIBLE);
         mActionBtn.setTag(tag);
         mActionBtn.setOnClickListener(this);

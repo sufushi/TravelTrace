@@ -124,7 +124,7 @@ public class MagicImageView extends MagicBaseView {
                 .order(ByteOrder.nativeOrder())
                 .asFloatBuffer();
         gLCubeBuffer.put(TextureRotationUtil.CUBE).position(0);
-        gLTextureBuffer.put(TextureRotationUtil.getRotation(Rotation.NORMAL, true, true)).position(0);
+        gLTextureBuffer.put(TextureRotationUtil.getRotation(Rotation.NORMAL, false, true)).position(0);
 
         if (filter != null) {
             filter.onDrawFrame(textureId, gLCubeBuffer, gLTextureBuffer);

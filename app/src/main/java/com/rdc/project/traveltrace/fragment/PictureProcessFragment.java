@@ -2,6 +2,7 @@ package com.rdc.project.traveltrace.fragment;
 
 import android.Manifest;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
@@ -17,6 +18,7 @@ import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.adapter.PictureFilterAdapter;
 import com.rdc.project.traveltrace.base.BasePTRFragment;
 import com.rdc.project.traveltrace.base.OnRefreshListener;
+import com.rdc.project.traveltrace.manager.PuzzleHandlePieceManager;
 import com.rdc.project.traveltrace.utils.BitmapUtil;
 import com.rdc.project.traveltrace.utils.CollectionUtil;
 import com.rdc.project.traveltrace.utils.GlideGalleryPickImageLoader;
@@ -207,6 +209,18 @@ public class PictureProcessFragment extends BasePTRFragment implements View.OnCl
         mMagicFilterView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         mMagicFilterView.setItemAnimator(new DefaultItemAnimator());
         mMagicFilterView.setAdapter(mPictureFilterAdapter);
+
+        Drawable drawable = PuzzleHandlePieceManager.getInstance().getPieceDrawable();
+        if (drawable != null) {
+            Bitmap bitmap = BitmapUtil.drawable2Bitmap(drawable);
+            if (bitmap == null) {
+                bitmap = BitmapUtil.drawable2Bitmap(Objects.requireNonNull(getActivity()), R.drawable.ic_picture_place_holder);
+            }
+            if (bitmap == null) {
+                return;
+            }
+            mMagicImageView.setBitmap(bitmap);
+        }
     }
 
     @Override
@@ -317,5 +331,15 @@ public class PictureProcessFragment extends BasePTRFragment implements View.OnCl
     @Override
     public void onFilterChanged(MagicFilterType filterType) {
         mMagicEngine.setFilter(filterType);
+    }
+
+    public void onActionBtnClick() {
+        mMagicEngine.savePicture(getOutputMediaFile(), new SavePictureTask.OnPictureSaveListener() {
+            @Override
+            public void onSaved(String result) {
+                PuzzleHandlePieceManager.getInstance().setPath(result);
+                Objects.requireNonNull(getActivity()).finish();
+            }
+        });
     }
 }
