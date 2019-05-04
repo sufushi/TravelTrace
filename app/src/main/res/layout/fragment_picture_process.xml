@@ -24,41 +24,42 @@
         android:id="@+id/magic_filter_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/magic_operate_view">
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="32dp">
 
     </android.support.v7.widget.RecyclerView>
 
-    <LinearLayout
-        android:id="@+id/magic_operate_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/magic_operate_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/black"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:padding="10dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginBottom="10dp">-->
 
-        <ImageView
-            android:id="@+id/btn_replace_photo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_puzzle_action_replace"/>
+        <!--<ImageView-->
+            <!--android:id="@+id/btn_replace_photo"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:src="@drawable/ic_puzzle_action_replace"/>-->
 
-        <ImageView
-            android:id="@+id/btn_filter_photo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_puzzle_action_filter"/>
+        <!--<ImageView-->
+            <!--android:id="@+id/btn_filter_photo"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:src="@drawable/ic_puzzle_action_filter"/>-->
 
-        <ImageView
-            android:id="@+id/btn_save_photo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_puzzle_action_save"/>
+        <!--<ImageView-->
+            <!--android:id="@+id/btn_save_photo"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:src="@drawable/ic_puzzle_action_save"/>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 </RelativeLayout>
