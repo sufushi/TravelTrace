@@ -26,21 +26,37 @@ import com.qiniu.pili.droid.shortvideo.PLUploadProgressListener;
 import com.qiniu.pili.droid.shortvideo.PLUploadResultListener;
 import com.qiniu.pili.droid.shortvideo.PLUploadSetting;
 import com.rdc.project.traveltrace.R;
+import com.rdc.project.traveltrace.contract.IUploadContract;
+import com.rdc.project.traveltrace.contract.IUploadFileContract;
+import com.rdc.project.traveltrace.entity.NoteRecord;
+import com.rdc.project.traveltrace.entity.User;
+import com.rdc.project.traveltrace.entity.VideoNote;
+import com.rdc.project.traveltrace.manager.NoteRecordUploadManager;
+import com.rdc.project.traveltrace.presenter.UploadFilePresenterImpl;
+import com.rdc.project.traveltrace.presenter.UploadPresenterImpl;
 import com.rdc.project.traveltrace.short_video.utils.Config;
 import com.rdc.project.traveltrace.short_video.utils.ToastUtils;
+import com.rdc.project.traveltrace.utils.CollectionUtil;
+import com.rdc.project.traveltrace.utils.ProgressDialogUtil;
+import com.rdc.project.traveltrace.view.toast.CommonToast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.bmob.v3.BmobUser;
 
 public class PlaybackActivity extends Activity implements
         PLUploadResultListener,
         PLUploadProgressListener,
-        MediaController.MediaPlayerControl {
+        MediaController.MediaPlayerControl, IUploadContract.View, IUploadFileContract.View {
 
     private static final String TAG = "PlaybackActivity";
     private static final String MP4_PATH = "MP4_PATH";
+    private static final String VIDEO_TEXT = "video_text";
     private static final String PREVIOUS_ORIENTATION = "PREVIOUS_ORIENTATION";
 
     private SurfaceView mSurfaceView;
@@ -53,8 +69,14 @@ public class PlaybackActivity extends Activity implements
     private ProgressBar mProgressBarDeterminate;
     private boolean mIsUpload = false;
     private String mVideoPath;
+    private String mVideoText;
     private int mPreviousOrientation;
     private int mSeekingPosition = 0;
+
+    private UploadPresenterImpl<VideoNote> mVideoNoteUploadPresenter;
+    private UploadFilePresenterImpl mUploadFilePresenter;
+    private NoteRecord mNoteRecord;
+    private String mVideoUrl;
 
     public static void start(Activity activity, String mp4Path) {
         Intent intent = new Intent(activity, PlaybackActivity.class);
@@ -62,9 +84,10 @@ public class PlaybackActivity extends Activity implements
         activity.startActivity(intent);
     }
 
-    public static void start(Activity activity, String mp4Path, int previousOrientation) {
+    public static void start(Activity activity, String mp4Path, String text, int previousOrientation) {
         Intent intent = new Intent(activity, PlaybackActivity.class);
         intent.putExtra(MP4_PATH, mp4Path);
+        intent.putExtra(VIDEO_TEXT, text);
         intent.putExtra(PREVIOUS_ORIENTATION, previousOrientation);
         activity.startActivity(intent);
     }
@@ -88,6 +111,7 @@ public class PlaybackActivity extends Activity implements
         mProgressBarDeterminate = findViewById(R.id.progressBar);
         mProgressBarDeterminate.setMax(100);
         mVideoPath = getIntent().getStringExtra(MP4_PATH);
+        mVideoText = getIntent().getStringExtra(VIDEO_TEXT);
         mPreviousOrientation = getIntent().getIntExtra(PREVIOUS_ORIENTATION, 1);
 
         mMediaPlayer = new MediaPlayer();
@@ -102,7 +126,7 @@ public class PlaybackActivity extends Activity implements
             return;
         }
 
-        mSurfaceView = (SurfaceView) findViewById(R.id.video);
+        mSurfaceView = findViewById(R.id.video);
         mSurfaceHolder = mSurfaceView.getHolder();
         mSurfaceHolder.addCallback(new SurfaceHolder.Callback() {
             @Override
@@ -141,6 +165,9 @@ public class PlaybackActivity extends Activity implements
         mMediaController = new MediaController(this);
         mMediaController.setMediaPlayer(this);
         mMediaController.setAnchorView(mSurfaceView);
+
+        mVideoNoteUploadPresenter = new UploadPresenterImpl<>(this);
+        mUploadFilePresenter = new UploadFilePresenterImpl(this);
     }
 
     private void makeUpVideoPlayingSize() {
@@ -250,6 +277,46 @@ public class PlaybackActivity extends Activity implements
         return 0;
     }
 
+    @Override
+    public void onUploadSuccess(String response) {
+        ProgressDialogUtil.dismiss();
+        if (mNoteRecord != null) {
+            NoteRecordUploadManager.getInstance().uploadNote(mNoteRecord);
+        }
+    }
+
+    @Override
+    public void onUploadFailed(String response) {
+        ProgressDialogUtil.dismiss();
+        CommonToast.error(this, response).show();
+    }
+
+    @Override
+    public void onUploadFileProgress(int curIndex, int curPercent, int total, int totalPercent) {
+
+    }
+
+    @Override
+    public void onUploadFileSuccess(List<String> urlList, String response) {
+        if (!CollectionUtil.isEmpty(urlList)) {
+            String firstFramePath = urlList.get(0);
+            VideoNote videoNote = new VideoNote();
+            videoNote.setUser(BmobUser.getCurrentUser(User.class));
+            videoNote.setVideoUrl(mVideoUrl);
+            videoNote.setVideoCoverUrl(firstFramePath);
+            videoNote.setText(mVideoText);
+            mVideoNoteUploadPresenter.upload(videoNote);
+            mNoteRecord = new NoteRecord();
+            mNoteRecord.setVideoNote(videoNote);
+        }
+    }
+
+    @Override
+    public void onUploadFileFailed(String response) {
+        ProgressDialogUtil.dismiss();
+        CommonToast.error(this, response).show();
+    }
+
     public class UploadOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -271,11 +338,8 @@ public class PlaybackActivity extends Activity implements
     public void onUploadProgress(String fileName, double percent) {
         int progress = (int) (percent * 100);
         mProgressBarDeterminate.setProgress(progress);
-        String text = getString(R.string.upload) + progress + "%";
-        mUploadBtn.setText(text);
         if (1.0 == percent) {
             mProgressBarDeterminate.setVisibility(View.INVISIBLE);
-            mUploadBtn.setText(getString(R.string.upload_complete));
         }
     }
 
@@ -288,15 +352,20 @@ public class PlaybackActivity extends Activity implements
     @Override
     public void onUploadVideoSuccess(JSONObject response) {
         try {
-            final String filePath = "http://" + Config.DOMAIN + "/" + response.getString("key");
-            copyToClipboard(filePath);
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    ToastUtils.l(PlaybackActivity.this, "文件上传成功，" + filePath + "已复制到粘贴板");
-                }
-            });
-            mUploadBtn.setVisibility(View.INVISIBLE);
+//            copyToClipboard(filePath);
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    ToastUtils.l(PlaybackActivity.this, "文件上传成功，" + filePath + "已复制到粘贴板");
+//                }
+//            });
+            mVideoUrl = "http://" + Config.DOMAIN + "/" + response.getString("key");
+            mUploadBtn.setText(R.string.upload_complete);
+            String firstFramePath = Config.CAPTURED_FRAME_FILE_PATH;
+            List<String> list = new ArrayList<>();
+            list.add(firstFramePath);
+            mUploadFilePresenter.uploadFile(list);
+            ProgressDialogUtil.showProgressDialog(this, "正在发表...");
         } catch (JSONException e) {
             e.printStackTrace();
         }

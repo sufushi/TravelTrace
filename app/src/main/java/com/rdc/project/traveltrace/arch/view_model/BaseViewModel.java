@@ -29,9 +29,13 @@ public abstract class BaseViewModel<T> extends ViewModel {
         mRepository = createRepository();
     }
 
+    public void refresh() {
+        mLiveData = getDataSource();
+    }
+
     protected abstract BaseRepository<T> createRepository();
 
-    private BaseLiveData<BaseData<T>> getDataSource() {
+    protected BaseLiveData<BaseData<T>> getDataSource() {
         if (mRepository != null) {
             return mRepository.getDataSource();
         }

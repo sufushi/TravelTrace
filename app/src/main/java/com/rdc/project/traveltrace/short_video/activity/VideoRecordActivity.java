@@ -109,6 +109,8 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
     private boolean mSectionBegan;
     private GLSurfaceView mPreview;
 
+    private int mSectionCount = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -335,6 +337,10 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
     }
 
     public void onCaptureFrame(View v) {
+        captureFrame();
+    }
+
+    private void captureFrame() {
         mShortVideoRecorder.captureFrame(new PLCaptureFrameListener() {
             @Override
             public void onFrameCaptured(PLVideoFrame capturedFrame) {
@@ -410,6 +416,10 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
     public void onClickDelete(View v) {
         if (!mShortVideoRecorder.deleteLastSection()) {
             ToastUtils.s(this, "回删视频段失败");
+            return;
+        }
+        if (mSectionCount > 0) {
+            mSectionCount --;
         }
     }
 
@@ -507,11 +517,15 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
 
     @Override
     public void onRecordStarted() {
+        if (mSectionCount == 0) {
+            captureFrame();
+        }
         Log.i(TAG, "record start time: " + System.currentTimeMillis());
     }
 
     @Override
     public void onRecordStopped() {
+        mSectionCount ++;
         Log.i(TAG, "record stop time: " + System.currentTimeMillis());
         runOnUiThread(new Runnable() {
             @Override
@@ -599,7 +613,8 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
 //                    VideoEditActivity.start(VideoRecordActivity.this, filePath, screenOrientation);
 //                } else {
 //                }
-                PlaybackActivity.start(VideoRecordActivity.this, filePath, screenOrientation);
+                String text = String.valueOf(mVideoEditText.getText());
+                PlaybackActivity.start(VideoRecordActivity.this, filePath, text, screenOrientation);
             }
         });
     }

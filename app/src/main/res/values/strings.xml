@@ -100,7 +100,7 @@
     <string name="dlg_delete_draft">确认删除草稿</string>
 
     <string name="upload">上传</string>
-    <string name="upload_complete">上传</string>
+    <string name="upload_complete">上传完成</string>
     <string name="cancel_upload">取消上传</string>
     <string name="if_edit_video">是否编辑视频</string>
     <string name="dlg_yes">是</string>

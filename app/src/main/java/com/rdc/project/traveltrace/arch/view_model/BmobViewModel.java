@@ -1,7 +1,5 @@
 package com.rdc.project.traveltrace.arch.view_model;
 
-import android.util.Log;
-
 import com.rdc.project.traveltrace.arch.model.BmobModel;
 import com.rdc.project.traveltrace.arch.model.ResponseInfo;
 import com.rdc.project.traveltrace.arch.repository.BaseRepository;

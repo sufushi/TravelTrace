@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.entity.PlainNote;
 import com.rdc.project.traveltrace.entity.VideoNote;
@@ -45,7 +47,12 @@ public class VideoNoteView extends PLainNoteView {
         mVideoCover = new ImageView(context);
         mVideoCover.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mVideoCover.setScaleType(ImageView.ScaleType.FIT_XY);
-        mVideoCover.setImageResource(R.drawable.ic_picture_place_holder);
+        mVideoCover.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onActive();
+            }
+        });
         mVideoView = new FrameLayout(context);
         mVideoView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dp2px(200, context)));
         mVideoView.addView(mVideoCover);
@@ -64,6 +71,10 @@ public class VideoNoteView extends PLainNoteView {
             plainNote.setLike(mVideoNote.isLike());
             plainNote.setCreatedAt(mVideoNote.getCreatedAt());
             super.setData(plainNote);
+            Glide.with(getContext())
+                    .load(mVideoNote.getVideoCoverUrl())
+                    .apply(new RequestOptions().placeholder(R.drawable.ic_picture_place_holder))
+                    .into(mVideoCover);
         }
     }
 
@@ -78,12 +89,10 @@ public class VideoNoteView extends PLainNoteView {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
     }
-
 }

@@ -31,7 +31,7 @@ import com.shizhefei.view.multitype.ItemBinderFactory;
 
 import java.util.Objects;
 
-public class MomentsFragment extends BasePTRFragment implements OnRefreshListener {
+public class MomentsFragment extends BasePTRFragment implements OnRefreshListener, NoteRecordModel.INoteRecordModelListener {
 
     private MultiTypeViewController mMultiTypeViewController;
     private BmobViewModel<NoteRecord, NoteRecordModel> mBmobViewModel;
@@ -167,6 +167,7 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
 
         mMultiTypeViewController = new MultiTypeViewController(getActivity(), itemBinderFactory);
         mNoteRecordModel = new NoteRecordModel();
+        mNoteRecordModel.register(this);
         mBmobViewModel = new BmobViewModel<>(mNoteRecordModel);
         ViewModelBinder.bind(getActivity(), mBmobViewModel, mMultiTypeViewController);
     }
@@ -218,6 +219,9 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
 
     @Override
     public void onRefresh() {
+        if (mBmobViewModel != null) {
+            mBmobViewModel.refresh();
+        }
         mRefreshLayout.finishRefresh(2000);
     }
 
@@ -241,5 +245,11 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
         if (mMultiTypeViewController != null) {
             mMultiTypeViewController.onResume();
         }
+    }
+
+    @Override
+    public void onLoadFinish(int errorCode) {
+        mRefreshLayout.finishRefresh();
+        mRefreshLayout.finishLoadMore();
     }
 }
