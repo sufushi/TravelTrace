@@ -102,6 +102,7 @@
         <activity
             android:name=".short_video.activity.PlaybackActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.VideoPreviewActivity"/>
     </application>
 
 </manifest>

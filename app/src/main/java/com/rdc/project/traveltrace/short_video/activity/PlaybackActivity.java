@@ -17,6 +17,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -57,6 +58,7 @@ public class PlaybackActivity extends Activity implements
     private static final String TAG = "PlaybackActivity";
     private static final String MP4_PATH = "MP4_PATH";
     private static final String VIDEO_TEXT = "video_text";
+    private static final String PREVIEW = "preview";
     private static final String PREVIOUS_ORIENTATION = "PREVIOUS_ORIENTATION";
 
     private SurfaceView mSurfaceView;
@@ -64,6 +66,7 @@ public class PlaybackActivity extends Activity implements
     private MediaPlayer mMediaPlayer;
     private MediaController mMediaController;
 
+    private ImageView mBackBtn;
     private TextView mUploadBtn;
     private PLShortVideoUploader mVideoUploadManager;
     private ProgressBar mProgressBarDeterminate;
@@ -78,9 +81,10 @@ public class PlaybackActivity extends Activity implements
     private NoteRecord mNoteRecord;
     private String mVideoUrl;
 
-    public static void start(Activity activity, String mp4Path) {
+    public static void start(Activity activity, String mp4Path, boolean isPreview) {
         Intent intent = new Intent(activity, PlaybackActivity.class);
         intent.putExtra(MP4_PATH, mp4Path);
+        intent.putExtra(PREVIEW, isPreview);
         activity.startActivity(intent);
     }
 
@@ -106,8 +110,18 @@ public class PlaybackActivity extends Activity implements
         mVideoUploadManager.setUploadProgressListener(this);
         mVideoUploadManager.setUploadResultListener(this);
 
+        mBackBtn = findViewById(R.id.btn_back);
+        mBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mUploadBtn = findViewById(R.id.upload_btn);
         mUploadBtn.setOnClickListener(new UploadOnClickListener());
+        if (getIntent().getBooleanExtra(PREVIEW, false)) {
+            mUploadBtn.setVisibility(View.GONE);
+        }
         mProgressBarDeterminate = findViewById(R.id.progressBar);
         mProgressBarDeterminate.setMax(100);
         mVideoPath = getIntent().getStringExtra(MP4_PATH);

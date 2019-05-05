@@ -168,4 +168,7 @@
 
     <color name="colorSpeedPanel">#99222222</color>
     <color name="speedTextNormal">#ffdddddd</color>
+
+    <color name="controller_bg_dark">#66000000</color>
+    <color name="controller_bg_light">#00000000</color>
 </resources>

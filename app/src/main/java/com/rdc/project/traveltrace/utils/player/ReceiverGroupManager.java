@@ -5,9 +5,11 @@ import android.content.Context;
 import com.kk.taurus.playerbase.receiver.GroupValue;
 import com.kk.taurus.playerbase.receiver.ReceiverGroup;
 import com.rdc.project.traveltrace.view.player_cover.CompleteCover;
+import com.rdc.project.traveltrace.view.player_cover.ControllerCover;
 import com.rdc.project.traveltrace.view.player_cover.LoadingCover;
 
 import static com.rdc.project.traveltrace.utils.player.InterData.ReceiverKey.KEY_COMPLETE_COVER;
+import static com.rdc.project.traveltrace.utils.player.InterData.ReceiverKey.KEY_CONTROLLER_COVER;
 import static com.rdc.project.traveltrace.utils.player.InterData.ReceiverKey.KEY_LOADING_COVER;
 
 public class ReceiverGroupManager {
@@ -47,7 +49,7 @@ public class ReceiverGroupManager {
     public ReceiverGroup getLiteReceiverGroup(Context context, GroupValue groupValue) {
         ReceiverGroup receiverGroup = new ReceiverGroup(groupValue);
         receiverGroup.addReceiver(KEY_LOADING_COVER, new LoadingCover(context));
-//        receiverGroup.addReceiver(KEY_CONTROLLER_COVER, new ControllerCover(context));
+        receiverGroup.addReceiver(KEY_CONTROLLER_COVER, new ControllerCover(context));
         receiverGroup.addReceiver(KEY_COMPLETE_COVER, new CompleteCover(context));
 //        receiverGroup.addReceiver(KEY_ERROR_COVER, new ErrorCover(context));
         return receiverGroup;

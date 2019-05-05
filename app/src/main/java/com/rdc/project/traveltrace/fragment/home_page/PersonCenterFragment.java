@@ -12,6 +12,7 @@ import com.rdc.project.traveltrace.entity.PersonAlbumList;
 import com.rdc.project.traveltrace.entity.VideoNote;
 import com.rdc.project.traveltrace.entity.VideoNoteList;
 import com.rdc.project.traveltrace.manager.PictureNoteListManager;
+import com.rdc.project.traveltrace.manager.VideoNoteListManager;
 import com.rdc.project.traveltrace.ui.PersonDetailActivity;
 import com.rdc.project.traveltrace.view.EmptyViewFooter;
 import com.rdc.project.traveltrace.view.EmptyViewHeader;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PersonCenterFragment extends BasePTRFragment implements View.OnClickListener, PictureNoteListManager.GetPictureUrlCallback {
+public class PersonCenterFragment extends BasePTRFragment implements View.OnClickListener, PictureNoteListManager.GetPictureUrlCallback, VideoNoteListManager.GetVideoNoteListCallback {
 
     private PersonAlbumListView mPersonAlbumListView;
     private PersonVideoListView mPersonVideoListView;
@@ -57,6 +58,7 @@ public class PersonCenterFragment extends BasePTRFragment implements View.OnClic
     @Override
     protected void initData(Bundle bundle) {
         PictureNoteListManager.getInstance().queryPictureNoteList(this);
+        VideoNoteListManager.getInstance().queryVideoNoteList(this);
     }
 
     @Override
@@ -64,26 +66,26 @@ public class PersonCenterFragment extends BasePTRFragment implements View.OnClic
         mPersonAlbumListView = mRootView.findViewById(R.id.person_album_view);
         mPersonVideoListView = mRootView.findViewById(R.id.person_video_list_view);
 
-        String[] array = new String[]{"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2059324361,2516966890&fm=27&gp=0.jpg",
-                "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3782685451,3066622536&fm=27&gp=0.jpg",
-                "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2791261768,1320060678&fm=27&gp=0.jpg",
-                "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=280692610,4239256719&fm=27&gp=0.jpg",
-                "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=260329114,3367670618&fm=27&gp=0.jpg",
-                "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1178503053,3917746059&fm=26&gp=0.jpg",
-                "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=753449481,625992609&fm=26&gp=0.jpg"};
+//        String[] array = new String[]{"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2059324361,2516966890&fm=27&gp=0.jpg",
+//                "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3782685451,3066622536&fm=27&gp=0.jpg",
+//                "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2791261768,1320060678&fm=27&gp=0.jpg",
+//                "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=280692610,4239256719&fm=27&gp=0.jpg",
+//                "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=260329114,3367670618&fm=27&gp=0.jpg",
+//                "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1178503053,3917746059&fm=26&gp=0.jpg",
+//                "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=753449481,625992609&fm=26&gp=0.jpg"};
 
-        List<String> list = new ArrayList<>(Arrays.asList(array));
+//        List<String> list = new ArrayList<>(Arrays.asList(array));
 //        PersonAlbumList personAlbumList = new PersonAlbumList(list);
 //        mPersonAlbumListView.setData(personAlbumList);
 
-        List<VideoNote> videoNotes = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            VideoNote videoNote = new VideoNote();
-            videoNote.setVideoCoverUrl(list.get(i));
-            videoNotes.add(videoNote);
-        }
-        VideoNoteList videoNoteList = new VideoNoteList(videoNotes);
-        mPersonVideoListView.setData(videoNoteList);
+//        List<VideoNote> videoNotes = new ArrayList<>();
+//        for (int i = 0; i < list.size(); i++) {
+//            VideoNote videoNote = new VideoNote();
+//            videoNote.setVideoCoverUrl(list.get(i));
+//            videoNotes.add(videoNote);
+//        }
+//        VideoNoteList videoNoteList = new VideoNoteList(videoNotes);
+//        mPersonVideoListView.setData(videoNoteList);
     }
 
     @Override
@@ -111,5 +113,10 @@ public class PersonCenterFragment extends BasePTRFragment implements View.OnClic
     public void onGetPictureUrls(List<String> list) {
         PersonAlbumList personAlbumList = new PersonAlbumList(list);
         mPersonAlbumListView.setData(personAlbumList);
+    }
+
+    @Override
+    public void onGetVideoNoteList(VideoNoteList videoNoteList) {
+        mPersonVideoListView.setData(videoNoteList);
     }
 }

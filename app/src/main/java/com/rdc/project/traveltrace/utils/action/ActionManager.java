@@ -18,6 +18,8 @@ import com.rdc.project.traveltrace.ui.PersonDetailActivity;
 import com.rdc.project.traveltrace.ui.PictureProcessActivity;
 import com.rdc.project.traveltrace.ui.PicturePuzzleActivity;
 import com.rdc.project.traveltrace.ui.PublishPictureNoteActivity;
+import com.rdc.project.traveltrace.ui.VideoPreviewActivity;
+import com.rdc.project.traveltrace.utils.UriUtil;
 import com.seu.magiccamera.activity.CameraActivity;
 
 import java.util.HashMap;
@@ -31,6 +33,7 @@ import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAM
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PICTURE_PUZZLE;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PUBLISH_PICTURE_NOTE;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_CAPTURE;
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_VIDEO_PREVIEW;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_VIDEO_RECORD;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_PRE;
 
@@ -78,8 +81,7 @@ public class ActionManager {
             String[] keyValue = string.split("=");
             if (keyValue.length == 2) {
                 String key = keyValue[0];
-//                String value = UriUtils.decode(keyValue[1]);
-                String value = keyValue[1];
+                String value = UriUtil.decode(keyValue[1]);
                 if (!TextUtils.isEmpty(key) && !TextUtils.isEmpty(value)) {
                     paramsMap.put(key, value);
                 }
@@ -155,6 +157,9 @@ public class ActionManager {
                 } else {
                     return null;
                 }
+                break;
+            case ACTION_NAME_VIDEO_PREVIEW:
+                intent.setClass(context, VideoPreviewActivity.class);
                 break;
             default:
                 intent.setClass(context, HomeActivity.class);
