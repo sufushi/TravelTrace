@@ -2,6 +2,7 @@ package com.rdc.project.traveltrace.utils.visibility_util.calculator;
 
 import android.view.View;
 
+import com.rdc.project.traveltrace.utils.CollectionUtil;
 import com.rdc.project.traveltrace.utils.visibility_util.items.ListItem;
 import com.rdc.project.traveltrace.utils.visibility_util.items.ListItemData;
 import com.rdc.project.traveltrace.utils.visibility_util.scroll_util.ItemsPositionGetter;
@@ -347,7 +348,8 @@ public class SingleListViewItemActiveCalculator extends BaseItemsVisibilityCalcu
     @Override
     protected void onStateFling(ItemsPositionGetter itemsPositionGetter) {
         ListItemData currentItemData = mCurrentItem;
-        mCallback.deactivateCurrentItem(mListItems.get(currentItemData.getIndex()), currentItemData.getView(), currentItemData.getIndex());
+        int index = currentItemData.getIndex();
+        mCallback.deactivateCurrentItem(mListItems.get(index), currentItemData.getView(), index);
     }
 
     @Override

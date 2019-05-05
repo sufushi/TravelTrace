@@ -169,7 +169,7 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
         mNoteRecordModel = new NoteRecordModel();
         mNoteRecordModel.register(this);
         mBmobViewModel = new BmobViewModel<>(mNoteRecordModel);
-        ViewModelBinder.bind(getActivity(), mBmobViewModel, mMultiTypeViewController);
+        ViewModelBinder.bind(this, mBmobViewModel, mMultiTypeViewController);
     }
 
     @Override
@@ -227,6 +227,9 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
 
     @Override
     public void onLoadMore() {
+        if (mBmobViewModel != null) {
+            mBmobViewModel.loadMore(mMultiTypeViewController.getDataSize());
+        }
         mRefreshLayout.finishLoadMore(2000);
     }
 

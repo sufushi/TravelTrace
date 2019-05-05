@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.rdc.project.traveltrace.adapter.VideoListAdapter;
+import com.rdc.project.traveltrace.adapter.VideoHListAdapter;
 import com.rdc.project.traveltrace.arch.view.IView;
 import com.rdc.project.traveltrace.base.BaseHListView;
 import com.rdc.project.traveltrace.base.BaseRecyclerViewAdapter;
@@ -25,7 +25,7 @@ import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_PRE
 
 public class VideoHListView extends BaseHListView implements IView, OnClickRecyclerViewListener {
 
-    private VideoListAdapter mVideoListAdapter;
+    private VideoHListAdapter mVideoHListAdapter;
 
     public VideoHListView(Context context) {
         this(context, null);
@@ -43,8 +43,8 @@ public class VideoHListView extends BaseHListView implements IView, OnClickRecyc
     public void setData(Object data) {
         if (data instanceof VideoNoteList) {
             List<VideoNote> videoNoteList = ((VideoNoteList) data).getVideoNoteList();
-            mVideoListAdapter.updateData(videoNoteList);
-            mVideoListAdapter.setOnRecyclerViewListener(this);
+            mVideoHListAdapter.updateData(videoNoteList);
+            mVideoHListAdapter.setOnRecyclerViewListener(this);
             setVisibility(VISIBLE);
         } else {
             setVisibility(GONE);
@@ -58,14 +58,14 @@ public class VideoHListView extends BaseHListView implements IView, OnClickRecyc
 
     @Override
     protected BaseRecyclerViewAdapter createAdapter(Context context) {
-        mVideoListAdapter = new VideoListAdapter(context);
-        return mVideoListAdapter;
+        mVideoHListAdapter = new VideoHListAdapter(context);
+        return mVideoHListAdapter;
     }
 
     @Override
     public void onItemClick(int position, View view) {
-        if (CollectionUtil.inRange(mVideoListAdapter.getDataList(), position)) {
-            VideoNote videoNote = mVideoListAdapter.getDataList().get(position);
+        if (CollectionUtil.inRange(mVideoHListAdapter.getDataList(), position)) {
+            VideoNote videoNote = mVideoHListAdapter.getDataList().get(position);
             Action action = new Action(ACTION_PRE + ACTION_NAME_VIDEO_PREVIEW + "?" + ACTION_FIELD_VIDEO_PATH + "=" + UriUtil.encode(videoNote.getVideoUrl()));
             ActionManager.doAction(action, getContext());
         }

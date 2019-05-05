@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.rdc.project.traveltrace.arch.data_getter.PagerHelper;
 import com.rdc.project.traveltrace.arch.model.ResponseInfo;
 import com.rdc.project.traveltrace.arch.model.impl.NoteRecordModel;
 import com.rdc.project.traveltrace.entity.NoteRecord;
@@ -41,6 +42,14 @@ public class MultiTypeViewController extends BmobObserverViewController<NoteReco
     public MultiTypeViewController(Context context, ItemBinderFactory itemBinderFactory) {
         super(context);
         mItemBinderFactory = itemBinderFactory;
+        mMultiTypeAdapter = new MultiTypeAdapter<>(mList, mItemBinderFactory);
+        mMultiTypeAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                onResume();
+            }
+        });
+        mMultiTypeView.setAdapter(mMultiTypeAdapter);
     }
 
     @Override
@@ -83,32 +92,35 @@ public class MultiTypeViewController extends BmobObserverViewController<NoteReco
 
     @Override
     protected void onBindView(ResponseInfo<NoteRecord> data, View view) {
-        initAdapter(data);
-        mMultiTypeView.setAdapter(mMultiTypeAdapter);
-        onResume();
+        notifyDataAdapter(data);
     }
 
-    private void initAdapter(ResponseInfo<NoteRecord> data) {
+    private void notifyDataAdapter(ResponseInfo<NoteRecord> data) {
         List<NoteRecord> resultList = data.getDataList();
+        if (PagerHelper.getInstance().isRefresh()) {
+            mList.clear();
+        }
+        List<ListItem> tempList = new ArrayList<>();
         if (!CollectionUtil.isEmpty(resultList)) {
             for (int i = 0; i < resultList.size(); i++) {
                 NoteRecord noteRecord = resultList.get(i);
                 int noteType = noteRecord.getNoteType();
                 switch (noteType) {
                     case NOTE_TYPE_VIDEO:
-                        mList.add(noteRecord.getVideoNote());
+                        tempList.add(noteRecord.getVideoNote());
                         break;
                     case NOTE_TYPE_PICTURE:
-                        mList.add(noteRecord.getPictureNote());
+                        tempList.add(noteRecord.getPictureNote());
                         break;
                     case NOTE_TYPE_PLAIN:
                     default:
-                        mList.add(noteRecord.getPlainNote());
+                        tempList.add(noteRecord.getPlainNote());
                         break;
                 }
             }
         }
-        mMultiTypeAdapter = new MultiTypeAdapter<>(mList, mItemBinderFactory);
+        mList.addAll(tempList);
+        mMultiTypeAdapter.notifyDataChanged(tempList, PagerHelper.getInstance().isRefresh());
     }
 
     public void onResume() {
@@ -124,5 +136,12 @@ public class MultiTypeViewController extends BmobObserverViewController<NoteReco
                 }
             });
         }
+    }
+
+    public int getDataSize() {
+        if (mMultiTypeAdapter != null) {
+            return mMultiTypeAdapter.getItemCount();
+        }
+        return 0;
     }
 }

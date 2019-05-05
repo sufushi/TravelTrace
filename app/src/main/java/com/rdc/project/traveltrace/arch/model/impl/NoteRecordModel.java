@@ -2,6 +2,7 @@ package com.rdc.project.traveltrace.arch.model.impl;
 
 import android.util.Log;
 
+import com.rdc.project.traveltrace.arch.data_getter.PagerHelper;
 import com.rdc.project.traveltrace.arch.model.BmobModel;
 import com.rdc.project.traveltrace.entity.NoteRecord;
 import com.rdc.project.traveltrace.utils.CollectionUtil;
@@ -23,6 +24,10 @@ public class NoteRecordModel extends BmobModel<NoteRecord> {
         BmobQuery<NoteRecord> query = new BmobQuery<>();
         query.include("mPlainNote.mUser,mPictureNote.mUser,mVideoNote.mUser");
         query.order("-createdAt");
+        query.setLimit(PagerHelper.PAGE_SIZE);
+        if (PagerHelper.getInstance().isLoadMore()) {
+            query.setSkip(PagerHelper.getInstance().getPageContext());
+        }
         query.findObjects(new FindListener<NoteRecord>() {
             @Override
             public void done(List<NoteRecord> list, BmobException e) {

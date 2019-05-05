@@ -5,11 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
-import com.rdc.project.traveltrace.arch.view.IView;
+import com.bumptech.glide.Glide;
 import com.rdc.project.traveltrace.base.BaseRecyclerViewAdapter;
 import com.rdc.project.traveltrace.entity.VideoNote;
-import com.rdc.project.traveltrace.view.custom_view.VideoHListItemView;
+import com.rdc.project.traveltrace.view.RectangleImageView;
 
 public class VideoListAdapter extends BaseRecyclerViewAdapter<VideoNote> {
 
@@ -22,29 +23,25 @@ public class VideoListAdapter extends BaseRecyclerViewAdapter<VideoNote> {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = new VideoHListItemView(mContext);
-        return new PersonVideoListViewHolder(view);
+        RectangleImageView imageView = new RectangleImageView(mContext);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        return new VideoItemHolder(imageView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        ((PersonVideoListViewHolder) viewHolder).bindView(mDataList.get(position));
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+        ((VideoItemHolder) viewHolder).bindView(mDataList.get(i));
     }
 
-    private class PersonVideoListViewHolder extends BaseRvHolder {
+    private class VideoItemHolder extends BaseRvHolder {
 
-        PersonVideoListViewHolder(View itemView) {
+        VideoItemHolder(View itemView) {
             super(itemView);
         }
 
         @Override
         protected void bindView(VideoNote videoNote) {
-            if (itemView instanceof IView) {
-                ((IView) itemView).setData(videoNote);
-                itemView.setVisibility(View.VISIBLE);
-            } else {
-                itemView.setVisibility(View.GONE);
-            }
+            Glide.with(mContext).load(videoNote.getVideoCoverUrl()).into((RectangleImageView) itemView);
         }
     }
 }

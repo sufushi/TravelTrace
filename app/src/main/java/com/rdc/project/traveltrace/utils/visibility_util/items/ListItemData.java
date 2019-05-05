@@ -3,6 +3,7 @@ package com.rdc.project.traveltrace.utils.visibility_util.items;
 import android.app.LauncherActivity;
 import android.view.View;
 
+import com.rdc.project.traveltrace.utils.CollectionUtil;
 import com.rdc.project.traveltrace.utils.visibility_util.utils.Config;
 import com.rdc.project.traveltrace.utils.visibility_util.utils.Logger;
 
@@ -39,7 +40,11 @@ public class ListItemData {
     }
 
     public int getVisibilityPercents(List<? extends ListItem> listItems) {
-        int visibilityPercents = listItems.get(getIndex()).getVisibilityPercents(getView());
+        int index = getIndex();
+        if (!CollectionUtil.inRange(listItems, index)) {
+            return 0;
+        }
+        int visibilityPercents = listItems.get(index).getVisibilityPercents(getView());
         if(SHOW_LOGS) Logger.v(TAG, "getVisibilityPercents, visibilityPercents " + visibilityPercents);
         return visibilityPercents;
     }

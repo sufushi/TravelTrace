@@ -15,6 +15,7 @@ public class BmobDataGetter<T extends BmobObject, Model extends BmobModel<T>> ex
     private static final String TAG = "BmobDataGetter";
 
     private Model mModel;
+    private BaseLiveData<BaseData<ResponseInfo<T>>> mLiveData;
 
     public BmobDataGetter(Model model) {
         mModel = model;
@@ -22,20 +23,21 @@ public class BmobDataGetter<T extends BmobObject, Model extends BmobModel<T>> ex
 
     @Override
     public BaseLiveData<BaseData<ResponseInfo<T>>> getDataSource() {
-        final BaseLiveData<BaseData<ResponseInfo<T>>> liveData = new BaseLiveData<>();
-        if (mModel == null) {
-            return liveData;
+        if (mLiveData == null) {
+            mLiveData = new BaseLiveData<>();
         }
-        Log.i(TAG, "sendRequest");
+        if (mModel == null) {
+            return mLiveData;
+        }
         mModel.sendRequest(new IModel.IModelListener<T>() {
             @Override
             public void onFinish(ResponseInfo<T> responseInfo) {
                 BaseData<ResponseInfo<T>> baseData = new BaseData<>();
                 baseData.setData(responseInfo);
-                liveData.setValue(baseData);
+                mLiveData.postValue(baseData);
             }
         });
-        return liveData;
+        return mLiveData;
     }
 
 }

@@ -2,6 +2,7 @@ package com.rdc.project.traveltrace.arch.view_model;
 
 import android.arch.lifecycle.ViewModel;
 
+import com.rdc.project.traveltrace.arch.data_getter.PagerHelper;
 import com.rdc.project.traveltrace.arch.repository.BaseRepository;
 
 public abstract class BaseViewModel<T> extends ViewModel {
@@ -30,7 +31,13 @@ public abstract class BaseViewModel<T> extends ViewModel {
     }
 
     public void refresh() {
-        mLiveData = getDataSource();
+        PagerHelper.getInstance().refresh();
+        getDataSource();
+    }
+
+    public void loadMore(int pageContext) {
+        PagerHelper.getInstance().loadMore(pageContext);
+        getDataSource();
     }
 
     protected abstract BaseRepository<T> createRepository();

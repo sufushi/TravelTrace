@@ -151,7 +151,8 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
     @Override
     protected BaseFragment createPTRFragment() {
         if (mCurrentFragment == null) {
-            mCurrentFragment = new MomentsFragment();
+            mMomentsFragment = new MomentsFragment();
+            mCurrentFragment = mMomentsFragment;
         }
         return mCurrentFragment;
     }
