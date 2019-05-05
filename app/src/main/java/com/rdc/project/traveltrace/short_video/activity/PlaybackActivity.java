@@ -17,9 +17,9 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.qiniu.pili.droid.shortvideo.PLShortVideoUploader;
 import com.qiniu.pili.droid.shortvideo.PLUploadProgressListener;
@@ -48,7 +48,7 @@ public class PlaybackActivity extends Activity implements
     private MediaPlayer mMediaPlayer;
     private MediaController mMediaController;
 
-    private Button mUploadBtn;
+    private TextView mUploadBtn;
     private PLShortVideoUploader mVideoUploadManager;
     private ProgressBar mProgressBarDeterminate;
     private boolean mIsUpload = false;
@@ -83,10 +83,9 @@ public class PlaybackActivity extends Activity implements
         mVideoUploadManager.setUploadProgressListener(this);
         mVideoUploadManager.setUploadResultListener(this);
 
-        mUploadBtn = (Button) findViewById(R.id.upload_btn);
-        mUploadBtn.setText(R.string.upload);
+        mUploadBtn = findViewById(R.id.upload_btn);
         mUploadBtn.setOnClickListener(new UploadOnClickListener());
-        mProgressBarDeterminate = (ProgressBar) findViewById(R.id.progressBar);
+        mProgressBarDeterminate = findViewById(R.id.progressBar);
         mProgressBarDeterminate.setMax(100);
         mVideoPath = getIntent().getStringExtra(MP4_PATH);
         mPreviousOrientation = getIntent().getIntExtra(PREVIOUS_ORIENTATION, 1);
@@ -270,9 +269,13 @@ public class PlaybackActivity extends Activity implements
 
     @Override
     public void onUploadProgress(String fileName, double percent) {
-        mProgressBarDeterminate.setProgress((int) (percent * 100));
+        int progress = (int) (percent * 100);
+        mProgressBarDeterminate.setProgress(progress);
+        String text = getString(R.string.upload) + progress + "%";
+        mUploadBtn.setText(text);
         if (1.0 == percent) {
             mProgressBarDeterminate.setVisibility(View.INVISIBLE);
+            mUploadBtn.setText(getString(R.string.upload_complete));
         }
     }
 

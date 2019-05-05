@@ -21,16 +21,24 @@
         android:minHeight="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="#1E88E5" />
+        android:background="#1E88E5"
+        android:layout_above="@+id/upload_btn"/>
 
-    <Button
+    <TextView
         android:id="@+id/upload_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/bg_rect_radius"/>
+        android:background="@drawable/bg_rect_radius"
+        android:text="@string/upload"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_text_size_middle"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"/>
 
 </RelativeLayout>

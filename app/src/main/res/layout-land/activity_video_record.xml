@@ -21,6 +21,7 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/top_panel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -28,35 +29,40 @@
 
         <ImageView
             android:id="@+id/screen_rotate_button"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_marginLeft="10dp"
             android:clickable="true"
             android:onClick="onScreenRotation"
+            android:padding="10dp"
             android:src="@drawable/btn_screen_rotation" />
 
         <ImageView
             android:id="@+id/capture_frame_button"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_marginLeft="10dp"
+            android:padding="10dp"
             android:clickable="true"
             android:onClick="onCaptureFrame"
+            android:visibility="gone"
             android:src="@drawable/btn_capture_frame" />
 
         <ImageView
             android:id="@+id/switch_camera"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_marginLeft="10dp"
+            android:padding="10dp"
             android:onClick="onClickSwitchCamera"
             android:src="@drawable/btn_switch_camera" />
 
         <ImageView
             android:id="@+id/switch_flash"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_marginLeft="10dp"
+            android:padding="10dp"
             android:onClick="onClickSwitchFlash"
             android:src="@drawable/btn_flash_selector"
             android:visibility="gone" />
@@ -73,7 +79,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="15dp">
+        android:padding="15dp"
+        android:layout_alignTop="@+id/top_panel"
+        android:layout_alignParentStart="true">
 
         <ImageView
             android:id="@+id/adjust_brightness_button"
@@ -165,6 +173,20 @@
             android:textSize="15sp" />
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/video_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:background="@drawable/bg_shape_radius_rect"
+        android:gravity="top"
+        android:hint="@string/string_moment_thought"
+        android:inputType="textMultiLine"
+        android:maxLines="6"
+        android:minLines="6"
+        android:padding="8dp"
+        android:layout_margin="10dp"
+        android:textSize="@dimen/dimen_text_size_middle"/>
 
     <LinearLayout
         android:id="@+id/btns"
@@ -226,4 +248,5 @@
                 android:textColor="#FFFFFF"/>
         </LinearLayout>
     </LinearLayout>
+
 </RelativeLayout>

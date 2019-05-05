@@ -147,14 +147,14 @@ public class ActionManager {
                 intent.setClass(context, CameraActivity.class);
                 break;
             case ACTION_NAME_CAPTURE:
+                intent.setClass(context, CaptureActivity.class);
+                break;
+            case ACTION_NAME_VIDEO_RECORD:
                 if (isPermissionOK(context)) {
-                    intent.setClass(context, CaptureActivity.class);
+                    intent.setClass(context, VideoRecordActivity.class);
                 } else {
                     return null;
                 }
-                break;
-            case ACTION_NAME_VIDEO_RECORD:
-                intent.setClass(context, VideoRecordActivity.class);
                 break;
             default:
                 intent.setClass(context, HomeActivity.class);
