@@ -12,6 +12,7 @@ import com.rdc.project.traveltrace.short_video.activity.VideoRecordActivity;
 import com.rdc.project.traveltrace.short_video.utils.PermissionChecker;
 import com.rdc.project.traveltrace.short_video.utils.ToastUtils;
 import com.rdc.project.traveltrace.ui.CaptureActivity;
+import com.rdc.project.traveltrace.ui.H5Activity;
 import com.rdc.project.traveltrace.ui.HomeActivity;
 import com.rdc.project.traveltrace.ui.PersonAlbumActivity;
 import com.rdc.project.traveltrace.ui.PersonDetailActivity;
@@ -26,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_CAMERA;
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_H5;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_HOME;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PERSON_ALBUM;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PERSON_DETAIL;
@@ -160,6 +162,9 @@ public class ActionManager {
                 break;
             case ACTION_NAME_VIDEO_PREVIEW:
                 intent.setClass(context, VideoPreviewActivity.class);
+                break;
+            case ACTION_NAME_H5:
+                intent.setClass(context, H5Activity.class);
                 break;
             default:
                 intent.setClass(context, HomeActivity.class);

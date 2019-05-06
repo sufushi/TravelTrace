@@ -195,32 +195,41 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
             case NAV_TAB_MOMENTS:
                 if (mMomentsFragment == null) {
                     mMomentsFragment = new MomentsFragment();
+                    fragmentTransaction.add(R.id.activity_layout_container, mMomentsFragment);
+                } else {
+                    fragmentTransaction.show(mMomentsFragment);
                 }
-                mCurrentFragment = mMomentsFragment;
+//                mCurrentFragment = mMomentsFragment;
                 titleRes = R.string.string_moments;
                 updateActionBtn(R.drawable.ic_action_send, ACTION_BTN_TAG_SEND);
                 break;
             case NAV_TAB_TIMELINE:
                 if (mTimelineFragment == null) {
                     mTimelineFragment = new TimelineFragment();
+                    fragmentTransaction.add(R.id.activity_layout_container, mTimelineFragment);
+                } else {
+                    fragmentTransaction.show(mTimelineFragment);
                 }
-                mCurrentFragment = mTimelineFragment;
+//                mCurrentFragment = mTimelineFragment;
                 titleRes = R.string.string_timeline;
                 updateActionBtn(R.drawable.ic_action_calendar, ACTION_BTN_TAG_CALENDAR);
                 break;
             case NAV_TAB_PERSON_CENTER:
                 if (mPersonCenterFragment == null) {
                     mPersonCenterFragment = new PersonCenterFragment();
+                    fragmentTransaction.add(R.id.activity_layout_container, mPersonCenterFragment);
+                } else {
+                    fragmentTransaction.show(mPersonCenterFragment);
                 }
-                mCurrentFragment = mPersonCenterFragment;
+//                mCurrentFragment = mPersonCenterFragment;
                 titleRes = R.string.string_person_center;
                 mActionBtn.setVisibility(View.GONE);
                 break;
             default:
                 break;
         }
+        fragmentTransaction.commit();
         mToolbar.setTitle(titleRes);
-        updateContainerLayout();
     }
 
     private void updateActionBtn(int drawableResId, int tag) {

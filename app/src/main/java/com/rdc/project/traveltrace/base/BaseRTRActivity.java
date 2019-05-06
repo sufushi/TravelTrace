@@ -84,7 +84,7 @@ public abstract class BaseRTRActivity extends BaseSwipeBackActivity {
             if (mCurrentFragment.isAdded() && mCurrentFragment.isHidden()) {
                 fragmentTransaction.show(mCurrentFragment);
             } else {
-                fragmentTransaction.replace(R.id.activity_layout_container, mCurrentFragment);
+                fragmentTransaction.add(R.id.activity_layout_container, mCurrentFragment);
             }
             fragmentTransaction.commit();
         }

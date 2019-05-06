@@ -20,6 +20,9 @@ import com.bumptech.glide.request.transition.Transition;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.entity.RecommendCard;
 import com.rdc.project.traveltrace.utils.CollectionUtil;
+import com.rdc.project.traveltrace.utils.UriUtil;
+import com.rdc.project.traveltrace.utils.action.Action;
+import com.rdc.project.traveltrace.utils.action.ActionManager;
 import com.rdc.project.traveltrace.view.puzzle_view.core.PuzzleLayout;
 import com.rdc.project.traveltrace.view.puzzle_view.extend.RectanglePuzzleView;
 import com.rdc.project.traveltrace.view.puzzle_view.impl.provider.PuzzleProvider;
@@ -28,6 +31,10 @@ import com.rdc.project.traveltrace.view.toast.CommonToast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_FIELD_URL;
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_H5;
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_PRE;
 
 public class RecommendCardStackAdapter extends BaseAdapter {
 
@@ -99,7 +106,8 @@ public class RecommendCardStackAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     String url = card.getLinkUrl();
                     if (!TextUtils.isEmpty(url)) {
-
+                        Action action = new Action(ACTION_PRE + ACTION_NAME_H5 + "?" + ACTION_FIELD_URL + "=" + UriUtil.encode(url));
+                        ActionManager.doAction(action, mContext);
                     } else {
                         CommonToast.normal(mContext, card.getContent()).show();
                     }
