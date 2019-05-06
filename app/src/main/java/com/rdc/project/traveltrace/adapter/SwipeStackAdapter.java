@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.utils.CollectionUtil;
+import com.rdc.project.traveltrace.view.toast.CommonToast;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class SwipeStackAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        SwipeStackViewHolder viewHolder;
+        final SwipeStackViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new SwipeStackViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_swipe_stack_card, parent, false);
@@ -50,6 +51,12 @@ public class SwipeStackAdapter extends BaseAdapter {
         }
         if (CollectionUtil.inRange(mData, position)) {
             viewHolder.textView.setText(mData.get(position));
+            viewHolder.textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CommonToast.info(mContext, mData.get(position)).show();
+                }
+            });
         }
         return convertView;
     }

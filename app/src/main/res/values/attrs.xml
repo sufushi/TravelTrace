@@ -140,4 +140,8 @@
         <attr name="codeNumber" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="RectanglePuzzleView">
+        <attr name="radio" format="float"/>
+    </declare-styleable>
+
 </resources>

@@ -14,7 +14,7 @@ public class CollectionUtil {
         if (isEmpty(collection)) {
             return false;
         }
-        return position < collection.size();
+        return position >= 0 && position < collection.size();
     }
 
     public static void swap(List list, int fromPos, int targetPos) {

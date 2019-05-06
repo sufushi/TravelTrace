@@ -3,45 +3,46 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:clipChildren="false">
 
-    <com.rdc.project.traveltrace.view.folding_cell.FoldingCell
-        android:id="@+id/folding_cell"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<com.rdc.project.traveltrace.view.folding_cell.FoldingCell-->
+        <!--android:id="@+id/folding_cell"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-        <FrameLayout
-            android:id="@+id/cell_content_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
+        <!--<FrameLayout-->
+            <!--android:id="@+id/cell_content_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:visibility="gone">-->
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/cell_content_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never">
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/cell_content_recycler_view"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:overScrollMode="never">-->
 
-            </android.support.v7.widget.RecyclerView>
-        </FrameLayout>
+            <!--</android.support.v7.widget.RecyclerView>-->
+        <!--</FrameLayout>-->
 
-        <FrameLayout
-            android:id="@+id/cell_title_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <!--<FrameLayout-->
+            <!--android:id="@+id/cell_title_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@android:color/holo_blue_dark"/>
-        </FrameLayout>
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:background="@android:color/holo_blue_dark"/>-->
+        <!--</FrameLayout>-->
 
-    </com.rdc.project.traveltrace.view.folding_cell.FoldingCell>
+    <!--</com.rdc.project.traveltrace.view.folding_cell.FoldingCell>-->
 
     <com.rdc.project.traveltrace.view.swipe_stack_view.SwipeStack
         android:id="@+id/swipe_stack"
-        android:layout_width="320dp"
-        android:layout_height="240dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:padding="32dp">
 
     </com.rdc.project.traveltrace.view.swipe_stack_view.SwipeStack>
