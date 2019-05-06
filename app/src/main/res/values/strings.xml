@@ -105,4 +105,17 @@
     <string name="if_edit_video">是否编辑视频</string>
     <string name="dlg_yes">是</string>
     <string name="dlg_no">否</string>
+
+    <string name="guide_home_page_title">欢迎来到 旅行日迹 app</string>
+    <string name="guide_person_page_title">个人中心</string>
+    <string name="guide_puzzle_page_title">拼图分享更精彩</string>
+    <string name="guide_filter_page_title">炫彩滤镜</string>
+    <string name="guide_video_record_page_title">时刻视频记录生活</string>
+
+    <string name="guide_home_page_content">首页浏览时刻精彩图文分享，小视频刷起来！日志、拼图、录制功能应有尽有！</string>
+    <string name="guide_person_page_content">管理相册视频、编辑个人信息、设置以及关于都在这了</string>
+    <string name="guide_puzzle_page_content">要分享的图太多太散怎么办？没关系，拼图功能让你任意Diy</string>
+    <string name="guide_filter_page_content">没有滤镜的照片不能叫“照骗”，快来体验神奇的滤镜功能吧！</string>
+    <string name="guide_video_record_page_content">静态照片不真实？赶紧使用短视频录制属于你的作品吧……</string>
+
 </resources>

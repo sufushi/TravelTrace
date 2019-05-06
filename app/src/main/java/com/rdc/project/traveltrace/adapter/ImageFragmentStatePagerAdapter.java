@@ -4,16 +4,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.rdc.project.traveltrace.fragment.guide_page.GuidePageBaseImageFragment;
+import com.rdc.project.traveltrace.fragment.guide_page.GuidePageImageFragment;
 import com.rdc.project.traveltrace.utils.CollectionUtil;
 
 import java.util.List;
 
 public class ImageFragmentStatePagerAdapter extends FragmentPagerAdapter {
 
-    private List<GuidePageBaseImageFragment> mFragments;
+    private List<GuidePageImageFragment> mFragments;
 
-    public ImageFragmentStatePagerAdapter(FragmentManager fm, List<GuidePageBaseImageFragment> fragments) {
+    public ImageFragmentStatePagerAdapter(FragmentManager fm, List<GuidePageImageFragment> fragments) {
         super(fm);
         mFragments = fragments;
     }

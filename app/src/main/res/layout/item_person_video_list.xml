@@ -6,7 +6,7 @@
         android:id="@+id/rounded_image_view"
         android:layout_width="90dp"
         android:layout_height="160dp"
-        android:src="@drawable/test"
+        android:src="@drawable/ic_picture_place_holder"
         android:scaleType="centerCrop"
         android:layout_gravity="center"
         app:riv_corner_radius="6dp"/>

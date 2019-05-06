@@ -9,7 +9,7 @@
         android:layout_height="40dp"
         android:layout_margin="4dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/test"
+        android:src="@drawable/ic_picture_place_holder"
         app:shape="circle"/>
 
     <LinearLayout

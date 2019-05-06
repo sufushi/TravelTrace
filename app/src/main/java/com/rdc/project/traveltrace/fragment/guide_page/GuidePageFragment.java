@@ -27,7 +27,6 @@ public class GuidePageFragment extends BaseFragment implements GuidePageScrollCa
     private TextView mSkipBtn;
 
     private int mLastPosition = -1;
-    private boolean mFirstPageLock = false;
 
     public boolean readyToMoveParent = false;
 
@@ -41,17 +40,20 @@ public class GuidePageFragment extends BaseFragment implements GuidePageScrollCa
 
     @Override
     protected void initData(Bundle bundle) {
-        List<GuidePageBaseImageFragment> fragments = new ArrayList<>();
-        fragments.add(new GuidePageFirstImageFragment());
-        fragments.add(new GuidePageSecondImageFragment());
-        fragments.add(new GuidePageThirdImageFragment());
+        List<GuidePageImageFragment> fragments = new ArrayList<>();
+        fragments.add(GuidePageImageFragment.newInstance(R.drawable.guide_home_page));
+        fragments.add(GuidePageImageFragment.newInstance(R.drawable.guide_person_page));
+        fragments.add(GuidePageImageFragment.newInstance(R.drawable.guide_puzzle_page));
+        fragments.add(GuidePageImageFragment.newInstance(R.drawable.guide_filter_page));
+        fragments.add(GuidePageImageFragment.newInstance(R.drawable.guide_video_record_page));
         mImageAdapter = new ImageFragmentStatePagerAdapter(getChildFragmentManager(), fragments);
 
         List<GuidePageText> textList = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            GuidePageText text = new GuidePageText("title" + i, "content" + i);
-            textList.add(text);
-        }
+        textList.add(new GuidePageText(getString(R.string.guide_home_page_title), getString(R.string.guide_home_page_content)));
+        textList.add(new GuidePageText(getString(R.string.guide_person_page_title), getString(R.string.guide_person_page_content)));
+        textList.add(new GuidePageText(getString(R.string.guide_puzzle_page_title), getString(R.string.guide_puzzle_page_content)));
+        textList.add(new GuidePageText(getString(R.string.guide_filter_page_title), getString(R.string.guide_filter_page_content)));
+        textList.add(new GuidePageText(getString(R.string.guide_video_record_page_title), getString(R.string.guide_video_record_page_content)));
         mTextAdapter = new TextFragmentStatePagerAdapter(getChildFragmentManager(), textList);
     }
 
@@ -64,7 +66,6 @@ public class GuidePageFragment extends BaseFragment implements GuidePageScrollCa
 
         mImageViewPager.setOffscreenPageLimit(3);
         mImageViewPager.setAdapter(mImageAdapter);
-        mImageViewPager.isLockScroll = false;
 
         mTextViewPager.setAdapter(mTextAdapter);
 
@@ -119,7 +120,7 @@ public class GuidePageFragment extends BaseFragment implements GuidePageScrollCa
 
     @Override
     public void onGuidePageScroll(MotionEvent ev) {
-        if (mImageViewPager != null && !mImageViewPager.isLockScroll) {
+        if (mImageViewPager != null) {
             mImageViewPager.onTouchEvent(ev);
         }
         if (mTextViewPager != null) {

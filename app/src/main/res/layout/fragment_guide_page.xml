@@ -15,8 +15,8 @@
             android:id="@+id/vp_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:background="@color/colorPrimaryDark"/>
+            android:background="@color/colorPrimaryDark"
+            android:layout_above="@+id/vp_text"/>
 
         <com.rdc.project.traveltrace.view.guide_page.InnerViewPager
             android:id="@+id/vp_text"
