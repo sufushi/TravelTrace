@@ -55,8 +55,8 @@ public class PictureFilterAdapter extends BaseRecyclerViewAdapter<MagicFilterTyp
         }
 
         @Override
-        protected void bindView(MagicFilterType magicFilterType) {
-            int position = getLayoutPosition();
+        protected void bindView(final MagicFilterType magicFilterType) {
+            final int position = getLayoutPosition();
             thumbImage.setImageResource(FilterTypeHelper.FilterType2Thumb(magicFilterType));
             filterName.setText(FilterTypeHelper.FilterType2Name(magicFilterType));
             filterName.setBackgroundColor(mContext.getResources().getColor(

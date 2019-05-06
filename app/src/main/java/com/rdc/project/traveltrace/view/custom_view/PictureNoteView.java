@@ -10,11 +10,11 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.lzy.ninegrid.ImageInfo;
-import com.lzy.ninegrid.NineGridView;
-import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 import com.rdc.project.traveltrace.entity.PictureNote;
 import com.rdc.project.traveltrace.entity.PlainNote;
+import com.rdc.project.traveltrace.view.nine_grid_view.ImageInfo;
+import com.rdc.project.traveltrace.view.nine_grid_view.NineGridView;
+import com.rdc.project.traveltrace.view.nine_grid_view.NineGridViewClickAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;

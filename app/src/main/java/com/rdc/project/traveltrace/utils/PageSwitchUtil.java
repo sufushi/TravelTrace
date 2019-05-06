@@ -6,15 +6,14 @@ import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lzy.ninegrid.ImageInfo;
-import com.lzy.ninegrid.preview.ImagePreviewActivity;
+import com.rdc.project.traveltrace.view.nine_grid_view.ImageInfo;
+import com.rdc.project.traveltrace.view.nine_grid_view.ImagePreviewActivity;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
-import static com.lzy.ninegrid.preview.ImagePreviewActivity.CURRENT_ITEM;
-import static com.lzy.ninegrid.preview.ImagePreviewActivity.IMAGE_INFO;
+import static com.rdc.project.traveltrace.view.nine_grid_view.ImagePreviewActivity.CURRENT_ITEM;
+import static com.rdc.project.traveltrace.view.nine_grid_view.ImagePreviewActivity.IMAGE_INFO;
 
 public class PageSwitchUtil {
 

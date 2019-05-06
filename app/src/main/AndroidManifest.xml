@@ -104,6 +104,9 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.VideoPreviewActivity"/>
         <activity android:name=".ui.H5Activity"/>
+        <activity
+            android:name=".view.nine_grid_view.ImagePreviewActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
     </application>
 
 </manifest>

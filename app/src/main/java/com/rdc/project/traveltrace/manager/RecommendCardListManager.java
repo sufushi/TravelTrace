@@ -66,7 +66,7 @@ public class RecommendCardListManager implements IQueryContract.View<RecommendCa
     @Override
     public void onQueryFailed(String response) {
         if (mCallback != null) {
-            mCallback.onGetRecommendCardList(Collections.emptyList());
+            mCallback.onGetRecommendCardList(Collections.<RecommendCard>emptyList());
         }
     }
 

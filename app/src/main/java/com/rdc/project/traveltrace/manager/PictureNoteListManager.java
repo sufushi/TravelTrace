@@ -73,7 +73,7 @@ public class PictureNoteListManager implements IQueryContract.View<PictureNote> 
     @Override
     public void onQueryFailed(String response) {
         if (mGetPictureUrlCallback != null) {
-            mGetPictureUrlCallback.onGetPictureUrls(Collections.emptyList());
+            mGetPictureUrlCallback.onGetPictureUrls(Collections.<String>emptyList());
         }
     }
 

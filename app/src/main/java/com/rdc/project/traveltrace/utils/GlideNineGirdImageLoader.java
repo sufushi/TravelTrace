@@ -6,8 +6,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.lzy.ninegrid.NineGridView;
 import com.rdc.project.traveltrace.R;
+import com.rdc.project.traveltrace.view.nine_grid_view.NineGridView;
 
 public class GlideNineGirdImageLoader implements NineGridView.ImageLoader {
 

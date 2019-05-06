@@ -171,4 +171,6 @@
 
     <color name="controller_bg_dark">#66000000</color>
     <color name="controller_bg_light">#00000000</color>
+
+    <color name="ic_default_bg_color">#33000000</color>
 </resources>

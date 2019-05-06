@@ -10,8 +10,8 @@ import android.support.multidex.MultiDex;
 import com.kk.taurus.exoplayer.ExoMediaPlayer;
 import com.kk.taurus.playerbase.config.PlayerConfig;
 import com.kk.taurus.playerbase.record.PlayRecordManager;
-import com.lzy.ninegrid.NineGridView;
 import com.rdc.project.traveltrace.utils.GlideNineGirdImageLoader;
+import com.rdc.project.traveltrace.view.nine_grid_view.NineGridView;
 import com.rdc.project.traveltrace.view.toast.CommonToast;
 
 import cn.bmob.v3.Bmob;

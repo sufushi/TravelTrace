@@ -81,7 +81,7 @@
     <string name="string_user_sex">性别</string>
     <string name="string_male">男</string>
     <string name="string_female">女</string>
-
+    <string name="select">%1$s/%2$s</string>
 
     <string name="speed_super_slow">极慢"</string>
     <string name="speed_slow">慢"</string>

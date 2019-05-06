@@ -6,7 +6,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.lzy.ninegrid.ImageInfo;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.adapter.ImgListRecyclerViewAdapter;
 import com.rdc.project.traveltrace.base.BaseBounceFragment;
@@ -15,6 +14,7 @@ import com.rdc.project.traveltrace.decorator.SpaceGridItemDecoration;
 import com.rdc.project.traveltrace.entity.PictureNote;
 import com.rdc.project.traveltrace.manager.PictureNoteListManager;
 import com.rdc.project.traveltrace.utils.PageSwitchUtil;
+import com.rdc.project.traveltrace.view.nine_grid_view.ImageInfo;
 
 import java.util.ArrayList;
 import java.util.List;

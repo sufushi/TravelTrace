@@ -33,7 +33,7 @@ public class UserDetailDialog implements BaseSwipeAwayDialogFragment.DialogBuild
     private TextView mFollowBtn;
 
     @Override
-    public Dialog create(Context context, SwipeAwayDialogFragment fragment) {
+    public Dialog create(Context context, final SwipeAwayDialogFragment fragment) {
         mContext = context;
         Bundle args = fragment.getArguments();
         String userIconUrl;
@@ -54,7 +54,7 @@ public class UserDetailDialog implements BaseSwipeAwayDialogFragment.DialogBuild
             }
             username = user.getUsername();
             CircleImageView userIcon = dialog.findViewById(R.id.user_icon);
-            ImageView background = dialog.findViewById(R.id.user_background);
+            final ImageView background = dialog.findViewById(R.id.user_background);
             TextView userName = dialog.findViewById(R.id.user_name);
             mFollowBtn = dialog.findViewById(R.id.btn_follow);
             assert userIcon != null;

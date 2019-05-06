@@ -60,7 +60,7 @@ dependencies {
     compile 'com.andrognito.patternlockview:patternlockview:1.0.0'
     compile 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
-    compile 'com.lzy.widget:ninegridview:0.2.0'
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
     compile 'me.weyye.hipermission:library:1.0.7'
     compile 'com.github.YancyYe:GalleryPick:1.2.1'
     compile 'com.facebook.shimmer:shimmer:0.1.0'

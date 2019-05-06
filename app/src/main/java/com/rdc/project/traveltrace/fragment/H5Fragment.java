@@ -3,12 +3,12 @@ package com.rdc.project.traveltrace.fragment;
 import android.os.Bundle;
 import android.webkit.WebViewClient;
 
-import com.lzy.ninegrid.ImageInfo;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BaseBounceFragment;
 import com.rdc.project.traveltrace.utils.PageSwitchUtil;
 import com.rdc.project.traveltrace.view.h5_view.ClickableWebView;
 import com.rdc.project.traveltrace.view.h5_view.WebViewClickCallback;
+import com.rdc.project.traveltrace.view.nine_grid_view.ImageInfo;
 
 import java.util.ArrayList;
 import java.util.List;

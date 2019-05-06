@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
-import com.lzy.ninegrid.ImageInfo;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.adapter.SelectedPictureGirdAdapter;
 import com.rdc.project.traveltrace.base.BaseFragment;
@@ -39,6 +38,7 @@ import com.rdc.project.traveltrace.utils.GlideGalleryPickImageLoader;
 import com.rdc.project.traveltrace.utils.PageSwitchUtil;
 import com.rdc.project.traveltrace.utils.PictureUtil;
 import com.rdc.project.traveltrace.utils.ProgressDialogUtil;
+import com.rdc.project.traveltrace.view.nine_grid_view.ImageInfo;
 import com.rdc.project.traveltrace.view.toast.CommonToast;
 import com.yancy.gallerypick.config.GalleryConfig;
 import com.yancy.gallerypick.config.GalleryPick;

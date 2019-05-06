@@ -99,7 +99,7 @@ public class RecommendCardStackAdapter extends BaseAdapter {
             mTargets = new ArrayList<>();
         }
 
-        public void bindView(RecommendCard card) {
+        public void bindView(final RecommendCard card) {
             textView.setText(card.getContent());
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -113,7 +113,7 @@ public class RecommendCardStackAdapter extends BaseAdapter {
                     }
                 }
             });
-            List<String> list = card.getImgUrls();
+            final List<String> list = card.getImgUrls();
             if (CollectionUtil.isEmpty(list)) {
                 return;
             }

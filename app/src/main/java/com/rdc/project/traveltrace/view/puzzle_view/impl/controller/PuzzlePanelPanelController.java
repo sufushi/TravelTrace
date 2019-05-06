@@ -178,7 +178,7 @@ public class PuzzlePanelPanelController implements IPuzzlePanelController {
 
     @Override
     public void save() {
-        File file = FileUtils.getNewFile(mContext, "puzzle");
+        final File file = FileUtils.getNewFile(mContext, "puzzle");
         FileUtils.savePuzzle(mPuzzleView, file, 100, new FileUtils.Callback() {
             @Override
             public void onSuccess() {
