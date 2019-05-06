@@ -14,7 +14,6 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BaseFragment;
 import com.rdc.project.traveltrace.base.BaseRTRActivity;
-import com.rdc.project.traveltrace.base.CommonSwipeAwayDialogFragment;
 import com.rdc.project.traveltrace.fragment.dialog_fragment.PublishDrawerDialogFragment;
 import com.rdc.project.traveltrace.fragment.home_page.MomentsFragment;
 import com.rdc.project.traveltrace.fragment.home_page.PersonCenterFragment;
@@ -111,7 +110,7 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
         itemList.add(new FloatItem("记录", getResources().getColor(R.color.white), getResources().getColor(R.color.transparent), BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_record)));
         mFloatLogoMenu = new FloatLogoMenu.Builder()
                 .withActivity(this)
-                .logo(BitmapFactory.decodeResource(getResources(), R.drawable.ic_sun))
+                .logo(BitmapFactory.decodeResource(getResources(), R.drawable.ic_logo))
                 .drawCicleMenuBg(true)
                 .backMenuColor(0xbbf5f28f)
                 .setBgDrawable(this.getResources().getDrawable(R.drawable.bg_float_menu))
@@ -123,12 +122,8 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
                     public void onItemClick(int pos, String s) {
 //                        Intent intent = new Intent(HomeActivity.this, PublishPictureNoteActivity.class);
 //                        startActivity(intent);
-                        if (pos == 0) {
-                            PublishDrawerDialogFragment publishDrawerDialogFragment = new PublishDrawerDialogFragment();
-                            publishDrawerDialogFragment.show(getSupportFragmentManager(), PublishDrawerDialogFragment.class.getSimpleName());
-                        } else {
-                            CommonSwipeAwayDialogFragment.newInstance(CommonSwipeAwayDialogFragment.Type.APPCOMPAT).show(getSupportFragmentManager(), "alert");
-                        }
+                        PublishDrawerDialogFragment publishDrawerDialogFragment = new PublishDrawerDialogFragment();
+                        publishDrawerDialogFragment.show(getSupportFragmentManager(), PublishDrawerDialogFragment.class.getSimpleName());
                     }
 
                     @Override
