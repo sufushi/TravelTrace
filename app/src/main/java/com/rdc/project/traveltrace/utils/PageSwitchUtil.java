@@ -43,4 +43,12 @@ public class PageSwitchUtil {
         context.startActivity(intent);
         ((Activity)context).overridePendingTransition(0, 0);
     }
+
+    public static void goPreviewPictureActivity(Context context, List<ImageInfo> list, int position) {
+        Intent intent = new Intent(context, ImagePreviewActivity.class);
+        intent.putExtra(IMAGE_INFO, (Serializable) list);
+        intent.putExtra(CURRENT_ITEM, position);
+        context.startActivity(intent);
+        ((Activity)context).overridePendingTransition(0, 0);
+    }
 }

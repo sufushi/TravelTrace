@@ -107,6 +107,7 @@
         <activity
             android:name=".view.nine_grid_view.ImagePreviewActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity android:name=".ui.AdvancedGeneralActivity"/>
     </application>
 
 </manifest>

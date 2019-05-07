@@ -73,6 +73,7 @@ dependencies {
     compile 'cn.bmob.android:http-legacy:1.0'
     compile 'androidx.annotation:annotation:1.0.1'
     compile 'com.android.support:multidex:1.0.1'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     compile 'com.qiniu:qiniu-android-sdk:7.3.11'
     compile files('libs/pldroid-shortvideo-2.0.0.jar')
     //    compile 'com.kk.taurus.playerbase:playerbase:3.3.5'

@@ -11,6 +11,7 @@ import com.rdc.project.traveltrace.constant.Constant;
 import com.rdc.project.traveltrace.short_video.activity.VideoRecordActivity;
 import com.rdc.project.traveltrace.short_video.utils.PermissionChecker;
 import com.rdc.project.traveltrace.short_video.utils.ToastUtils;
+import com.rdc.project.traveltrace.ui.AdvancedGeneralActivity;
 import com.rdc.project.traveltrace.ui.CaptureActivity;
 import com.rdc.project.traveltrace.ui.H5Activity;
 import com.rdc.project.traveltrace.ui.HomeActivity;
@@ -26,6 +27,7 @@ import com.seu.magiccamera.activity.CameraActivity;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_ADVANCED_GENERAL;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_CAMERA;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_H5;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_HOME;
@@ -165,6 +167,9 @@ public class ActionManager {
                 break;
             case ACTION_NAME_H5:
                 intent.setClass(context, H5Activity.class);
+                break;
+            case ACTION_NAME_ADVANCED_GENERAL:
+                intent.setClass(context, AdvancedGeneralActivity.class);
                 break;
             default:
                 intent.setClass(context, HomeActivity.class);

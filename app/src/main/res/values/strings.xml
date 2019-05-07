@@ -118,4 +118,7 @@
     <string name="guide_filter_page_content">没有滤镜的照片不能叫“照骗”，快来体验神奇的滤镜功能吧！</string>
     <string name="guide_video_record_page_content">静态照片不真实？赶紧使用短视频录制属于你的作品吧……</string>
 
+    <string name="string_pattern_recognition">图像识别</string>
+    <string name="string_pattern_recognition_tips">您想要对图片进行通用物体和场景识别吗？</string>
+
 </resources>

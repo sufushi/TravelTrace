@@ -1,6 +1,8 @@
 package com.rdc.project.traveltrace.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
 
 import com.rdc.project.traveltrace.R;
@@ -31,9 +33,13 @@ public class H5Fragment extends BaseBounceFragment {
         mUrl = bundle.getString(ACTION_FIELD_URL);
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void initView() {
         mWebView = mRootView.findViewById(R.id.web_view);
+
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
 
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.loadUrl(mUrl);

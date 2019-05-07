@@ -29,8 +29,10 @@ public class ActionConstant {
     public static final String ACTION_NAME_VIDEO_RECORD = "VideoRecordActivity";
     public static final String ACTION_NAME_VIDEO_PREVIEW = "VideoPreviewActivity";
     public static final String ACTION_NAME_H5 = "H5Activity";
+    public static final String ACTION_NAME_ADVANCED_GENERAL = "AdvancedGeneralActivity";
 
     public static final String ACTION_FIELD_SHARE_PUZZLE_IMG = "share_puzzle_img";
     public static final String ACTION_FIELD_VIDEO_PATH = "video_path";
     public static final String ACTION_FIELD_URL = "url";
+    public static final String ACTION_FIELD_IMG_URL = "img_url";
 }

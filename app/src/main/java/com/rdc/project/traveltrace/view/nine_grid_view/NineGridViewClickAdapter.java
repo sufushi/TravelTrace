@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
-import com.rdc.project.traveltrace.view.toast.CommonToast;
+import com.rdc.project.traveltrace.base.BaseSwipeAwayDialogFragment;
+import com.rdc.project.traveltrace.view.swipe_away_dialog.dialog_factory.DialogFactory;
 
 import java.io.Serializable;
 import java.util.List;
@@ -49,9 +51,17 @@ public class NineGridViewClickAdapter extends NineGridViewAdapter {
     }
 
     @Override
-    protected boolean onImageItemLongClick(Context context, NineGridView nineGridView, int index, List<ImageInfo> imageInfo) {
-        CommonToast.normal(context, "onImageItemLongClick").show();
-        return super.onImageItemLongClick(context, nineGridView, index, imageInfo);
+    protected boolean onImageItemLongClick(Context context, NineGridView nineGridView, final int index, final List<ImageInfo> imageInfo) {
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                BaseSwipeAwayDialogFragment
+                        .newInstance(DialogFactory.createAdvancedGeneralDialog(imageInfo.get(index).bigImageUrl), null)
+                        .show(((FragmentActivity) context).getSupportFragmentManager(), "AdvancedGeneral");
+            }
+        };
+        new Thread(task).start();
+        return true;
     }
 
     public int getStatusHeight(Context context) {

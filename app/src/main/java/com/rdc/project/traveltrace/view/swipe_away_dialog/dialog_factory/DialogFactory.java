@@ -28,4 +28,7 @@ public class DialogFactory {
         return new SelectSexDialog(isMale, listener);
     }
 
+    public static DialogBuilder createAdvancedGeneralDialog(String url) {
+        return new AdvancedGeneralDialog(url);
+    }
 }
