@@ -2,8 +2,8 @@ package com.rdc.project.traveltrace.manager;
 
 import com.rdc.project.traveltrace.contract.IQueryContract;
 import com.rdc.project.traveltrace.entity.RecommendCard;
-import com.rdc.project.traveltrace.model.query.Pager;
-import com.rdc.project.traveltrace.model.query.PagerUtil;
+import com.rdc.project.traveltrace.model.pager.Pager;
+import com.rdc.project.traveltrace.model.pager.PagerUtil;
 import com.rdc.project.traveltrace.model.query.RecommendCardQueryModel;
 import com.rdc.project.traveltrace.presenter.QueryPresenterImpl;
 import com.rdc.project.traveltrace.presenter.query.QueryPresenterImplFactory;

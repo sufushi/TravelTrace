@@ -1,4 +1,4 @@
-package com.rdc.project.traveltrace.model.query;
+package com.rdc.project.traveltrace.model.pager;
 
 public class Pager {
 

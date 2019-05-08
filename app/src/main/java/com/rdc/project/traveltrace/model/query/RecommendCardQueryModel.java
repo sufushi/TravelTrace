@@ -3,6 +3,8 @@ package com.rdc.project.traveltrace.model.query;
 import com.rdc.project.traveltrace.contract.IQueryContract;
 import com.rdc.project.traveltrace.entity.RecommendCard;
 import com.rdc.project.traveltrace.model.QueryModelImpl;
+import com.rdc.project.traveltrace.model.pager.Pager;
+import com.rdc.project.traveltrace.model.pager.PagerUtil;
 
 import java.util.List;
 import java.util.Map;
