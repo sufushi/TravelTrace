@@ -15,7 +15,6 @@ public class AdvancedGeneralManager {
         // 请求url
         try {
             String imgStr = Base64Util.url2Base64(imgUrl);
-            String imgParam = URLEncoder.encode(imgStr, "UTF-8");
 
             Map<String, String> params = new HashMap<>();
             params.put("image", imgStr);

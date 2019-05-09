@@ -30,9 +30,6 @@ public class VideoListViewManager {
     private RelationAssist mRelationAssist;
 
     public VideoListViewManager(final Context context) {
-//        mPLVideoTextureView = new PLVideoTextureView(context);
-//        mPLVideoTextureView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dp2px(200, context)));
-//        mPLVideoTextureView.setDisplayAspectRatio(PLVideoTextureView.ASPECT_RATIO_PAVED_PARENT);
         mRelationAssist = new RelationAssist(context);
         mRelationAssist.setEventAssistHandler(new OnAssistPlayEventHandler());
         ReceiverGroup receiverGroup = ReceiverGroupManager.get().getLiteReceiverGroup(context);
@@ -59,14 +56,6 @@ public class VideoListViewManager {
         mRelationAssist.setDataSource(dataSource);
         mRelationAssist.attachContainer(rootLayout);
         mRelationAssist.play();
-//        mPLVideoTextureView.stopPlayback();
-//        ViewGroup parent = (ViewGroup) mPLVideoTextureView.getParent();
-//        if (parent != null) {
-//            parent.removeView(mPLVideoTextureView);
-//        }
-//        rootLayout.addView(mPLVideoTextureView);
-//        mPLVideoTextureView.setVideoPath(url);
-//        mPLVideoTextureView.start();
     }
 
 }
