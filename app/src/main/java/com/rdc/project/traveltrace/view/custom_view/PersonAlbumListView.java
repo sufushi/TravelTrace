@@ -83,6 +83,8 @@ public class PersonAlbumListView extends LinearLayout implements IView, View.OnC
             PersonAlbumList personAlbumList = (PersonAlbumList) data;
             final List<String> list = personAlbumList.getAlbumList();
             if (CollectionUtil.isEmpty(list)) {
+                mTipsView.setVisibility(VISIBLE);
+                mRectanglePuzzleView.setVisibility(GONE);
                 return;
             }
             final PuzzleLayout puzzleLayout;
@@ -91,13 +93,9 @@ public class PersonAlbumListView extends LinearLayout implements IView, View.OnC
                 puzzleLayout = PuzzleProvider.getPuzzleLayout(1, pieceSize, 3);
                 mRectanglePuzzleView.setPuzzleLayout(puzzleLayout);
                 mRectanglePuzzleView.setPiecePadding(4);
-            } else if (list.size() == 1) {
+            } else {
                 puzzleLayout = new ZeroStraightLayout(0);
                 mRectanglePuzzleView.setPuzzleLayout(puzzleLayout);
-            } else {
-                mTipsView.setVisibility(VISIBLE);
-                mRectanglePuzzleView.setVisibility(GONE);
-                return;
             }
             mTipsView.setVisibility(GONE);
             mRectanglePuzzleView.setVisibility(VISIBLE);

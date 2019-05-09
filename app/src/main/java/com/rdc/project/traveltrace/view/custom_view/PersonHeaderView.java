@@ -1,7 +1,6 @@
 package com.rdc.project.traveltrace.view.custom_view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,15 +45,12 @@ public class PersonHeaderView extends RelativeLayout implements View.OnClickList
         mUserIconView.setOnClickListener(this);
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
+    public void onResume() {
         if (BmobUser.isLogin()) {
             User user = BmobUser.getCurrentUser(User.class);
             Glide.with(getContext()).load(user.getUserIcon()).into(mUserIconView);
             mUserNameView.setText(user.getUsername());
         }
-
     }
 
     @Override

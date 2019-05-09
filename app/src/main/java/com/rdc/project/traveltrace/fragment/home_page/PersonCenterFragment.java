@@ -17,6 +17,7 @@ import com.rdc.project.traveltrace.ui.PersonDetailActivity;
 import com.rdc.project.traveltrace.view.EmptyViewFooter;
 import com.rdc.project.traveltrace.view.EmptyViewHeader;
 import com.rdc.project.traveltrace.view.custom_view.PersonAlbumListView;
+import com.rdc.project.traveltrace.view.custom_view.PersonHeaderView;
 import com.rdc.project.traveltrace.view.custom_view.PersonVideoListView;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
@@ -27,6 +28,7 @@ import java.util.List;
 
 public class PersonCenterFragment extends BasePTRFragment implements View.OnClickListener, PictureNoteListManager.GetPictureUrlCallback, VideoNoteListManager.GetVideoNoteListCallback {
 
+    private PersonHeaderView mPersonHeaderView;
     private PersonAlbumListView mPersonAlbumListView;
     private PersonVideoListView mPersonVideoListView;
 
@@ -57,12 +59,17 @@ public class PersonCenterFragment extends BasePTRFragment implements View.OnClic
 
     @Override
     protected void initData(Bundle bundle) {
+        queryData();
+    }
+
+    private void queryData() {
         PictureNoteListManager.getInstance().queryPictureNoteList(this);
         VideoNoteListManager.getInstance().queryVideoNoteList(this);
     }
 
     @Override
     protected void initView() {
+        mPersonHeaderView = mRootView.findViewById(R.id.person_header_view);
         mPersonAlbumListView = mRootView.findViewById(R.id.person_album_view);
         mPersonVideoListView = mRootView.findViewById(R.id.person_video_list_view);
 
@@ -91,6 +98,15 @@ public class PersonCenterFragment extends BasePTRFragment implements View.OnClic
     @Override
     protected void setListener() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        queryData();
+        if (mPersonHeaderView != null) {
+            mPersonHeaderView.onResume();
+        }
     }
 
     @Override

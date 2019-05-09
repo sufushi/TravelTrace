@@ -14,6 +14,7 @@ import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.arch.view.IView;
 import com.rdc.project.traveltrace.entity.VideoNoteList;
 import com.rdc.project.traveltrace.ui.PersonVideoListActivity;
+import com.rdc.project.traveltrace.utils.CollectionUtil;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.view.TipsView;
 
@@ -55,9 +56,14 @@ public class PersonVideoListView extends LinearLayout implements IView, View.OnC
     public void setData(Object data) {
         if (data instanceof VideoNoteList) {
             VideoNoteList videoHListView = (VideoNoteList) data;
-            mVideoHListView.setData(videoHListView);
-            mVideoHListView.setVisibility(VISIBLE);
-            mTipsView.setVisibility(GONE);
+            if (CollectionUtil.isEmpty(videoHListView.getVideoNoteList())) {
+                mVideoHListView.setVisibility(GONE);
+                mTipsView.setVisibility(VISIBLE);
+            } else {
+                mVideoHListView.setData(videoHListView);
+                mVideoHListView.setVisibility(VISIBLE);
+                mTipsView.setVisibility(GONE);
+            }
         } else {
             mVideoHListView.setVisibility(GONE);
             mTipsView.setVisibility(VISIBLE);
