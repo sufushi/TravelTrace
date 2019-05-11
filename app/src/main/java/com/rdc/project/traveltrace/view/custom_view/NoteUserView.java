@@ -60,7 +60,7 @@ public class NoteUserView extends LinearLayout implements IView, View.OnClickLis
                     .load(mUser.getUserIcon())
                     .apply(new RequestOptions().placeholder(R.drawable.ic_avatar))
                     .into(mNoteUserIcon);
-            mNoteUserName.setText(mUser.getUsername());
+            mNoteUserName.setText(mUser.getUserNikName());
             mNoteUserExtraMsg.setText(mUser.getUserExtraMsg());
         }
     }

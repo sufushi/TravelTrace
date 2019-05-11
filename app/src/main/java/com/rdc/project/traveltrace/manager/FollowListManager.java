@@ -56,7 +56,7 @@ public class FollowListManager implements IUpdateContract.View, IQueryContract.V
     }
 
     private FollowListManager() {
-        mFollowListUploadPresenter = new UploadPresenterImpl<FollowList>(this);
+        mFollowListUploadPresenter = new UploadPresenterImpl<>(this);
         mFollowListUpdatePresenter = new UpdatePresenterImpl<>(this);
         mFollowListQueryPresenter = QueryPresenterImplFactory.createFollowListPresenterImpl(this);
         mFollowList = new FollowList();
@@ -147,6 +147,10 @@ public class FollowListManager implements IUpdateContract.View, IQueryContract.V
         }
         mAction = ACTION_UN_FOLLOW;
         mUnFollowListener = listener;
+    }
+
+    public FollowList getFollowList() {
+        return mFollowList;
     }
 
     @Override

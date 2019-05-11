@@ -49,7 +49,7 @@ public class PersonHeaderView extends RelativeLayout implements View.OnClickList
         if (BmobUser.isLogin()) {
             User user = BmobUser.getCurrentUser(User.class);
             Glide.with(getContext()).load(user.getUserIcon()).into(mUserIconView);
-            mUserNameView.setText(user.getUsername());
+            mUserNameView.setText(user.getUserNikName());
         }
     }
 

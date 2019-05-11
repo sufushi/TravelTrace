@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.rdc.project.traveltrace.R;
-import com.rdc.project.traveltrace.adapter.FollowListViewProvider;
+import com.rdc.project.traveltrace.adapter.FollowHListViewProvider;
 import com.rdc.project.traveltrace.adapter.PictureNoteViewProvider;
 import com.rdc.project.traveltrace.adapter.PlainNoteViewProvider;
 import com.rdc.project.traveltrace.adapter.VideoNoteViewProvider;
@@ -162,7 +162,7 @@ public class MomentsFragment extends BasePTRFragment implements OnRefreshListene
         itemBinderFactory.registerProvider(PlainNote.class, new PlainNoteViewProvider(getActivity()));
         itemBinderFactory.registerProvider(PictureNote.class, new PictureNoteViewProvider(getActivity()));
         itemBinderFactory.registerProvider(VideoNote.class, new VideoNoteViewProvider(getActivity(), mVideoListViewManager));
-        itemBinderFactory.registerProvider(FollowList.class, new FollowListViewProvider(getActivity()));
+        itemBinderFactory.registerProvider(FollowList.class, new FollowHListViewProvider(getActivity()));
 //        mMultiTypeAdapter = new MultiTypeAdapter<>(mList, itemBinderFactory);
 
         mMultiTypeViewController = new MultiTypeViewController(getActivity(), itemBinderFactory);

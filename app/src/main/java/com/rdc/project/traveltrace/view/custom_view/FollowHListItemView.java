@@ -16,27 +16,27 @@ import com.rdc.project.traveltrace.arch.view.IView;
 import com.rdc.project.traveltrace.entity.User;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 
-public class FollowListItemView extends LinearLayout implements IView {
+public class FollowHListItemView extends LinearLayout implements IView {
 
     private CircleImageView mFollowUserIconView;
     private TextView mFollowUserNameView;
 
-    public FollowListItemView(Context context) {
+    public FollowHListItemView(Context context) {
         this(context, null);
     }
 
-    public FollowListItemView(Context context, @Nullable AttributeSet attrs) {
+    public FollowHListItemView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public FollowListItemView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public FollowHListItemView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
     private void init(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.item_follow_list, this);
-        setOrientation(HORIZONTAL);
+        LayoutInflater.from(context).inflate(R.layout.item_follow_h_list, this);
+        setOrientation(VERTICAL);
         setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         int padding = DensityUtil.dp2px(10, context);
         setPadding(padding, padding, padding, padding);

@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.base.BaseBounceFragment;
+import com.rdc.project.traveltrace.manager.FollowListManager;
+import com.rdc.project.traveltrace.view.custom_view.FollowListView;
 
 public class PersonFocusFragment extends BaseBounceFragment {
 
@@ -19,7 +21,8 @@ public class PersonFocusFragment extends BaseBounceFragment {
 
     @Override
     protected void initView() {
-
+        FollowListView followListView = mRootView.findViewById(R.id.follow_list_view);
+        followListView.setData(FollowListManager.getInstance().getFollowList());
     }
 
     @Override

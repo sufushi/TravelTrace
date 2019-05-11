@@ -3,4 +3,11 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <com.rdc.project.traveltrace.view.custom_view.FollowListView
+        android:id="@+id/follow_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.rdc.project.traveltrace.view.custom_view.FollowListView>
+
 </LinearLayout>

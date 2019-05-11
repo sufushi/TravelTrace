@@ -10,11 +10,11 @@ import com.rdc.project.traveltrace.entity.FollowList;
 import com.rdc.project.traveltrace.view.custom_view.FollowHListView;
 import com.shizhefei.view.multitype.ItemViewProvider;
 
-public class FollowListViewProvider extends ItemViewProvider<FollowList> {
+public class FollowHListViewProvider extends ItemViewProvider<FollowList> {
 
     private Context mContext;
 
-    public FollowListViewProvider(Context context) {
+    public FollowHListViewProvider(Context context) {
         mContext = context;
     }
 
