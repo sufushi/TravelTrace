@@ -70,6 +70,7 @@
         android:background="@color/lightGray"/>
 
     <RelativeLayout
+        android:id="@+id/layout_gesture_pin"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="?attr/selectableItemBackground"

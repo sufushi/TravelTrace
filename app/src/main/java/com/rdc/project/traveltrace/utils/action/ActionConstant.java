@@ -35,4 +35,5 @@ public class ActionConstant {
     public static final String ACTION_FIELD_VIDEO_PATH = "video_path";
     public static final String ACTION_FIELD_URL = "url";
     public static final String ACTION_FIELD_IMG_URL = "img_url";
+    public static final String ACTION_FIELD_SETTING_PIN = "setting_pin";
 }

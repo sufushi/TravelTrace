@@ -1,6 +1,7 @@
 package com.rdc.project.traveltrace.view.custom_view;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +13,16 @@ import com.bumptech.glide.Glide;
 import com.meg7.widget.CircleImageView;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.entity.User;
-import com.rdc.project.traveltrace.ui.PersonDetailActivity;
 import com.rdc.project.traveltrace.utils.DensityUtil;
+import com.rdc.project.traveltrace.utils.SharePreferenceUtil;
 import com.rdc.project.traveltrace.utils.action.Action;
 import com.rdc.project.traveltrace.utils.action.ActionManager;
 
 import cn.bmob.v3.BmobUser;
 
+import static com.rdc.project.traveltrace.ui.GesturePinActivity.PIN_CODE;
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_FIELD_SETTING_PIN;
+import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_GESTURE_PIN;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_PERSON_DETAIL;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_PRE;
 
@@ -57,7 +61,13 @@ public class PersonHeaderView extends RelativeLayout implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.user_icon:
-                Action action = new Action(ACTION_PRE + ACTION_NAME_PERSON_DETAIL);
+                String code = (String) SharePreferenceUtil.get(getContext(), PIN_CODE, "");
+                Action action;
+                if (TextUtils.isEmpty(code)) {
+                    action = new Action(ACTION_PRE + ACTION_NAME_PERSON_DETAIL);
+                } else {
+                    action = new Action(ACTION_PRE + ACTION_NAME_GESTURE_PIN);
+                }
                 ActionManager.doAction(action, getContext());
                 break;
             default:
