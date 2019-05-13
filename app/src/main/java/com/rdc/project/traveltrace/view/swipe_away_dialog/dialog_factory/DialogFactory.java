@@ -31,4 +31,8 @@ public class DialogFactory {
     public static DialogBuilder createAdvancedGeneralDialog(String url) {
         return new AdvancedGeneralDialog(url);
     }
+
+    public static DialogBuilder createUpdateAppDialog(UpdateAppDialog.UpdateAppConfirmListener listener) {
+        return new UpdateAppDialog(listener);
+    }
 }

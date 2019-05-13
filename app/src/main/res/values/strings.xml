@@ -120,5 +120,7 @@
 
     <string name="string_pattern_recognition">图像识别</string>
     <string name="string_pattern_recognition_tips">您想要对图片进行通用物体和场景识别吗？</string>
+    <string name="string_update_version">更新版本</string>
+    <string name="string_update_version_tips">您确定要更新APP版本吗？</string>
 
 </resources>
