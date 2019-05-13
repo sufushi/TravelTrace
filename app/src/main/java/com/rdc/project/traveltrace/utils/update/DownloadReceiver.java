@@ -39,8 +39,7 @@ public class DownloadReceiver extends BroadcastReceiver {
                 case DownloadManager.STATUS_RUNNING:
                     break;
                 case DownloadManager.STATUS_SUCCESSFUL:
-                    String downloadFileUrl = c
-                            .getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
+                    String downloadFileUrl = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
                     Utils.installApk(context, Uri.parse(downloadFileUrl));
                     break;
                 case DownloadManager.STATUS_FAILED:

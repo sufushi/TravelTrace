@@ -1,7 +1,6 @@
 package com.rdc.project.traveltrace.utils.update;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -33,7 +32,7 @@ public class Updater {
     private String apkDirName;
     private String title;
     private String downloadUrl;
-    private Activity context;
+    private Context context;
     private DownloadManager downloadManager;
     private long mTaskId;
     private boolean hideNotification = false;
@@ -52,7 +51,7 @@ public class Updater {
     private DownloadFailedReceiver downloadFailedReceiver = new DownloadFailedReceiver();
 
 
-    private Updater(Activity context) {
+    private Updater(Context context) {
         this.context = context;
         mPermissionItems.clear();
         mPermissionItems.add(new PermissionItem(Manifest.permission.WRITE_EXTERNAL_STORAGE, "写入", R.drawable.permission_ic_storage));
@@ -219,7 +218,7 @@ public class Updater {
 
         private Updater mUpdater;
 
-        public Builder(Activity context) {
+        public Builder(Context context) {
             synchronized (Updater.class) {
                 if (mUpdater == null) {
                     synchronized (Updater.class) {

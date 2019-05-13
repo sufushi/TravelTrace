@@ -1,5 +1,6 @@
 package com.rdc.project.traveltrace.utils.update;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,6 +9,8 @@ import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
 import java.io.File;
+
+import me.weyye.hipermission.HiPermission;
 
 public class Utils {
 
@@ -24,11 +27,14 @@ public class Utils {
         if (!file.exists()) {
             return;
         }
+        install(context, uri, file);
+    }
+
+    private static void install(Context context, Uri uri, File file) {
         Intent intent = new Intent();
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
             String packageName = context.getPackageName();
-            Uri providerUri = FileProvider
-                    .getUriForFile(context, packageName + ".fileProvider", file);
+            Uri providerUri = FileProvider.getUriForFile(context, packageName + ".fileProvider", file);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setDataAndType(providerUri, "application/vnd.android.package-archive");
         } else {

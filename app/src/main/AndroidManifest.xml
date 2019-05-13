@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.FLASHLIGHT"/>
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name=".app.App"
@@ -42,6 +43,18 @@
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.rdc.project.traveltrace.BmobContentProvider">
+        </provider>
+        
+        <provider
+            android:name=".utils.update.UpdaterFileProvider"
+            android:authorities="com.rdc.project.traveltrace.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths_update"/>
+
         </provider>
 
         <receiver android:name=".utils.update.DownloadReceiver">
