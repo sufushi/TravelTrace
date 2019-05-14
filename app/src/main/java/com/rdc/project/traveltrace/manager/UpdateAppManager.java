@@ -1,5 +1,8 @@
 package com.rdc.project.traveltrace.manager;
 
+import android.net.Uri;
+import android.os.Environment;
+
 import com.rdc.project.traveltrace.BuildConfig;
 import com.rdc.project.traveltrace.R;
 import com.rdc.project.traveltrace.app.App;
@@ -9,15 +12,18 @@ import com.rdc.project.traveltrace.model.query.UpdateInfoQueryModelImpl;
 import com.rdc.project.traveltrace.presenter.QueryPresenterImpl;
 import com.rdc.project.traveltrace.presenter.query.QueryPresenterImplFactory;
 import com.rdc.project.traveltrace.utils.CollectionUtil;
+import com.rdc.project.traveltrace.utils.update.ProgressListener;
 import com.rdc.project.traveltrace.utils.update.Updater;
+import com.rdc.project.traveltrace.utils.update.Utils;
 
+import java.io.File;
 import java.util.List;
 
-public class UpdateAppManager implements IQueryContract.View<UpdateInfo> {
+public class UpdateAppManager implements IQueryContract.View<UpdateInfo>, ProgressListener {
 
     private QueryPresenterImpl<UpdateInfo, UpdateInfoQueryModelImpl> mPresenter;
 
-    private static final String APK_NAME = "travel_trace.apk";
+    private static final String APK_NAME = "travel_trace";
     private static final String APK_DIR = "apk_download";
 
     private UpdateAppListener mUpdateAppListener;
@@ -42,12 +48,29 @@ public class UpdateAppManager implements IQueryContract.View<UpdateInfo> {
 
     public void startUpdate() {
         if (mUpdateInfo != null) {
-            new Updater.Builder(App.getAppContext())
-                    .setDownloadUrl(mUpdateInfo.getApkUrl())
-                    .setApkFileName(APK_NAME)
-                    .setApkDir(APK_DIR)
-                    .setNotificationTitle(App.getAppContext().getString(R.string.app_name))
-                    .start();
+            String apkName = APK_NAME + "_" + mUpdateInfo.getVersionName() + "_" + mUpdateInfo.getVersionCode() + ".apk";
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + APK_DIR + File.separator + apkName;
+            if (isFileExists(path)) {
+                Utils.installApk(App.getAppContext(), Uri.fromFile(new File(path)));
+            } else {
+                new Updater.Builder(App.getAppContext())
+                        .setDownloadUrl(mUpdateInfo.getApkUrl())
+                        .setApkFileName(apkName)
+                        .setApkDir(APK_DIR)
+                        .setNotificationTitle(App.getAppContext().getString(R.string.app_name))
+                        .start()
+                        .addProgressListener(this);
+
+            }
+        }
+    }
+
+    private boolean isFileExists(String path) {
+        try {
+            File file = new File(path);
+            return file.exists();
+        } catch (Exception e) {
+            return false;
         }
     }
 
@@ -79,6 +102,11 @@ public class UpdateAppManager implements IQueryContract.View<UpdateInfo> {
         if (mUpdateAppListener != null) {
             mUpdateAppListener.onUpdateInfo(false);
         }
+    }
+
+    @Override
+    public void onProgressChange(long totalBytes, long curBytes, int progress) {
+
     }
 
     public interface UpdateAppListener {

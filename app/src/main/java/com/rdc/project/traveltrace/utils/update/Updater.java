@@ -16,6 +16,8 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.rdc.project.traveltrace.R;
+import com.rdc.project.traveltrace.app.App;
+import com.rdc.project.traveltrace.utils.SharePreferenceUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ import me.weyye.hipermission.PermissionCallback;
 import me.weyye.hipermission.PermissionItem;
 
 public class Updater {
+
+    public static final String DOWNLOADING_APK_KEY = "downloading_apk";
 
     private String apkFileName;
     private String apkFilePath;
@@ -154,6 +158,9 @@ public class Updater {
             context.registerReceiver(downloadFailedReceiver,
                     new IntentFilter(Updater.DownloadFailedReceiver.tag));
         }
+
+        SharePreferenceUtil.put(App.getAppContext(), DOWNLOADING_APK_KEY, true);
+
     }
 
     public void registerDownloadReceiver() {

@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.rdc.project.traveltrace.R;
+import com.rdc.project.traveltrace.app.App;
 import com.rdc.project.traveltrace.base.BaseBounceFragment;
 import com.rdc.project.traveltrace.base.BaseSwipeAwayDialogFragment;
 import com.rdc.project.traveltrace.manager.UpdateAppManager;
+import com.rdc.project.traveltrace.utils.SharePreferenceUtil;
 import com.rdc.project.traveltrace.utils.UriUtil;
 import com.rdc.project.traveltrace.utils.action.Action;
 import com.rdc.project.traveltrace.utils.action.ActionManager;
@@ -21,12 +23,11 @@ import com.rdc.project.traveltrace.view.toast.CommonToast;
 
 import java.util.Objects;
 
-import me.weyye.hipermission.HiPermission;
-
 import static android.app.Activity.RESULT_OK;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_FIELD_URL;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_NAME_H5;
 import static com.rdc.project.traveltrace.utils.action.ActionConstant.ACTION_PRE;
+import static com.rdc.project.traveltrace.utils.update.Updater.DOWNLOADING_APK_KEY;
 
 public class AboutFragment extends BaseBounceFragment implements View.OnClickListener, UpdateAppManager.UpdateAppListener {
 
@@ -65,6 +66,11 @@ public class AboutFragment extends BaseBounceFragment implements View.OnClickLis
                 ActionManager.doAction(action, getActivity());
                 break;
             case R.id.ll_version_update:
+                boolean isDownloading = (boolean) SharePreferenceUtil.get(App.getAppContext(), DOWNLOADING_APK_KEY, false);
+                if (isDownloading) {
+                    CommonToast.info(Objects.requireNonNull(getActivity()), "正在下载中...").show();
+                    return;
+                }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     boolean hasInstallPermission = Objects.requireNonNull(getActivity()).getPackageManager().canRequestPackageInstalls();
                     if (hasInstallPermission) {

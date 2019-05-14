@@ -9,6 +9,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.rdc.project.traveltrace.app.App;
+import com.rdc.project.traveltrace.utils.SharePreferenceUtil;
+
+import static com.rdc.project.traveltrace.utils.update.Updater.DOWNLOADING_APK_KEY;
+
 public class DownloadReceiver extends BroadcastReceiver {
 
     @Override
@@ -39,6 +44,7 @@ public class DownloadReceiver extends BroadcastReceiver {
                 case DownloadManager.STATUS_RUNNING:
                     break;
                 case DownloadManager.STATUS_SUCCESSFUL:
+                    SharePreferenceUtil.put(App.getAppContext(), DOWNLOADING_APK_KEY, false);
                     String downloadFileUrl = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
                     Utils.installApk(context, Uri.parse(downloadFileUrl));
                     break;
