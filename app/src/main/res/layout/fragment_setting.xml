@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical">
 
     <RelativeLayout
@@ -38,6 +39,7 @@
         android:background="@color/lightGray"/>
 
     <RelativeLayout
+        android:id="@+id/layout_clean_cache"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="?attr/selectableItemBackground"
@@ -52,7 +54,19 @@
             android:textColor="@color/black"
             android:textSize="@dimen/dimen_text_size_middle"/>
 
+        <TextView
+            android:id="@+id/tv_cache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="6dp"
+            android:layout_toStartOf="@+id/iv_cache"
+            tools:text="74.76MB"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/dimen_text_size_small"/>
+
         <ImageView
+            android:id="@+id/iv_cache"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_right_arrow"
