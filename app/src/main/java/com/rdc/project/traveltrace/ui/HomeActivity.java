@@ -1,7 +1,10 @@
 package com.rdc.project.traveltrace.ui;
 
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,6 +22,7 @@ import com.rdc.project.traveltrace.fragment.home_page.MomentsFragment;
 import com.rdc.project.traveltrace.fragment.home_page.PersonCenterFragment;
 import com.rdc.project.traveltrace.fragment.home_page.TimelineFragment;
 import com.rdc.project.traveltrace.manager.FollowListManager;
+import com.rdc.project.traveltrace.receiver.NetWorkConnectivityReceiver;
 import com.rdc.project.traveltrace.utils.DensityUtil;
 import com.rdc.project.traveltrace.utils.HandlerUtil;
 import com.rdc.project.traveltrace.view.pop_menu.PopMenu;
@@ -50,6 +54,8 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
     private PersonCenterFragment mPersonCenterFragment;
     private FragmentManager mFragmentManager;
 
+    private NetWorkConnectivityReceiver mNetWorkConnectivityReceiver;
+
     private PopMenu mPopMenu;
     private FloatLogoMenu mFloatLogoMenu;
 
@@ -67,6 +73,7 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
 
     @Override
     protected void initData() {
+        registerNetworkReceiver();
         mFragmentManager = getSupportFragmentManager();
         HandlerUtil.getInstance().register(this);
     }
@@ -82,6 +89,13 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
                 mContainer.setPadding(0, mToolbar.getHeight(), 0, 0);
             }
         });
+    }
+
+    private void registerNetworkReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        mNetWorkConnectivityReceiver = new NetWorkConnectivityReceiver();
+        registerReceiver(mNetWorkConnectivityReceiver, filter);
     }
 
     private void initPopMenu() {
@@ -301,5 +315,11 @@ public class HomeActivity extends BaseRTRActivity implements BottomNavigationBar
         if (BmobUser.isLogin()) {
             FollowListManager.getInstance().initFollowList();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mNetWorkConnectivityReceiver);
     }
 }
